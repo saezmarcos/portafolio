@@ -70,39 +70,9 @@ public class AnalistaNegocioController {
     @RequestMapping(value = {"/analista/usuario/crear/"}, method = RequestMethod.POST)
     public
     @ResponseBody
-    String crearUsuario(@PathParam("persona") String persona, @PathParam("chofer") String chofer, @PathParam("taller") String taller) {
+    String crearUsuario(@PathParam("persona") String persona) {
         try {
             String resp = analista.crearPersona(persona);
-            RutTaller rutTa = (RutTaller) Util.jsonObject(taller, RutTaller.class);
-            NumeroChasis nro = (NumeroChasis) Util.jsonObject(chofer, NumeroChasis.class);
-            Persona cho = (Persona) Util.jsonObject(persona, Persona.class);
-            if (!nro.getNumeroChasis().equals("-1") && resp.equals("201")) {
-                Chofer c = new Chofer();
-                c.setDireccion(cho.getDireccion());
-                c.setEmail(cho.getEmail());
-                c.setIdPerfil(cho.getIdPerfil());
-                c.setNombre(cho.getNombre());
-                c.setPassword(cho.getPassword());
-                c.setNumeroChasis(nro.getNumeroChasis());
-                c.setRut(cho.getRut());
-                c.setTelefono(cho.getTelefono());
-                String chf = Util.convertirAJson(c);
-                resp = analista.crearChofer(chf);
-            } else {
-                if (!rutTa.getRutTaller().equals("-1") && resp.equals("201")) {
-                    AdmTaller c = new AdmTaller();
-                    c.setDireccion(cho.getDireccion());
-                    c.setEmail(cho.getEmail());
-                    c.setIdPerfil(cho.getIdPerfil());
-                    c.setNombre(cho.getNombre());
-                    c.setPassword(cho.getPassword());
-                    c.setRutTaller(rutTa.getRutTaller());
-                    c.setRut(cho.getRut());
-                    c.setTelefono(cho.getTelefono());
-                    String chf = Util.convertirAJson(c);
-                    resp = analista.crearAdmTaller(chf);
-                }
-            }
             return resp;
         } catch (Exception e) {
             return "Error";

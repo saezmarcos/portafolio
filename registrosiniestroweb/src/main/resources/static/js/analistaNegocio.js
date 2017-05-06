@@ -1,7 +1,6 @@
 /**
  * Created by Usuario on 14-04-2017.
  */
-
 var modalError=document.getElementById("myModalError");
 var procesando=document.getElementById("processing-modal");
 var modalTaller=document.getElementById("myModalTaller");
@@ -22,56 +21,53 @@ var comuna="";
 var password;
 var telefono;
 var confirma=false;
-var tipoUsuario="0";
 var activar;
 cargaNavbar();
-cargarDatosPrimero();
 $('body').on('click','#crearUsuario',function () {
-    pag+=1;
-    if(pag>1)
+
+    if(pag=!0)
     {
-        $('body #modificaUsuario').addClass('hidden');
-        $('body #creaUsuario').removeClass('hidden');
+        $('body #modificaUsuario').remove();
+        $('body #creaUsuario').remove();
+        cargarCrear();
 
     }
     else
     {
-
-        $('body #modificaUsuario').addClass('hidden');
+        pag=1;
         cargarCrear();
     }
 
 });
 $('body').on('click','#modificar',function () {
-    pag1+=1;
-    if(pag1>1)
+    if(pag1!=0)
     {
-        $('body #creaUsuario').addClass('hidden');
-        $('body #modificaUsuario').removeClass('hidden');
+        $('body #modificaUsuario').remove();
+        $('body #creaUsuario').remove();
+        cargarModificar();
 
     }
     else
     {
-        $('body #creaUsuario').addClass('hidden');
+        pag1=1;
         cargarModificar();
     }
 
 });
-
-    $("body").on('click',"#close1", function () {
+$("body").on('click',"#close1", function () {
         modalFinal2.style.display="none";
     });
-    $("body").on('click',function () {
+$("body").on('click',"#btnCerrar2",function () {
         modalFinal2.style.display="none";
     });
-    $("body").on('click',"#btnCerrar1", function () {
+$("body").on('click',"#btnCerrar1", function () {
         modalError.style.display = "none";
         modalTaller.style.display="none";
         modalError1.style.display="none";
         modalFinal.style.display="none";
         procesando.style.display="none";
     });
-    $("body").on('click',".cerrar" ,function () {
+$("body").on('click',".cerrar" ,function () {
         modalError.style.display = "none";
         modalTaller.style.display="none";
         modalChofer.style.display="none";
@@ -79,7 +75,7 @@ $('body').on('click','#modificar',function () {
         modalFinal.style.display="none";
         procesando.style.display="none";
     });
-    $("body").on('click',".close", function () {
+$("body").on('click',".close", function () {
         modalError.style.display = "none";
         modalTaller.style.display="none";
         modalChofer.style.display="none";
@@ -87,7 +83,6 @@ $('body').on('click','#modificar',function () {
         modalFinal.style.display="none";
         procesando.style.display="none";
     });
-
 $(document).ready(function () {
     $("body").on("change", function () {
         modalError1 = document.getElementById("myModalError1");
@@ -95,10 +90,8 @@ $(document).ready(function () {
         modalFinal2 = document.getElementById("myModalFinal2");
     });
 });
-    $("body").on('click',"#crear",function () {
+$("body").on('click',"#crear",function () {
         confirma=false;
-        var chofer=null;
-        var taller=null;
         nombre=$("#nombre").val();
         rut=$("#rut").val();
         direccion=$("#direccion").val();
@@ -123,99 +116,16 @@ $(document).ready(function () {
                 modalError1.style.display = "block";
             }
         }
-        if(tipoUsuario=="10") {
-            if ($("#talleres").val() == "-1") {
-                confirma=true;
-                $('#errorModal1').text("Debe seleccionar un taller antes de crear usuario ");
-                $("#perfiles").val("-1");
-                $("#departamento").val("Departamento según perfil");
-                modalError1.style.display = "block";
-            }
-            else
-                taller=$("#talleres").val();
-        }
-        if(tipoUsuario=="9") {
-            if ($("#chofer").val() == "-1") {
-                confirma=true;
-                $('#errorModal1').text("Debe seleccionar una grua antes de crear usuario ");
-                $("#perfiles").val("-1");
-                $("#departamento").val("Departamento según perfil");
-                modalError1.style.display = "block";
-            }
-            else
-                chofer=$("#chofer").val();
-        }
+
         if(!confirma){
             modalFinal.style.display="block";
         }
 
     });
 $("body").on("click","#enviar",function () {
-
-        var persona = {
-            nombre: nombre,
-            rut: rut,
-            email: email,
-            telefono: telefono,
-            idComuna: comuna,
-            idDepartamento: idDepartamento,
-            password: password,
-            idPerfil: idPerfil,
-            direccion: direccion,
-            activo : 'F'
-        }
-        var choferGrua={
-            numeroChasis : $("#chofer").val()
-        }
-        var taller={
-            rutTaller : $("#talleres").val(),
-        }
-        var jsonPersona = JSON.stringify(persona);
-        var jsonPersonaExt = JSON.stringify(choferGrua);
-        var jsonPersonaExt2=JSON.stringify(taller);
-        $.ajax({
-            url : "/analista/usuario/crear/",
-            type : "POST",
-            data : {persona: jsonPersona,chofer : jsonPersonaExt, taller : jsonPersonaExt2},
-            error : function (e) {
-                procesando.style.display = "none";
-                $('#errorModal').text("Ocurrio un problema al crear usuario, favor intentelo más tarde");
-                modalError.style.display = "block";
-                console.log(e);
-            },
-            beforeSend : function () {
-                procesando.style.display = "block";
-            },
-            success : function (data) {
-                console.log(data);
-                if(data=="Error" || data=="" || data==null || data=="null")
-                {
-                    procesando.style.display = "none";
-                    $('#errorModal').text("Ocurrio un problema al crear usuario, favor intentelo más tarde");
-                    modalError.style.display = "block";
-                }
-                else
-                {
-                    if(data=="201") {
-                        procesando.style.display = "none";
-                        $('#confirmacion').text("Se ha guardado correctamente el usuario");
-                        Limpiar();
-                        modalFinal2.style.display = "block";
-
-                    }
-                    else
-                    {
-                        procesando.style.display = "none";
-                        $('#errorModal').text("Ocurrio un problema al crear usuario, favor intentelo más tarde");
-                        modalError.style.display = "block";
-                    }
-                }
-
-            }
-        });
-
+    crearUsuario();
 });
-function cargarDatosPrimero() {
+function cargarDatosPrimeroCrear() {
 
         $.ajax({
             type: "POST",
@@ -248,8 +158,6 @@ function cargarDatosPrimero() {
                         perfil = response.perfiles;
                         comunas=response.comunas;
                         departamentos=response.departamentos;
-                        talleres= response.talleres;
-                        gruas=response.gruas;
                         var selectHTML = '';
                         $.each(perfil, function (i, item) {
                             if(item.rol !="Cliente")
@@ -261,23 +169,12 @@ function cargarDatosPrimero() {
                                 selectHTML += '<option value="' + item.idComuna + '">' + item.nombre + '</option>';
                         });
                         $('#comuna').append(selectHTML);
-                        selectHTML = '';
-                        $.each(talleres, function (i, item) {
-                            selectHTML += '<option value="' + item.rutTaller + '">' + item.nombre + '</option>';
-                        });
-                        $('#talleres').append(selectHTML);
-                        selectHTML = '';
-                        $.each(gruas, function (i, item) {
-                            selectHTML += '<option value="' + item.numeroChasis + '">' + item.patente + '</option>';
-                        });
-                        $('#chofer').append(selectHTML);
                     }
                 }
 
             }
         });
     }
-
 function cargaNavbar() {
 
         $.ajax({
@@ -310,16 +207,14 @@ function cargaNavbar() {
 
     }
 function cargarCrear() {
-
-                    $.ajax({
-                        type : "POST",
-                        url :"/usuario/cargar/crear",
-                        error: function (e) {
-                            procesando.style.display = "none";
-                            console.log(e.toString());
-                            $('#errorModal').text("En estos momentos no podemos atenderlo, favor inténtelo más tarde");
-                            modalError.style.display = "block";
-
+        $.ajax({
+            type : "POST",
+            url :"/usuario/cargar/crear",
+            error: function (e) {
+                procesando.style.display = "none";
+                console.log(e.toString());
+                $('#errorModal').text("En estos momentos no podemos atenderlo, favor inténtelo más tarde");
+                modalError.style.display = "block";
             },
             beforeSend: function () {
                 procesando.style.display = "block";
@@ -331,86 +226,116 @@ function cargarCrear() {
                     modalError.style.display = "block";
                 }
                 else {
-                    cargarDatosPrimero();
+                    cargarDatosPrimeroCrear();
                     $('#analista').append(data);
                 }
 
             }
         });
 }
+function crearUsuario() {
+    var persona = {
+        nombre: nombre,
+        rut: rut,
+        email: email,
+        telefono: telefono,
+        idComuna: comuna,
+        idDepartamento: idDepartamento,
+        password: password,
+        idPerfil: idPerfil,
+        direccion: direccion,
+        activo : 'F'
+    };
+    $.ajax({
+        url : "/analista/usuario/crear/",
+        type : "POST",
+        data : {persona: jsonPersona},
+        error : function (e) {
+            procesando.style.display = "none";
+            $('#errorModal').text("Ocurrio un problema al crear usuario, favor intentelo más tarde");
+            modalError.style.display = "block";
+            console.log(e);
+        },
+        beforeSend : function () {
+            procesando.style.display = "block";
+        },
+        success : function (data) {
+            console.log(data);
+            if(data=="Error" || data=="" || data==null || data=="null")
+            {
+                procesando.style.display = "none";
+                $('#errorModal').text("Ocurrio un problema al crear usuario, favor intentelo más tarde");
+                modalError.style.display = "block";
+            }
+            else
+            {
+                if(data=="201") {
+                    procesando.style.display = "none";
+                    $('#confirmacion').text("Se ha guardado correctamente el usuario");
+                    Limpiar();
+                    modalFinal2.style.display = "block";
+
+                }
+                else
+                {
+                    procesando.style.display = "none";
+                    $('#errorModal').text("Ocurrio un problema al crear usuario, favor intentelo más tarde");
+                    modalError.style.display = "block";
+                }
+            }
+
+        }
+    });
+
+};
 $(document).ready(function () {
     $("body").on('change',"#perfiles",function () {
         var sel=$("#perfiles").val();
-        $('#talleres').val("-1");
-        $("#region").text("Región donde se ubica Taller");
-        $("#chofer").val("-1");
-        $("#regionGrua").text("Región donde se ubica Grua");
         var departamentos=response.departamentos;
-        switch (sel){
-            case "10" :
-                modalTaller.style.display="block";
-                tipoUsuario="10";
-                $.each(departamentos,function (i,item) {
-                  if(item.idDepartamento=="44") {
-                      $("#departamento").val(item.nombre);
-                      $("#idDepartamento").val(item.idDepartamento);
-                      return false;
-                  }
-                });
-                break;
-            case "9" :
-                modalChofer.style.display="block";
-                tipoUsuario="9";
-                $.each(departamentos,function (i,item) {
-                    if(item.idDepartamento=="43") {
-                        $("#departamento").val(item.nombre);
-                        $("#idDepartamento").val(item.idDepartamento);
-                        return false;
-                    }
-                });
-
-                break;
-            default :
-                modalTaller.style.display = "none";
-                modalChofer.style.display = "none";
-                if(sel=="-1") {
-                    tipoUsuario = "0";
-                    $("#departamento").val("Departamento según perfil");
-                    $("#idDepartamento").val("");
-                }else {
-                    $.each(departamentos,function (i,item) {
-                        if(item.idDepartamento=="42" && sel=="2") {
-                            $("#departamento").val(item.nombre);
-                            $("#idDepartamento").val(item.idDepartamento);
-                            return false;
-                        }
-                        if(item.idDepartamento=="41" && (sel=="4" || sel=="5")) {
-                            $("#departamento").val(item.nombre);
-                            $("#idDepartamento").val(item.idDepartamento);
-                            return false;
-                        }
-                        if(item.idDepartamento=="1" && sel=="7") {
-                            $("#departamento").val(item.nombre);
-                            $("#idDepartamento").val(item.idDepartamento);
-                            return false;
-                        }
-                        if(item.idDepartamento=="3" && sel=="6") {
-                            $("#departamento").val(item.nombre);
-                            $("#idDepartamento").val(item.idDepartamento);
-                            return false;
-                        }
-                        if(item.idDepartamento=="2" && sel=="1") {
-                            $("#departamento").val(item.nombre);
-                            $("#idDepartamento").val(item.idDepartamento);
-                            return false;
-                        }
-                    });
+        if(sel=="-1") {
+            $("#departamento").val("Departamento según perfil");
+            $("#idDepartamento").val("");
+        }else {
+            $.each(departamentos, function (i, item) {
+                if (item.idDepartamento == "42" && sel == "2") {
+                    $("#departamento").val(item.nombre);
+                    $("#idDepartamento").val(item.idDepartamento);
+                    return false;
                 }
-                break;
+                if (item.idDepartamento == "41" && (sel == "4" || sel == "5")) {
+                    $("#departamento").val(item.nombre);
+                    $("#idDepartamento").val(item.idDepartamento);
+                    return false;
+                }
+                if (item.idDepartamento == "1" && sel == "7") {
+                    $("#departamento").val(item.nombre);
+                    $("#idDepartamento").val(item.idDepartamento);
+                    return false;
+                }
+                if (item.idDepartamento == "3" && sel == "6") {
+                    $("#departamento").val(item.nombre);
+                    $("#idDepartamento").val(item.idDepartamento);
+                    return false;
+                }
+                if (item.idDepartamento == "2" && sel == "1") {
+                    $("#departamento").val(item.nombre);
+                    $("#idDepartamento").val(item.idDepartamento);
+                    return false;
+                }
+                if (item.idDepartamento == "44" && sel == "10") {
+                    $("#departamento").val(item.nombre);
+                    $("#idDepartamento").val(item.idDepartamento);
+                    return false;
+                }
+                if (item.idDepartamento == "43" && sel == "9") {
+                    $("#departamento").val(item.nombre);
+                    $("#idDepartamento").val(item.idDepartamento);
+                    return false;
+                }
+            });
         }
-
     });
-    $("body").on('change',"#talleres",function () {
+$("body").on('change',"#talleres",function () {
         var sel=$("#talleres").val();
         var talleres= response.talleres;
         if(sel=="-1")
@@ -423,7 +348,7 @@ $(document).ready(function () {
                 }
             });
     });
-    $("body").on('change',"#chofer",function () {
+$("body").on('change',"#chofer",function () {
         var sel=$("#chofer").val();
         var gruas= response.gruas;
         if(sel=="-1")
@@ -475,7 +400,6 @@ $("body").on('click','#modif',function () {
                     $("#table_recors").removeClass('hidden');
                     $("#modifUsuario").removeClass('hidden');
                     $("body").on('click',"#comunap",function () {
-                       cargarDatosPrimero();
                         var select='<select id="comunados" name="comunados" class="form-control"><option value="-1">Seleccione una comuna</option></select>';
                        comunas=response.comunas;
                        var selectHTML='';
@@ -559,8 +483,6 @@ function cargarModificar() {
     });
 }
 $("body").on('click',"#modifUsuario",function () {
-    var chofer=null;
-    var taller=null;
     nombre=$("#nombreMo").val();
     rut=$("#rutMo").val();
     direccion=$("#direccionMo").val();
