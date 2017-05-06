@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Aseguradora Patagonia</title>
+	
+</head>
+<body>
+<div id="myModalError" class="modal" style="display: block">
+	<div class="modal-dialog">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
+				<h2>Se produjo un error inesperado favor revise que exista conexión al módulo de servicios</h2>
+			</div>
+			<form action="/sistema/error/" method="get">
+				<div class="modal-body text-center">
+					<button type="submit" id="btnCerrar1" class="btn btn-default  cerrar btn-lg">Salir</button>
+				</div>
+			</form>
+			<div class="modal-footer">
+				<h3></h3>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

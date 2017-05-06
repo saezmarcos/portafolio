@@ -1,0 +1,42 @@
+<div class="container" id="modificaUsuario">
+    <div class="row">
+        <div class="form-horizontal">
+            <!-- Form Name -->
+            <legend>Modificación de Usuario</legend>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="rutM">RUT a buscar </label>
+                <div class="col-md-4">
+                    <input id="rutM" name="rutM" placeholder="RUT" class="form-control input-md" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="modif"></label>
+                <div class="col-md-4">
+                    <button id="modif" name="modif" class="btn btn-default" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+
+        <table id="table_recors" class="hidden table table-bordered table-sm m-0" >
+            <tr id="tr_cabecera">
+                <th class="success">Nombre </th>
+                <th class="success">Rut </th>
+                <th class="success">Direccion</th>
+                <th class="success">Comuna</th>
+                <th class="success">Perfil      </th>
+                <th class="success">Departamento</th>
+                <th class="success">Teléfono</th>
+                <th class="success">Email</th>
+                <th class="success">Password</th>
+                <th class="success">Activo</th>
+            </tr>
+        </table>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="modifUsuario"></label>
+            <div class="col-md-4">
+                <button id="modifUsuario" name="modifUsuario" class="btn btn-default hidden" type="button">Modificar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
