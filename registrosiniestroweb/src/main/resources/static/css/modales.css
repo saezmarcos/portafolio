@@ -1,0 +1,24 @@
+.modal-headerError {
+    padding: 2px;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #c2432f;
+    color: white;
+}
+
+.modal-bodyError {
+    position: relative;
+    padding: 7px;
+}
+.modal-header1 {
+    padding: 7px;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #5cb85c;
+    color: white;
+}
+.modal-footerError {
+    padding: 2px;
+    text-align: -webkit-center;
+    border-top: 1px solid #e5e5e5;
+    background-color: #c2432f;
+    color: white;
+}

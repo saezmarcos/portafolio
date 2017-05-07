@@ -43,7 +43,10 @@
     .navbar .nav-collapse .navbar-form { margin: 0; }
     .nav-collapse>li { float: none; }
 }
-
+.modal-header{
+    padding: 2px;
+    border-bottom: 1px solid #e5e5e5;
+}
 /* vietnamese */
 @font-face {
   font-family: 'Nunito';

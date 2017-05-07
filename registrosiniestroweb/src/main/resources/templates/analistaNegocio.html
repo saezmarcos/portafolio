@@ -2,12 +2,12 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8"/>
-	<title>Aseguradora Patagonia</title>
+	<title>Aseguradora Antártica</title>
 	<!--"http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"-->
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="stylesheet" href="/css/modales.css" />
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<style type="text/css">
-
 	</style>
 	<script src="/js/jquery-1.11.1.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
@@ -15,6 +15,7 @@
 <body>
 <header>
 	<div id="menuPrincipal">
+		<input type="text" class="hidden" th:value="${nombre}" id="nombreUsuario"/>
 	</div>
 </header>
 <div id="analista">
@@ -35,15 +36,13 @@
 	<div class="modal-dialog">
 		<!-- Modal content -->
 		<div class="modal-content">
-			<div class="modal-header text-center">
+			<div class="modal-headerError text-center">
 				<button type="button" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
+				<h4>Mensaje de Error</h4>
+			</div>
+			<div class="modal-bodyError text-center">
 				<h2><p id="errorModal"/></h2>
-			</div>
-			<div class="modal-body text-center">
-				<button type="button" id="btnCerrar1" class="btn btn-default  cerrar btn-lg">Volver</button>
-			</div>
-			<div class="modal-footer">
-				<h3></h3>
+				<button type="button" id="btnCerrar1" class="btn btn-danger  cerrar btn-lg">Volver</button>
 			</div>
 		</div>
 	</div>
@@ -56,13 +55,10 @@
 				<select id="talleres" class="form-control">
 					<option value="-1">Seleccione un Taller</option>
 				</select>
-				<span>Región: <label class="form-control" id="region">Región donde se ubica Taller</label></span>
 			</div>
 			<div class="modal-body text-center">
-				<button type="button" id="btnCerrar1" class="btn btn-default  cerrar btn-lg">Listo</button>
-			</div>
-			<div class="modal-footer">
-				<h3></h3>
+				<span>Región: <label class="form-control" id="region">Región donde se ubica Taller</label></span>
+				<button type="button" id="btnCerrar1" class="btn btn-success  cerrar btn-lg">Listo</button>
 			</div>
 		</div>
 	</div>
@@ -75,14 +71,12 @@
 				<select id="chofer" class="form-control">
 					<option value="-1">Listado Gruas por patente</option>
 				</select>
-				<span>Región: <label class="form-control" id="regionGrua">Región donde se ubica Grua</label></span>
 			</div>
 			<div class="modal-body text-center">
-				<button type="button" id="btnCerrar1" class="btn btn-default  cerrar btn-lg">Listo</button>
+				<span>Región: <label class="form-control" id="regionGrua">Región donde se ubica Grua</label></span>
+				<button type="button" id="btnCerrar1" class="btn btn-success  cerrar btn-lg">Listo</button>
 			</div>
-			<div class="modal-footer">
-				<h3></h3>
-			</div>
+
 		</div>
 	</div>
 </div>
@@ -90,16 +84,15 @@
 	<div class="modal-dialog">
 		<!-- Modal content -->
 		<div class="modal-content">
-			<div class="modal-header text-center">
+			<div class="modal-headerError text-center">
 				<button type="button" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
+				<h4>Mensaje de Error</h4>
+			</div>
+			<div class="modal-bodyError text-center">
 				<h2><p id="errorModal1"/></h2>
+				<button type="button" id="btnCerrar1" class="btn btn-danger  cerrar btn-lg">Volver</button>
 			</div>
-			<div class="modal-body text-center">
-				<button type="button" id="btnCerrar1" class="btn btn-default  cerrar btn-lg">Volver</button>
-			</div>
-			<div class="modal-footer">
-				<h3></h3>
-			</div>
+
 		</div>
 	</div>
 </div>
@@ -107,17 +100,16 @@
 	<div class="modal-dialog">
 		<!-- Modal content -->
 		<div class="modal-content">
-			<div class="modal-header text-center">
+			<div class="modal-header1 text-center">
 				<button type="button" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
-				<h2>¿Seguro confirma la creación de usuario?</h2>
+				<h4>Mensaje de Confirmación</h4>
 			</div>
-			<div class="modal-body text-center">
+			<div class="modal-bodyError text-center">
+				<h2>&nbsp;¿Seguro confirma la creación de usuario?&nbsp;</h2>
 				<button type="button" id="btnCerrar1" class="btn btn-default  cerrar btn-lg">Volver</button>
-				<button type="button" id="enviar" class="btn btn-default  cerrar btn-lg">Confirmar</button>
+				<button type="button" id="enviar" class="btn btn-success  cerrar btn-lg">Confirmar</button>
 			</div>
-			<div class="modal-footer">
-				<h3></h3>
-			</div>
+
 		</div>
 	</div>
 </div>
@@ -125,15 +117,13 @@
 	<div class="modal-dialog">
 		<!-- Modal content -->
 		<div class="modal-content">
-			<div class="modal-header text-center">
+			<div class="modal-header1 text-center">
 				<button type="button" id="close1" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
-				<h2 id="confirmacion"></h2>
+				<h4>Mensaje de Confirmación</h4>
 			</div>
 			<div class="modal-body text-center">
-				<button type="button" id="btnCerrar2" class="btn btn-default  cerrar btn-lg">Volver</button>
-			</div>
-			<div class="modal-footer">
-				<h3></h3>
+				<h2 id="confirmacion"></h2>
+				<button type="button" id="btnCerrar2" class="btn btn-success  cerrar btn-lg">Volver</button>
 			</div>
 		</div>
 	</div>

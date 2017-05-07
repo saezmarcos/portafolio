@@ -43,6 +43,8 @@ public class RegistroSiniestroServices {
     private String urlAdmTaller;
     @Value(("${ws.obtener.persona}"))
     private String urlPersona;
+    @Value(("${ws.obtener.personas}"))
+    private String urlPersonas;
     public Rol accesoPersona(String rut, String password)
     {
         ObjectMapper mapper=new ObjectMapper();
@@ -253,5 +255,27 @@ public class RegistroSiniestroServices {
         return persona;
     }
 
+    public List<PersonaDomain> obtenerPersonas()
+    {
+        ObjectMapper mapper=new ObjectMapper();
+        List<PersonaDomain> personas;
+        String requestBody=null;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlPersonas);
+        ResponseEntity<List<PersonaDomain>> respuesta= restTemplate.exchange(builder.build().encode().toUri(),HttpMethod.GET,entity, new ParameterizedTypeReference<List<PersonaDomain>>(){});
+        switch (respuesta.getStatusCodeValue() )
+        {
+            case 200 : personas=respuesta.getBody();
+                break;
+            case 404 : return null;
 
+            default: throw new RuntimeException("Error");
+        }
+        return personas;
+    }
 }

@@ -1,10 +1,13 @@
 package cl.duoc.controller;
 
+import cl.duoc.domain.PersonaDomain;
 import cl.duoc.resources.Login;
+import cl.duoc.resources.Persona;
 import cl.duoc.resources.Rol;
 import cl.duoc.services.RegistroSiniestroServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -19,14 +22,13 @@ public class registroSiniestroController {
     @Autowired
     private RegistroSiniestroServices registro;
     @RequestMapping(value = {"/acceso/usuario/login/"}, method = RequestMethod.POST)
-    public String obtenerAcceso(@ModelAttribute("login") Login login)   {
-
-
+    public String obtenerAcceso(@ModelAttribute("login") Login login, Model model)   {
         try {
             Rol acces = registro.accesoPersona(login.getRut(), login.getPassword());
-
+            PersonaDomain p ;
+            p =  registro.obtenerPersona(login.getRut());
+            model.addAttribute("nombre",p.getNombre());
             if (acces.getRol().equals("Analista de Negocio")) {
-
                 return "analistaNegocio";
             } else {
                 if (acces.getRol().equals("CallCenter")) {
@@ -36,16 +38,11 @@ public class registroSiniestroController {
                     return "login";
                 }
             }
-
-
-
         }
         catch (Exception e)
         {
             return "error";
         }
-
-
     }
 
     @RequestMapping(value={"/sistema/error/"},method = RequestMethod.GET)

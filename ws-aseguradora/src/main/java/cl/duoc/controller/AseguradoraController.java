@@ -221,4 +221,11 @@ public class AseguradoraController {
     {
         return aChofer.save(chofer);
     }
+
+    //metodo que retorna  personas
+    @RequestMapping(value="/personas",method = RequestMethod.GET )
+    public List<Persona> getPersonas()
+    {
+        return autent.findAll();
+    }
 }

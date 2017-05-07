@@ -1,10 +1,13 @@
 package cl.duoc.controller;
 
 import cl.duoc.Util.Util;
+import cl.duoc.domain.PersonaDomain;
 import cl.duoc.resources.*;
 import cl.duoc.services.RegistroSiniestroServices;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,10 +73,27 @@ public class AnalistaNegocioController {
     @RequestMapping(value = {"/analista/usuario/crear/"}, method = RequestMethod.POST)
     public
     @ResponseBody
-    String crearUsuario(@PathParam("persona") String persona) {
+    String crearUsuario(@PathParam("persona") String persona,@PathParam("flag") String flag) {
         try {
-            String resp = analista.crearPersona(persona);
-            return resp;
+            if(flag.equals("nuevo")) {
+                Persona p;
+                String resp;
+                p=(Persona)Util.jsonObject(persona,Persona.class);
+                String res=Util.convertirAJson(analista.obtenerPersona(p.getRut()));
+                if(res==null || res=="null") {
+                     resp = analista.crearPersona(persona);
+                }
+                else
+                {
+                    return "existe";
+                }
+                return resp;
+            }
+            else
+            {
+                String resp = analista.crearPersona(persona);
+                return resp;
+            }
         } catch (Exception e) {
             return "Error";
         }
@@ -89,6 +109,33 @@ public class AnalistaNegocioController {
         {
             String resp=Util.convertirAJson(analista.obtenerPersona(rutM));
             return resp;
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value={"/usuario/cargar/listar/usuarios"},method = RequestMethod.POST)
+    public @ResponseBody
+    String getPersonas()
+    {
+        try
+        {
+            String resp=Util.convertirAJson(analista.obtenerPersonas());
+            return resp;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+    @RequestMapping(value={"/usuario/cargar/listar/"},method = RequestMethod.POST)
+    public String cargaListado()
+    {
+        try
+        {
+            return "listarUsuarios";
         }
         catch (Exception e)
         {

@@ -25,34 +25,21 @@ var activar;
 cargaNavbar();
 $('body').on('click','#crearUsuario',function () {
 
-    if(pag=!0)
-    {
-        $('body #modificaUsuario').remove();
-        $('body #creaUsuario').remove();
-        cargarCrear();
-
-    }
-    else
-    {
-        pag=1;
-        cargarCrear();
-    }
-
+    $('body #modificaUsuario').remove();
+    $('body #creaUsuario').remove();
+    $('body #ListadoUsuario').remove();
+    cargarCrear();
 });
 $('body').on('click','#modificar',function () {
-    if(pag1!=0)
-    {
-        $('body #modificaUsuario').remove();
-        $('body #creaUsuario').remove();
-        cargarModificar();
+    $('body #creaUsuario').remove();
+    $('body #ListadoUsuario').remove();
+    cargarModificar();
+});
+$('body').on('click','#listUsr',function () {
 
-    }
-    else
-    {
-        pag1=1;
-        cargarModificar();
-    }
-
+    $('body #modificaUsuario').remove();
+    $('body #creaUsuario').remove();
+    cargarListar();
 });
 $("body").on('click',"#close1", function () {
         modalFinal2.style.display="none";
@@ -105,15 +92,23 @@ $("body").on('click',"#crear",function () {
         if(nombre=="" || rut=="" || direccion=="" || email=="" || telefono=="" || comuna=="-1" || password=="" || cfpassword=="" || idPerfil=="-1" || idDepartamento=="")
         {
             confirma=true;
-            $('#errorModal1').text("Debe completar todos los campos ");
+            $('#errorModal1').text("Debe completar todos los campos");
             modalError1.style.display = "block";
         }
         else
         {
             if(password!=cfpassword) {
                 confirma=true;
-                $('#errorModal1').text("Las password no coinciden");
+                $('#errorModal1').text("  Las password no coinciden  ");
                 modalError1.style.display = "block";
+            }
+            else
+            {
+                if(password.length<4 || cfpassword.length<4) {
+                    confirma=true;
+                    $('#errorModal1').text("La password debe contener al menos 4 caracteres");
+                    modalError1.style.display = "block";
+                }
             }
         }
 
@@ -123,16 +118,16 @@ $("body").on('click',"#crear",function () {
 
     });
 $("body").on("click","#enviar",function () {
-    crearUsuario();
+    flag="nuevo";
+    crearUsuario(flag);
 });
 function cargarDatosPrimeroCrear() {
-
         $.ajax({
             type: "POST",
             url: "/analista/negocio/parametros/pantalla/",
             error: function (e) {
                 procesando.style.display = "none";
-                $('#errorModal').text("Ocurrio un problema con la carga de datos, favor intentelo más tarde");
+                $('#errorModal').text(" Ocurrio un problema con la carga de datos, favor intentelo más tarde ");
                 modalError.style.display = "block";
                 console.log(e);
 
@@ -144,13 +139,13 @@ function cargarDatosPrimeroCrear() {
                 procesando.style.display = "none";
                 if (data == "Error") {
 
-                    $('#errorModal').text("Ocurrio un problema con la carga de datos, favor intentelo más tarde");
+                    $('#errorModal').text(" Ocurrio un problema con la carga de datos, favor intentelo más tarde ");
                     modalError.style.display = "block";
                 }
                 else {
                     if (data == "" || data == null || data=="null") {
                         procesando.style.display = "none";
-                        $('#errorModal').text("No existen perfiles que cargar, favor contacte al área de informática");
+                        $('#errorModal').text(" No existen perfiles que cargar, favor contacte al área de informática ");
                         modalError.style.display = "block";
                     }
                     else {
@@ -183,7 +178,7 @@ function cargaNavbar() {
             error: function (e) {
                 procesando.style.display = "none";
                 console.log(e.toString());
-                $('#errorModal').text("En estos momentos no podemos atenderlo, favor inténtelo más tarde");
+                $('#errorModal').text(" En estos momentos no podemos atenderlo, favor inténtelo más tarde ");
                 modalError.style.display = "block";
 
             },
@@ -193,18 +188,19 @@ function cargaNavbar() {
             success: function (data) {
                 if (data == "Error" || data == null || data=="null") {
                     procesando.style.display = "none";
-                    $('#errorModal').text("Ocurrio un problema al intentar generar la página, favor inténtelo más tarde");
+                    $('#errorModal').text(" Ocurrio un problema al intentar generar la página, favor inténtelo más tarde ");
                     modalError.style.display = "block";
                 }
                 else {
                     $('#menuPrincipal').append(data);
+                    username=$('body #nombreUsuario').val();
+                    $('body #usrname').text(' Bienvenido: ' + username);
+                    $('body #usrname').css('font-family',"Helvetica Neue,Helvetica,Arial,sans-serif");
+                    //$('body #usrname').addClass("glyphicon glyphicon-user");
                     procesando.style.display="none";
                 }
-
-
             }
         });
-
     }
 function cargarCrear() {
         $.ajax({
@@ -213,7 +209,7 @@ function cargarCrear() {
             error: function (e) {
                 procesando.style.display = "none";
                 console.log(e.toString());
-                $('#errorModal').text("En estos momentos no podemos atenderlo, favor inténtelo más tarde");
+                $('#errorModal').text(" En estos momentos no podemos atenderlo, favor inténtelo más tarde ");
                 modalError.style.display = "block";
             },
             beforeSend: function () {
@@ -222,7 +218,7 @@ function cargarCrear() {
             success : function (data) {
                 if (data == "Error" || data == null || data=="null") {
                     procesando.style.display = "none";
-                    $('#errorModal').text("Ocurrio un problema al intentar generar la página, favor inténtelo más tarde");
+                    $('#errorModal').text(" Ocurrio un problema al intentar generar la página, favor inténtelo más tarde ");
                     modalError.style.display = "block";
                 }
                 else {
@@ -233,7 +229,7 @@ function cargarCrear() {
             }
         });
 }
-function crearUsuario() {
+function crearUsuario(flag) {
     var persona = {
         nombre: nombre,
         rut: rut,
@@ -244,15 +240,16 @@ function crearUsuario() {
         password: password,
         idPerfil: idPerfil,
         direccion: direccion,
-        activo : 'F'
+        activo : 'T'
     };
+    jsonPersona=JSON.stringify(persona);
     $.ajax({
         url : "/analista/usuario/crear/",
         type : "POST",
-        data : {persona: jsonPersona},
+        data : {persona: jsonPersona,flag : flag},
         error : function (e) {
             procesando.style.display = "none";
-            $('#errorModal').text("Ocurrio un problema al crear usuario, favor intentelo más tarde");
+            $('#errorModal').text(" Ocurrio un problema al crear usuario, favor intentelo más tarde ");
             modalError.style.display = "block";
             console.log(e);
         },
@@ -264,7 +261,7 @@ function crearUsuario() {
             if(data=="Error" || data=="" || data==null || data=="null")
             {
                 procesando.style.display = "none";
-                $('#errorModal').text("Ocurrio un problema al crear usuario, favor intentelo más tarde");
+                $('#errorModal').text(" Ocurrio un problema al crear usuario, favor intentelo más tarde ");
                 modalError.style.display = "block";
             }
             else
@@ -274,14 +271,22 @@ function crearUsuario() {
                     $('#confirmacion').text("Se ha guardado correctamente el usuario");
                     Limpiar();
                     modalFinal2.style.display = "block";
-
                 }
                 else
-                {
-                    procesando.style.display = "none";
-                    $('#errorModal').text("Ocurrio un problema al crear usuario, favor intentelo más tarde");
-                    modalError.style.display = "block";
-                }
+                    if(data=="existe")
+                    {
+                        {
+                            procesando.style.display = "none";
+                            $('#errorModal').text("El usuario que intenta crear ya existe, no se puede crear nuevamente");
+                            modalError.style.display = "block";
+                        }
+                    }
+                    else
+                    {
+                        procesando.style.display = "none";
+                        $('#errorModal').text("Ocurrio un problema al crear usuario, favor intentelo más tarde");
+                        modalError.style.display = "block";
+                    }
             }
 
         }
@@ -289,7 +294,7 @@ function crearUsuario() {
 
 };
 $(document).ready(function () {
-    $("body").on('change',"#perfiles",function () {
+$("body").on('change',"#perfiles",function () {
         var sel=$("#perfiles").val();
         var departamentos=response.departamentos;
         if(sel=="-1") {
@@ -379,10 +384,11 @@ $("body").on('click','#modif',function () {
             success : function (data) {
                 if (data=="Error" || data=="" || data==null || data=="null")
                 {
-                    $("#errorModal").text("Usuario no existe o existe un error en la busqueda, favor inténtelo más tarde");
+                    $("#errorModal").text("Usuario no existe o existe un error en la busqueda, favor intente otras credenciales");
                     modalError.style.display="block";
                 }else {
                     var persona= JSON.parse(data);
+                    cargarDatosPrimeroCrear();
                     procesando.style.display = "none";
                     trHtml='';
                     $("body .info").remove();
@@ -400,6 +406,7 @@ $("body").on('click','#modif',function () {
                     $("#table_recors").removeClass('hidden');
                     $("#modifUsuario").removeClass('hidden');
                     $("body").on('click',"#comunap",function () {
+                        $("body #comunados").remove();
                         var select='<select id="comunados" name="comunados" class="form-control"><option value="-1">Seleccione una comuna</option></select>';
                        comunas=response.comunas;
                        var selectHTML='';
@@ -412,7 +419,7 @@ $("body").on('click','#modif',function () {
 
                     });
                     $("body").on('click',"#departamentop",function () {
-                        cargarDatosPrimero();
+                        $("body #departamentosdos").remove();
                         var select='<select id="departamentosdos" name="departamentosdos" class="form-control"><option value="-1">Seleccione un departamento</option></select>';
                         departamentos=response.departamentos;
                         var selectHTML='';
@@ -425,7 +432,7 @@ $("body").on('click','#modif',function () {
                         $("body #departamentosdos").append(selectHTML);
                     });
                     $("body").on('click',"#perfilp",function () {
-                        cargarDatosPrimero();
+                        $("body #perfildos").remove();
                         var select='<select id="perfildos" name="perfildos" class="form-control"><option value="-1">Seleccione un perfil</option></select>';
                         perfiles=response.perfiles;
                         var selectHTML='';
@@ -468,7 +475,27 @@ function cargarModificar() {
         type : "POST",
         error : function () {
             procesando.style.display = "none";
-            $('#errorModal').text("Ocurrio un problema al buscar los datos del usuario, favor intentelo más tarde");
+            $('#errorModal').text(" Ocurrio un problema al buscar los datos del usuario, favor intentelo más tarde ");
+            modalError.style.display = "block";
+            console.log(e);
+        },
+        beforeSend : function () {
+            procesando.style.display = "block";
+        },
+        success : function (data) {
+            procesando.style.display = "none";
+            $('#analista').append(data);
+        }
+
+    });
+}
+function cargarListar() {
+    $.ajax({
+        url : "/usuario/cargar/listar/",
+        type : "POST",
+        error : function (e) {
+            procesando.style.display = "none";
+            $('#errorModal').text(" Ocurrio un problema al buscar los datos, favor intentelo más tarde ");
             modalError.style.display = "block";
             console.log(e);
         },

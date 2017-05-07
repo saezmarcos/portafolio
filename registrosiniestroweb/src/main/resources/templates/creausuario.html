@@ -1,22 +1,20 @@
 <div class="container" id="creaUsuario">
     <div class="row">
         <form class="form-horizontal">
-
-
                 <!-- Form Name -->
-                <legend>Creación de Usuario</legend>
+            <legend><span class="glyphicon glyphicon-floppy-disk"></span> Creación de Usuario</legend>
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="rut">RUT </label>
                     <div class="col-md-4">
-                        <input id="rut" name="rut" placeholder="RUT" class="form-control input-md" required="" type="text"/>
+                        <input id="rut" name="rut" placeholder="RUT" class="form-control input-md" required="" type="text" maxlength="12"/>
                     </div>
                 </div>
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Nombre </label>
                     <div class="col-md-4">
-                        <input id="nombre" name="requestName" placeholder="Nombre" class="form-control input-md" required="" type="text"/>
+                        <input id="nombre" name="requestName" placeholder="Nombre" class="form-control input-md" required="" type="text" maxlength="50"/>
 
                     </div>
                 </div>
@@ -25,7 +23,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="direccion">Direccion</label>
                     <div class="col-md-5">
-                        <input id="direccion" name="direccion" placeholder="Direccion" class="form-control input-md" required="" type="text"/>
+                        <input id="direccion" name="direccion" placeholder="Direccion" class="form-control input-md" required="" type="text" maxlength="60"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -39,28 +37,28 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="telefono">Teléfono </label>
                     <div class="col-md-4">
-                        <input id="telefono" name="telefono" placeholder="Teléfono" class="form-control input-md" required="" type="text"/>
+                        <input maxlength="15" id="telefono" name="telefono" placeholder="Teléfono" class="form-control input-md" required="" type="text"/>
 
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="mail">Mail </label>
                     <div class="col-md-4">
-                        <input id="mail" name="mail" placeholder="Mail" class="form-control input-md" required="" type="text"/>
+                        <input id="mail" name="mail" placeholder="Mail" class="form-control input-md" required="" type="text" maxlength="40"/>
 
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="password">Password </label>
                     <div class="col-md-4">
-                        <input id="password" name="password" placeholder="Password" class="form-control input-md" required="" type="password"/>
+                        <input  maxlength="15" id="password" name="password" placeholder="Password" class="form-control input-md" required="" type="password"/>
 
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="cfpassword">Confirmar Password </label>
                     <div class="col-md-4">
-                        <input id="cfpassword" name="cfpasswor" placeholder="Confirmar Password" class="form-control input-md" required="" type="password"/>
+                        <input  maxlength="15" id="cfpassword" name="cfpasswor" placeholder="Confirmar Password" class="form-control input-md" required="" type="password"/>
 
                     </div>
                 </div>
@@ -83,7 +81,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="crear"></label>
                     <div class="col-md-4">
-                        <button id="crear" name="crear" class="btn btn-default" type="button">Crear</button>
+                        <a href="#" class="btn btn-primary" name="crear" id="crear"><span class="glyphicon glyphicon-floppy-open" ></span> Crear Usuario</a>
                     </div>
                 </div>
         </form>
