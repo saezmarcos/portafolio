@@ -23,20 +23,61 @@ var telefono;
 var confirma=false;
 var activar;
 cargaNavbar();
-$('body').on('click','#crearUsuario',function () {
+function cargarModificar() {
+    $.ajax({
+        url : "/usuario/cargar/modificar/",
+        type : "POST",
+        error : function () {
+            procesando.style.display = "none";
+            $('#errorModal').text(" Ocurrio un problema al buscar los datos del usuario, favor intentelo más tarde ");
+            modalError.style.display = "block";
+            console.log(e);
+        },
+        beforeSend : function () {
+            procesando.style.display = "block";
+        },
+        success : function (data) {
+            procesando.style.display = "none";
+            $('#analista').append(data);
+        }
 
+    });
+}
+function cargarListar() {
+    $.ajax({
+        url : "/usuario/cargar/listar/",
+        type : "POST",
+        error : function (e) {
+            procesando.style.display = "none";
+            $('#errorModal').text(" Ocurrio un problema al buscar los datos, favor intentelo más tarde ");
+            modalError.style.display = "block";
+            console.log(e);
+        },
+        beforeSend : function () {
+            procesando.style.display = "block";
+        },
+        success : function (data) {
+            procesando.style.display = "none";
+
+            $('#analista').append(data);
+        }
+
+    });
+}
+$('body').on('click','#crearUsuario',function () {
     $('body #modificaUsuario').remove();
     $('body #creaUsuario').remove();
-    $('body #ListadoUsuario').remove();
+    $('body #listadoUsuario').remove();
     cargarCrear();
 });
 $('body').on('click','#modificar',function () {
+    $('body #modificaUsuario').remove();
     $('body #creaUsuario').remove();
-    $('body #ListadoUsuario').remove();
+    $('body #listadoUsuario').remove();
     cargarModificar();
 });
 $('body').on('click','#listUsr',function () {
-
+    $('body #listadoUsuario').remove();
     $('body #modificaUsuario').remove();
     $('body #creaUsuario').remove();
     cargarListar();
@@ -209,7 +250,7 @@ function cargarCrear() {
             error: function (e) {
                 procesando.style.display = "none";
                 console.log(e.toString());
-                $('#errorModal').text(" En estos momentos no podemos atenderlo, favor inténtelo más tarde ");
+                $('#errorModal').text("En estos momentos no podemos atenderlo, favor inténtelo más tarde");
                 modalError.style.display = "block";
             },
             beforeSend: function () {
@@ -218,7 +259,7 @@ function cargarCrear() {
             success : function (data) {
                 if (data == "Error" || data == null || data=="null") {
                     procesando.style.display = "none";
-                    $('#errorModal').text(" Ocurrio un problema al intentar generar la página, favor inténtelo más tarde ");
+                    $('#errorModal').text("Ocurrio un problema al intentar generar la página, favor inténtelo más tarde");
                     modalError.style.display = "block";
                 }
                 else {
@@ -468,46 +509,6 @@ function Limpiar() {
     $("#idDepartamento").val("");
     $("#departamento").val("Departamento según perfil");
     $("#perfiles").val("-1");
-}
-function cargarModificar() {
-    $.ajax({
-        url : "/usuario/cargar/modificar/",
-        type : "POST",
-        error : function () {
-            procesando.style.display = "none";
-            $('#errorModal').text(" Ocurrio un problema al buscar los datos del usuario, favor intentelo más tarde ");
-            modalError.style.display = "block";
-            console.log(e);
-        },
-        beforeSend : function () {
-            procesando.style.display = "block";
-        },
-        success : function (data) {
-            procesando.style.display = "none";
-            $('#analista').append(data);
-        }
-
-    });
-}
-function cargarListar() {
-    $.ajax({
-        url : "/usuario/cargar/listar/",
-        type : "POST",
-        error : function (e) {
-            procesando.style.display = "none";
-            $('#errorModal').text(" Ocurrio un problema al buscar los datos, favor intentelo más tarde ");
-            modalError.style.display = "block";
-            console.log(e);
-        },
-        beforeSend : function () {
-            procesando.style.display = "block";
-        },
-        success : function (data) {
-            procesando.style.display = "none";
-            $('#analista').append(data);
-        }
-
-    });
 }
 $("body").on('click',"#modifUsuario",function () {
     nombre=$("#nombreMo").val();
