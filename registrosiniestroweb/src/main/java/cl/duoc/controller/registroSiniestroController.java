@@ -27,18 +27,15 @@ public class registroSiniestroController {
             Rol acces = registro.accesoPersona(login.getRut(), login.getPassword());
             PersonaDomain p ;
             p =  registro.obtenerPersona(login.getRut());
-            if(p==null)
-                return "login";
-            else {
-                model.addAttribute("nombre", p.getNombre());
-                if (acces.getRol().equals("Analista de Negocio")) {
-                    return "analistaNegocio";
-                } else {
-                    if (acces.getRol().equals("CallCenter")) {
-                        return "agregarSiniestro";
-                    } else {
-                        return "login";
-                    }
+            model.addAttribute("nombre",p.getNombre());
+            if (acces.getRol().equals("Analista de Negocio")) {
+                return "analistaNegocio";
+            } else {
+                if (acces.getRol().equals("CallCenter")) {
+                    return "callCenter";
+                }else
+                {
+                    return "login";
                 }
             }
         }

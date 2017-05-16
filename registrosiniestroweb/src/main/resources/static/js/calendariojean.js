@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 $(document).ready(function () {
     $.datepicker.regional['es'] = {
         closeText: 'Cerrar',
@@ -24,11 +19,10 @@ $(document).ready(function () {
     $.datepicker.setDefaults($.datepicker.regional['es']);
     $(function () {
         $("#datepicker").datepicker({
-            showOn: "button",
-            buttonImage: "/img/datepicker.png",
-            buttonImageOnly: true,
-            buttonText: "Seleccione una fecha",
-            minDate: -2});
+            minDate: -2
+        }).on('change', function () {
+            $(this).valid();
+        });
     });
 });
 
