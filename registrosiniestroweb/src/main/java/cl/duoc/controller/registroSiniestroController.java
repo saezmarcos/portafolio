@@ -27,7 +27,10 @@ public class registroSiniestroController {
             Rol acces = registro.accesoPersona(login.getRut(), login.getPassword());
             PersonaDomain p ;
             p =  registro.obtenerPersona(login.getRut());
-            model.addAttribute("nombre",p.getNombre());
+            if (acces.getRol().equals("No existe usuario") || acces.getRol().equals("Usuario No Activo") )
+                model.addAttribute("nombre",acces.getRol());
+            else
+                model.addAttribute("nombre",p.getNombre());
             if (acces.getRol().equals("Analista de Negocio")) {
                 return "analistaNegocio";
             } else {

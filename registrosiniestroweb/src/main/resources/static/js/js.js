@@ -121,6 +121,26 @@ $.getScript("/js/particles.min.js", function(){
     );
 
 });
+var modal=document.getElementById("myModalError");
+var nombre=$("#nombre").text();
+/*if(nombre=="No existe usuario")
+{
+    $("#errorModal").text("El usuario no existe");
+    $("#login-box").addClass("hidden");
+    modal.style.display="block";
+}
+$("body #btnCerrar1").on("click",function () {
+    $("#login-box").removeClass("hidden");
+    modal.style.display="none";
+});$("body .close").on("click",function () {
+    $("#login-box").removeClass("hidden");
+    modal.style.display="none";
+});*/
+console.log(nombre);
+if(nombre=="No existe usuario")
+    $(".alert-danger").removeClass("hidden");
+if(nombre=="Usuario No Activo")
+    $(".alert-warning").removeClass("hidden");
 
 
 
