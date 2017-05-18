@@ -163,6 +163,7 @@ $("body").on("click","#enviar",function () {
     crearUsuario(flag);
 });
 function cargarDatosPrimeroCrear() {
+    
         $.ajax({
             type: "POST",
             url: "/analista/negocio/parametros/pantalla/",
@@ -212,7 +213,6 @@ function cargarDatosPrimeroCrear() {
         });
     }
 function cargaNavbar() {
-
         $.ajax({
             type: "POST",
             url: "/menuprincipal/carga/navbar/",

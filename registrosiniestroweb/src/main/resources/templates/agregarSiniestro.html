@@ -1,16 +1,14 @@
-<div class="container">
+<div class="container" id="siniestros">
     <fieldset>
-        <legend>
-            <h2><b>Registro de Siniestros</b></h2>
-        </legend>
+        <legend><span class="glyphicon glyphicon-floppy-disk"></span> Creación de Siniestro</legend>
         <br/>
-        <form class="well form-inline">
+        <form class="well form-inline" align="center">
 
-                <div class="form-group">
-                    <label for="poliza">Número de Poliza:</label>
-                    <input type="number" class="form-control" id="poliza" required="" min="1"/>
-                </div>
-                <button type="submit" class="btn btn-primary">Enviar</button>
+            <div class="form-group">
+                <label for="poliza">Número de Poliza:</label>
+                <input type="number" class="form-control" id="poliza" required="" min="1"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
 
         </form>
         <form class="well form-horizontal" method="post" id="formu_registro_siniestro">
@@ -53,7 +51,7 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-th-large"></i></span>
-                        <input name="poliza" class="form-control" type="text" disabled=""/>
+                        <label name="poliza" class="form-control"></label>
                     </div>
                 </div>
                 <span class="help-block" id="error"></span>

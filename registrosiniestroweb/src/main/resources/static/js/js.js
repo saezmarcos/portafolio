@@ -137,11 +137,26 @@ $("body #btnCerrar1").on("click",function () {
     modal.style.display="none";
 });*/
 console.log(nombre);
-if(nombre=="No existe usuario")
+if(nombre=="No existe usuario") {
+    $("#rutLogin").focus();
     $(".alert-danger").removeClass("hidden");
-if(nombre=="Usuario No Activo")
+    setTimeout(function() {
+        $(".alert-danger").fadeIn();
+    },0);
+    setTimeout(function() {
+        $(".alert-danger").fadeOut();
+    },3000);
+}
+if(nombre=="Usuario No Activo") {
+    $("#rutLogin").focus();
     $(".alert-warning").removeClass("hidden");
-
+    setTimeout(function() {
+        $(".alert-warning").fadeIn();
+    },0);
+    setTimeout(function() {
+        $(".alert-warning").fadeOut();
+    },3000);
+}
 
 
 

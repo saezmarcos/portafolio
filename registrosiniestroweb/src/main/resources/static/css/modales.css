@@ -22,3 +22,7 @@
     background-color: #c2432f;
     color: white;
 }
+
+.contentBox{
+    box-sizing: content-box;
+}

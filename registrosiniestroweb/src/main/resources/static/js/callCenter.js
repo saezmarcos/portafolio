@@ -3,7 +3,6 @@ var procesando = document.getElementById("processing-modal");
 var response;
 cargaNavbar();
 function cargaNavbar() {
-
     $.ajax({
         type: "POST",
         url: "/menuprincipal/carga/navbarCall/",
@@ -48,6 +47,6 @@ function cargarCrear() {
     });
 }
 $('body').on('click', '#crearSiniestro', function () {
-    $('body #listarSiniestros').remove();
+    $('body #siniestros').remove();
     cargarCrear();
 });
