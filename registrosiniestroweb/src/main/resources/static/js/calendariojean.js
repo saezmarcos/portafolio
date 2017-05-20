@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    console.log('asdasdasdas');
     $.datepicker.regional['es'] = {
         closeText: 'Cerrar',
         prevText: '< Ant',
@@ -18,11 +19,10 @@ $(document).ready(function () {
     };
     $.datepicker.setDefaults($.datepicker.regional['es']);
     $(function () {
-        $("#datepicker").datepicker({
+        $("body #fecha").datepicker({
             minDate: -2
-        }).on('change', function () {
-            $(this).valid();
         });
+        console.log('asdasd');
     });
 });
 

@@ -17,62 +17,59 @@ import java.util.*;
 
 public class Util {
 
-    public static Date formatearFechaSql(String fecha, String formato){
+    public static Date formatearFechaSql(String fecha, String formato) {
         SimpleDateFormat format = new SimpleDateFormat(formato);
-        Date parsed = null;
+        java.util.Date parsed = null;
         try {
-            parsed = (Date) format.parse(fecha);
+            parsed = (java.util.Date) format.parse(fecha);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         java.sql.Date sql = new java.sql.Date(parsed.getTime());
         return sql;
     }
-    public static String obtenerHoraString(Date fecha){
+
+    public static String obtenerHoraString(Date fecha) {
         Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
         calendar.setTime(fecha);   // assigns calendar to given date
         return String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
     }
 
-    public static String formatearFechaString (Date date, String formato){
-        DateFormat df = new SimpleDateFormat(formato);
-        String text = df.format(date);
-        return text;
+    public static String formatearFechaString(Date date) {
+        String fechaS = new SimpleDateFormat("dd-MM-yyyy").format(date);
+        return fechaS;
     }
-    public static String obtenerDiaSemana(Date date){
-        String[] dias={"DOM","LUN","MAR", "MIE","JUE","VIE","SAB"};
 
-        Calendar cal= Calendar.getInstance();
+    public static String obtenerDiaSemana(Date date) {
+        String[] dias = {"DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB"};
+
+        Calendar cal = Calendar.getInstance();
         cal.setTime(date);
 
         return dias[(cal.get(Calendar.DAY_OF_WEEK)) - 1];
     }
 
 
-    public static Date formatiarStringDate(String fecha)
-    {
+    public static Date formatiarStringDate(String fecha) {
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyyMMdd");
         Date fechad = null;
-        try
-        {
-           fechad = formatoDelTexto.parse(fecha);
-        } catch (ParseException ex)
-        {
+        try {
+            fechad = formatoDelTexto.parse(fecha);
+        } catch (ParseException ex) {
             ex.printStackTrace();
         }
-          return fechad;
+        return fechad;
     }
 
-    public static String obtenerPuntos(String hora){
+    public static String obtenerPuntos(String hora) {
 
-      String primer =   hora.substring(0,2)  ;
-        String segundo =   hora.substring(2,4)  ;
+        String primer = hora.substring(0, 2);
+        String segundo = hora.substring(2, 4);
         return primer + ":" + segundo;
 
     }
 
-    public static String formatiarFechaDefauld(String fecha)
-    {
+    public static String formatiarFechaDefauld(String fecha) {
         SimpleDateFormat formateador = new SimpleDateFormat(
                 "dd-MM-yyyy", new Locale("es_ES"));
         SimpleDateFormat formateador1 = new SimpleDateFormat(
@@ -89,14 +86,14 @@ public class Util {
         String fecha1 = formateador1.format(fechaDate);
 
 
-       return  fecha1;
+        return fecha1;
     }
 
-    public static String obtieneFecha( ) throws ParseException {
+    public static String obtieneFecha() throws ParseException {
         Date ahora = new Date();
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 
-        String fecha =   formateador.format(ahora);
+        String fecha = formateador.format(ahora);
 
         //Date fechad = formateador.parse(fecha);
 
@@ -104,13 +101,14 @@ public class Util {
         return fecha;
     }
 
-    public static Map<String,String> jsonToMap(String json){
-        Map<String,String> map = new HashMap<String,String>();
+    public static Map<String, String> jsonToMap(String json) {
+        Map<String, String> map = new HashMap<String, String>();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
         try {
             map = mapper.readValue(json,
-                    new TypeReference<HashMap<String,String>>(){});
+                    new TypeReference<HashMap<String, String>>() {
+                    });
             System.out.println(map);
         } catch (Exception e) {
             e.printStackTrace();
@@ -118,42 +116,42 @@ public class Util {
         return map;
     }
 
-    public static Object jsonObject(String json, Class classObject){
+    public static Object jsonObject(String json, Class classObject) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS);
         Object retorno = null;
-        try{
+        try {
             retorno = mapper.readValue(json, classObject);
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return retorno;
     }
 
-    public static Object jsonListObject(String json, JavaType typeReference){
+    public static Object jsonListObject(String json, JavaType typeReference) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS);
 
         mapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
         Object retorno = null;
-        try{
+        try {
             retorno = mapper.readValue(json, typeReference);
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return retorno;
     }
 
-    public static String convertirAJson(Object object){
-        if(object == null){
+    public static String convertirAJson(Object object) {
+        if (object == null) {
             return "null";
         }
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
         //mapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
-        try{
+        try {
             return mapper.writeValueAsString(object);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -181,35 +179,29 @@ public class Util {
     public static String formatearRutSinPuntos(String rut) {
         rut = rut.replace(".", "");
         rut = rut.replace("-", "");
-        if(rut.length()==9)
-        {
-            rut ="0"+rut;
-        }
-        else
-        {
-            rut ="00"+rut;
+        if (rut.length() == 9) {
+            rut = "0" + rut;
+        } else {
+            rut = "00" + rut;
         }
         return rut;
     }
 
-   public static String obtenerFecha() {
+    public static String obtenerFecha() {
 
-       Calendar fecha = Calendar.getInstance();
-       int año = fecha.get(Calendar.YEAR);
-       int mes = fecha.get(Calendar.MONTH) + 1;
-       String mese="";
-       if(mes<9)
-       {
-            mese = "0"+mes;
-       }else
-       {
-           mese = ""+mes;
-       }
+        Calendar fecha = Calendar.getInstance();
+        int año = fecha.get(Calendar.YEAR);
+        int mes = fecha.get(Calendar.MONTH) + 1;
+        String mese = "";
+        if (mes < 9) {
+            mese = "0" + mes;
+        } else {
+            mese = "" + mes;
+        }
 
 
-       return año+mese;
-   }
-
+        return año + mese;
+    }
 
 
 }
