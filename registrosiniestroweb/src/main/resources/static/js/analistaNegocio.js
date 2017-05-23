@@ -5,8 +5,7 @@ var modalError=document.getElementById("myModalError");
 var procesando=document.getElementById("processing-modal");
 var modalTaller=document.getElementById("myModalTaller");
 var modalChofer=document.getElementById("myModalChofer");
-var pag=0;
-var pag1=0;
+var modalFinalModif= document.getElementById("myModalFinalModif")
 var response;
 var modalError1=document.getElementById("myModalError1");
 var modalFinal=document.getElementById("myModalFinal");
@@ -17,17 +16,16 @@ var direccion;
 var idDepartamento="";
 var email;
 var idPerfil="";
-var comuna="";
+var comuna=[];
 var password;
 var telefono;
 var confirma=false;
-var activar;
 cargaNavbar();
 function cargarModificar() {
     $.ajax({
         url : "/usuario/cargar/modificar/",
         type : "POST",
-        error : function () {
+        error : function (e) {
             procesando.style.display = "none";
             $('#errorModal').text(" Ocurrio un problema al buscar los datos del usuario, favor intentelo más tarde ");
             modalError.style.display = "block";
@@ -39,6 +37,7 @@ function cargarModificar() {
         success : function (data) {
             procesando.style.display = "none";
             $('#analista').append(data);
+            cargarCrear("modif");
         }
 
     });
@@ -68,7 +67,7 @@ $('body').on('click','#crearUsuario',function () {
     $('body #modificaUsuario').remove();
     $('body #creaUsuario').remove();
     $('body #listadoUsuario').remove();
-    cargarCrear();
+    cargarCrear("nuevo");
 });
 $('body').on('click','#modificar',function () {
     $('body #modificaUsuario').remove();
@@ -87,6 +86,7 @@ $("body").on('click',"#close1", function () {
     });
 $("body").on('click',"#btnCerrar2",function () {
         modalFinal2.style.display="none";
+        modalFinalModif.style.display="none";
     });
 $("body").on('click',"#btnCerrar1", function () {
         modalError.style.display = "none";
@@ -110,6 +110,7 @@ $("body").on('click',".close", function () {
         modalError1.style.display="none";
         modalFinal.style.display="none";
         procesando.style.display="none";
+        modalFinalModif.style.display="none";
     });
 $(document).ready(function () {
     $("body").on("change", function () {
@@ -128,7 +129,7 @@ $("body").on('click',"#crear",function () {
         comuna=$("#comuna").val();
         password=$("#password").val();
         cfpassword=$("#cfpassword").val();
-        idDepartamento = $("#idDepartamento").val();
+        idDepartamento = $("#departamento").val();
         idPerfil=$("#perfiles").val();
         if(nombre=="" || rut=="" || direccion=="" || email=="" || telefono=="" || comuna=="-1" || password=="" || cfpassword=="" || idPerfil=="-1" || idDepartamento=="")
         {
@@ -158,12 +159,50 @@ $("body").on('click',"#crear",function () {
         }
 
     });
+$("body").on('click',"#btnModificar",function () {
+    confirma=false;
+    nombre=$("#nombre").val();
+    rut=$("#rut").val();
+    direccion=$("#direccion").val();
+    email=$("#mail").val();
+    telefono=$("#telefono").val();
+    comuna=$("#comuna").val();
+    password=$("#password").val();
+    idDepartamento = $("#departamento").val();
+    idPerfil=$("#perfiles").val();
+    if(nombre=="" || direccion=="" || email=="" || telefono=="" || comuna=="-1" || password=="" ||  idPerfil=="-1" || idDepartamento=="")
+    {
+        confirma=true;
+        $('#errorModal1').text("Debe completar todos los campos");
+        modalError1.style.display = "block";
+    }
+    else
+    {
+        if(password.length<4) {
+            confirma=true;
+            $('#errorModal1').text("La password debe contener al menos 4 caracteres");
+            modalError1.style.display = "block";
+        }
+
+    }
+
+    if(!confirma){
+        $("#confirmacionMod").text(" ¿Seguro desea modificar usuario? ")
+        modalFinalModif.style.display="block";
+    }
+
+});
 $("body").on("click","#enviar",function () {
     flag="nuevo";
     crearUsuario(flag);
 });
+$("body").on("click","#btnMod",function () {
+    flag="modif";
+    modalFinalModif.style.display="none";
+    crearUsuario(flag);
+    $("#cuerpoModificar").addClass('hidden');
+});
 function cargarDatosPrimeroCrear() {
-    
         $.ajax({
             type: "POST",
             url: "/analista/negocio/parametros/pantalla/",
@@ -193,7 +232,9 @@ function cargarDatosPrimeroCrear() {
                     else {
                         response = $.parseJSON(data);
                         perfil = response.perfiles;
-                        comunas=response.comunas;
+                        comuna=response.comunas;
+                        regiones=response.regiones;
+                        provincia=response.provincias;
                         departamentos=response.departamentos;
                         var selectHTML = '';
                         $.each(perfil, function (i, item) {
@@ -201,17 +242,31 @@ function cargarDatosPrimeroCrear() {
                                 selectHTML += '<option value="' + item.idPerfil + '">' + item.rol + '</option>';
                         });
                         $('#perfiles').append(selectHTML);
-                         selectHTML = '';
-                        $.each(comunas, function (i, item) {
-                                selectHTML += '<option value="' + item.idComuna + '">' + item.nombre + '</option>';
+                        selectHTML = '';
+                        $.each(regiones, function (i, item) {
+                            selectHTML += '<option value="' + item.idRegion + '">' + item.nombre + '</option>';
                         });
-                        $('#comuna').append(selectHTML);
+                        $('#regiones').append(selectHTML);
+                        selectHTML = '';
+                        $.each(departamentos, function (i, item) {
+                            selectHTML += '<option value="' + item.idDepartamento + '">' + item.nombre + '</option>';
+                        });
+                        $("#departamento").append(selectHTML);
                     }
                 }
 
             }
         });
     }
+$("body").on('change',"#regiones",function () {
+    $('#comuna').empty();
+    var selectHTML = '';
+    $.each(comuna, function (i, item) {
+        if(item.provincia.region.idRegion==$("body #regiones").val())
+            selectHTML += '<option value="' + item.idComuna + '">' + item.nombre + '</option>';
+    });
+    $('#comuna').append(selectHTML);
+});
 function cargaNavbar() {
         $.ajax({
             type: "POST",
@@ -243,7 +298,7 @@ function cargaNavbar() {
             }
         });
     }
-function cargarCrear() {
+function cargarCrear(flag) {
         $.ajax({
             type : "POST",
             url :"/usuario/cargar/crear",
@@ -264,14 +319,19 @@ function cargarCrear() {
                 }
                 else {
                     cargarDatosPrimeroCrear();
-                    $('#analista').append(data);
+                    if(flag=="nuevo")
+                        $('#analista').append(data);
+                    else
+                        $("body #cuerpoModificar").append(data);
                 }
 
             }
         });
 }
 function crearUsuario(flag) {
-    var persona = {
+    var persona={};
+    if(flag=="nuevo")
+     persona = {
         nombre: nombre,
         rut: rut,
         email: email,
@@ -283,6 +343,24 @@ function crearUsuario(flag) {
         direccion: direccion,
         activo : 'T'
     };
+    else {
+        if($("body #activo").prop('checked'))
+            var activo="T";
+        else
+            var activo="F";
+        persona = {
+            nombre: nombre,
+            rut: rut,
+            email: email,
+            telefono: telefono,
+            idComuna: comuna,
+            idDepartamento: idDepartamento,
+            password: password,
+            idPerfil: idPerfil,
+            direccion: direccion,
+            activo: activo
+        };
+    }
     jsonPersona=JSON.stringify(persona);
     $.ajax({
         url : "/analista/usuario/crear/",
@@ -298,7 +376,6 @@ function crearUsuario(flag) {
             procesando.style.display = "block";
         },
         success : function (data) {
-            console.log(data);
             if(data=="Error" || data=="" || data==null || data=="null")
             {
                 procesando.style.display = "none";
@@ -334,80 +411,6 @@ function crearUsuario(flag) {
     });
 
 };
-$(document).ready(function () {
-$("body").on('change',"#perfiles",function () {
-        var sel=$("#perfiles").val();
-        var departamentos=response.departamentos;
-        if(sel=="-1") {
-            $("#departamento").val("Departamento según perfil");
-            $("#idDepartamento").val("");
-        }else {
-            $.each(departamentos, function (i, item) {
-                if (item.idDepartamento == "42" && sel == "2") {
-                    $("#departamento").val(item.nombre);
-                    $("#idDepartamento").val(item.idDepartamento);
-                    return false;
-                }
-                if (item.idDepartamento == "41" && (sel == "4" || sel == "5")) {
-                    $("#departamento").val(item.nombre);
-                    $("#idDepartamento").val(item.idDepartamento);
-                    return false;
-                }
-                if (item.idDepartamento == "1" && sel == "7") {
-                    $("#departamento").val(item.nombre);
-                    $("#idDepartamento").val(item.idDepartamento);
-                    return false;
-                }
-                if (item.idDepartamento == "3" && sel == "6") {
-                    $("#departamento").val(item.nombre);
-                    $("#idDepartamento").val(item.idDepartamento);
-                    return false;
-                }
-                if (item.idDepartamento == "2" && sel == "1") {
-                    $("#departamento").val(item.nombre);
-                    $("#idDepartamento").val(item.idDepartamento);
-                    return false;
-                }
-                if (item.idDepartamento == "44" && sel == "10") {
-                    $("#departamento").val(item.nombre);
-                    $("#idDepartamento").val(item.idDepartamento);
-                    return false;
-                }
-                if (item.idDepartamento == "43" && sel == "9") {
-                    $("#departamento").val(item.nombre);
-                    $("#idDepartamento").val(item.idDepartamento);
-                    return false;
-                }
-            });
-        }
-    });
-$("body").on('change',"#talleres",function () {
-        var sel=$("#talleres").val();
-        var talleres= response.talleres;
-        if(sel=="-1")
-            $("#region").text("Región donde se ubica Taller");
-        else
-            $.each(talleres,function (i,item) {
-                if(item.rutTaller==sel){
-                    $("#region").text(item.comuna.provincia.provinciaNombre);
-                    return false;
-                }
-            });
-    });
-$("body").on('change',"#chofer",function () {
-        var sel=$("#chofer").val();
-        var gruas= response.gruas;
-        if(sel=="-1")
-            $("#regionGrua").text("Región donde se ubica Taller");
-        else
-            $.each(gruas,function (i,item) {
-                if(item.numeroChasis==sel){
-                    $("#regionGrua").text(item.comuna.provincia.provinciaNombre);
-                    return false;
-                }
-            });
-    });
-});
 $("body").on('click','#modif',function () {
     var rutM = $("#rutM").val();
     if(rutM!=null && rutM!="") {
@@ -429,62 +432,43 @@ $("body").on('click','#modif',function () {
                     modalError.style.display="block";
                 }else {
                     var persona= JSON.parse(data);
-                    cargarDatosPrimeroCrear();
                     procesando.style.display = "none";
-                    trHtml='';
-                    $("body .info").remove();
-                    trHtml = ' <tr class="info"><td id="nombrep"><input id="nombreMo" type="text" class="form-control input-md" value="'+persona.nombre+'"/></td><td id="rutp"><input id="rutMo" type="text" class="form-control input-md" value="'+persona.rut+'" readonly="true"/></td><td id="direccionp"><input id="direccionMo" type="text" class="form-control input-md" value="'+persona.direccion+'"/></td><td id="comp"><input id="comunap" type="text" class="form-control input-md" value="'+persona.comuna.nombre+'"/></td><td id="perp"><input id="perfilp" type="text" class="form-control input-md" value="'+persona.perfil.rol+'"/></td><td id="depp"><input id="departamentop" type="text" class="form-control input-md" value="'+persona.departamento.nombre+'"/></td><td id="telefonop"><input id="telefonoMo" type="text" class="form-control input-md" value="'+persona.telefono+'"/></td><td id="emailp"><input id="emailMo" type="text" class="form-control input-md" value="'+persona.email+'"/></td><td id="passwordp"><input id="passwordMo" type="text" class="form-control input-md" value="'+persona.password+'"/></td><td id="activop"><label class="custom-control custom-checkbox"><input id="activoMo" type="checkbox" class="custom-control-input"><span class="custom-control-indicator"></span></label></td></tr>';
-                    $("#table_recors").append(trHtml);
-                    if(persona.activo=='T')
-                    {
-                        $(':checkbox').attr('checked', true);
-                        activar='T';
+                    $("#cuerpoModificar").removeClass('hidden');
+                    $("#legend").addClass('hidden');
+                    $("#passwordConf").addClass('hidden');
+                    $("body #activoMod").removeClass('hidden');
+                    $("body #rut").attr('readonly', true);
+                    $("body #password").attr('type', "text");
+                    $("body #crear").attr('id', 'btnModificar');
+                    $("body #rut").val(persona.rut);
+                    $("body #nombre").val(persona.nombre);
+                    $("body #direccion").val(persona.direccion);
+                    $("body #password").val(persona.password);
+                    $("body #telefono").val(persona.telefono);
+                    $("body #mail").val(persona.email);
+                    $('#departamento').val(persona.departamento.idDepartamento);
+                    var reg=persona.comuna.provincia.region.idRegion;
+                    $('#regiones').val(reg);
+                    $('#comuna').val(persona.comuna.idComuna);
+                    var selectHTML = '';
+                    $.each(comuna, function (i, item) {
+                        if(item.provincia.region.idRegion==reg)
+                            if(persona.comuna.idComuna==item.idComuna)
+                                selectHTML += '<option value="' + item.idComuna + '" selected="true">' + item.nombre + '</option>';
+                            else
+                                selectHTML += '<option value="' + item.idComuna + '">' + item.nombre + '</option>';
+                    });
+                    $('body #comuna').append(selectHTML);
+                    $('#perfiles').val(persona.perfil.idPerfil);
+                    $("#chec").empty(ch);
+                    if(persona.activo=="F") {
+                        var ch='<label class="custom-control custom-checkbox form-control"><input type="checkbox" class="custom-control-input hidden" id="activo"/><span class="custom-control-indicator"></span></label>';
                     }
                     else
                     {
-                        activar='F';
+                        var ch='<label class="custom-control custom-checkbox form-control"><input type="checkbox" class="custom-control-input hidden " id="activo" checked="checked"/><span class="custom-control-indicator"></span></label>';
                     }
-                    $("#table_recors").removeClass('hidden');
-                    $("#modifUsuario").removeClass('hidden');
-                    $("body").on('click',"#comunap",function () {
-                        $("body #comunados").remove();
-                        var select='<select id="comunados" name="comunados" class="form-control"><option value="-1">Seleccione una comuna</option></select>';
-                       comunas=response.comunas;
-                       var selectHTML='';
-                       $.each(comunas, function (i, item) {
-                            selectHTML += '<option value="' + item.idComuna + '">' + item.nombre + '</option>';
-                        });
-                       $("body #comunap").addClass("hidden");
-                       $("body #comp").append(select);
-                       $("body #comunados").append(selectHTML);
-
-                    });
-                    $("body").on('click',"#departamentop",function () {
-                        $("body #departamentosdos").remove();
-                        var select='<select id="departamentosdos" name="departamentosdos" class="form-control"><option value="-1">Seleccione un departamento</option></select>';
-                        departamentos=response.departamentos;
-                        var selectHTML='';
-                        $.each(departamentos, function (i, item) {
-                            if(item.nombre!="Clientes")
-                                selectHTML += '<option value="' + item.idDepartamento + '">' + item.nombre + '</option>';
-                        });
-                        $("body #departamentop").addClass("hidden");
-                        $("body #depp").append(select);
-                        $("body #departamentosdos").append(selectHTML);
-                    });
-                    $("body").on('click',"#perfilp",function () {
-                        $("body #perfildos").remove();
-                        var select='<select id="perfildos" name="perfildos" class="form-control"><option value="-1">Seleccione un perfil</option></select>';
-                        perfiles=response.perfiles;
-                        var selectHTML='';
-                        $.each(perfiles, function (i, item) {
-                            if(item.rol!="Cliente")
-                                selectHTML += '<option value="' + item.idPerfil + '">' + item.rol + '</option>';
-                        });
-                        $("body #perfilp").addClass("hidden");
-                        $("body #perp").append(select);
-                        $("body #perfildos").append(selectHTML);
-                    });
+                    $("#chec").append(ch);
                 }
 
             }
@@ -510,34 +494,21 @@ function Limpiar() {
     $("#departamento").val("Departamento según perfil");
     $("#perfiles").val("-1");
 }
-$("body").on('click',"#modifUsuario",function () {
-    nombre=$("#nombreMo").val();
-    rut=$("#rutMo").val();
-    direccion=$("#direccionMo").val();
-    email=$("#emailMo").val();
-    telefono=$("#telefonoMo").val();
-    comuna=$("#comunados").val();
-    password=$("#passwordMo").val();
-    idDepartamento = $("#departamentodos").val();
-    idPerfil=$("#perfildos").val();
-    var persona = {
-        nombre: nombre,
-        rut: rut,
-        email: email,
-        telefono: telefono,
-        idComuna: comuna,
-        idDepartamento: idDepartamento,
-        password: password,
-        idPerfil: idPerfil,
-        direccion: direccion,
-        activo : activar
-    }
-    modificar=JSON.stringify(persona);
+function mostrarTab(tab) {
+    if(tab==0)
+    {
 
-});
-$("body").on('change',"#activoMo",function () {
-    if( $('body #activoMo').prop('checked') )
-        activar='T';
+    }
     else
-        activar='F';
-});
+    {
+        if(tab==1)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+}
+

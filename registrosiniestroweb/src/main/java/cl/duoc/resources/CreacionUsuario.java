@@ -11,6 +11,24 @@ public class CreacionUsuario {
     private List<Departamento> departamentos;
     private List<Taller> talleres;
     private List<Grua> gruas;
+    private List<Region> regiones;
+    private List<Provincia> provincias;
+
+    public List<Provincia> getProvincias() {
+        return provincias;
+    }
+
+    public void setProvincias(List<Provincia> provincias) {
+        this.provincias = provincias;
+    }
+
+    public List<Region> getRegiones() {
+        return regiones;
+    }
+
+    public void setRegiones(List<Region> regiones) {
+        this.regiones = regiones;
+    }
 
     public List<Grua> getGruas() {
         return gruas;

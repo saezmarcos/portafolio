@@ -2,8 +2,12 @@
     <div class="row">
         <form class="form-horizontal">
                 <!-- Form Name -->
-            <legend><span class="glyphicon glyphicon-floppy-disk"></span> Creación de Usuario</legend>
-
+            <legend id="legend"><span class="glyphicon glyphicon-floppy-disk"></span> Creación de Usuario</legend>
+            <div class="form-group hidden" id="activoMod">
+                <label class="col-md-4 control-label">Desactivado / Activado</label>
+                <div class="col-md-4" id="chec">
+                </div>
+            </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="rut">RUT </label>
                     <div class="col-md-4">
@@ -24,6 +28,14 @@
                     <label class="col-md-4 control-label" for="direccion">Direccion</label>
                     <div class="col-md-5">
                         <input id="direccion" name="direccion" placeholder="Direccion" class="form-control input-md" required="" type="text" maxlength="60"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="regiones">Región</label>
+                    <div class="col-md-6">
+                        <select id="regiones" name="comuna" class="form-control">
+                            <option value="-1">Seleccione una región</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -55,7 +67,7 @@
 
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="passwordConf">
                     <label class="col-md-4 control-label" for="cfpassword">Confirmar Password </label>
                     <div class="col-md-4">
                         <input  maxlength="15" id="cfpassword" name="cfpasswor" placeholder="Confirmar Password" class="form-control input-md" required="" type="password"/>
@@ -73,15 +85,16 @@
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="departamento">Departamento </label>
-                    <div class="col-md-4">
-                        <input id="departamento" name="departamento" placeholder="Departamento según perfil" class="form-control input-md" readonly="true" type="text"/>
-                        <input id="idDepartamento" class="hidden"/>
+                    <div class="col-md-6">
+                        <select id="departamento" name="departamento" class="form-control">
+                            <option value="-1">Seleccione un departamento</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="crear"></label>
                     <div class="col-md-4">
-                        <a href="#" class="btn btn-primary" name="crear" id="crear"><span class="glyphicon glyphicon-floppy-open" ></span> Crear Usuario</a>
+                        <a href="#" class="btn btn-primary" name="crear" id="crear"><span class="glyphicon glyphicon-floppy-open" ></span> Guardar</a>
                     </div>
                 </div>
         </form>

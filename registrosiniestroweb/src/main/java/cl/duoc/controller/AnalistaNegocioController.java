@@ -34,8 +34,12 @@ public class AnalistaNegocioController {
         List<Departamento> departamentos = analista.obtenerDepartamentos();
         List<Taller> talleres = analista.obtenerTalleres();
         List<Grua> gruas = analista.obtenerGruas();
+        List<Region> regiones=analista.obtenerRegiones();
+        List<Provincia> provincias=analista.obtenerProvincias();
         creacion.setPerfiles(perfiles);
         creacion.setComunas(comunas);
+        creacion.setRegiones(regiones);
+        creacion.setProvincias(provincias);
         creacion.setDepartamentos(departamentos);
         creacion.setTalleres(talleres);
         creacion.setGruas(gruas);
@@ -104,7 +108,6 @@ public class AnalistaNegocioController {
     @ResponseBody
     String getPersona(@PathParam("rutM") String rutM)
     {
-
         try
         {
             String resp=Util.convertirAJson(analista.obtenerPersona(rutM));

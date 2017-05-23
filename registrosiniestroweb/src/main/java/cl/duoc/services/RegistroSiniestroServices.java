@@ -52,7 +52,10 @@ public class RegistroSiniestroServices {
     private String urlIdSiniestro;
     @Value(("${ws.crear.siniestro}"))
     private String urlCrearSiniestro;
-
+    @Value(("${ws.obtener.regiones}"))
+    private String urlRegiones;
+    @Value(("${ws.obtener.provincias}"))
+    private String urlProvincias;
 
     public Rol accesoPersona(String rut, String password) {
         ObjectMapper mapper = new ObjectMapper();
@@ -361,6 +364,60 @@ public class RegistroSiniestroServices {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearSiniestro);
         ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
         return "" + response.getStatusCodeValue();
+
+    }
+
+    public List<Region> obtenerRegiones() {
+        ObjectMapper mapper = new ObjectMapper();
+        List<Region> com;
+        String requestBody = null;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlRegiones);
+        ResponseEntity<List<Region>> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, new ParameterizedTypeReference<List<Region>>() {
+        });
+        switch (respuesta.getStatusCodeValue()) {
+            case 200:
+                com = respuesta.getBody();
+                break;
+            case 404:
+                return null;
+
+            default:
+                throw new RuntimeException("Error");
+        }
+        return com;
+
+    }
+
+    public List<Provincia> obtenerProvincias() {
+        ObjectMapper mapper = new ObjectMapper();
+        List<Provincia> com;
+        String requestBody = null;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlProvincias);
+        ResponseEntity<List<Provincia>> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, new ParameterizedTypeReference<List<Provincia>>() {
+        });
+        switch (respuesta.getStatusCodeValue()) {
+            case 200:
+                com = respuesta.getBody();
+                break;
+            case 404:
+                return null;
+
+            default:
+                throw new RuntimeException("Error");
+        }
+        return com;
 
     }
 }
