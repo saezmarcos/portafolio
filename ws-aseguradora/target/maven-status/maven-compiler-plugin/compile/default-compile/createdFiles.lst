@@ -15,6 +15,7 @@ cl\duoc\domain\Persona.class
 cl\duoc\domain\Grua.class
 cl\duoc\domain\Marca.class
 cl\duoc\dao\PersonaResouceDAO.class
+cl\duoc\dao\RegionesDAO.class
 cl\duoc\domain\Vehiculo.class
 cl\duoc\domain\Aseguradora.class
 cl\duoc\resource\PersonaResouce.class
@@ -28,6 +29,7 @@ cl\duoc\dao\TipoSeguroDAO.class
 cl\duoc\domain\Poliza.class
 cl\duoc\domain\Rol.class
 cl\duoc\dao\IdSiniestroResourceDAO.class
+cl\duoc\dao\ProvinciasDAO.class
 cl\duoc\controller\AseguradoraController.class
 cl\duoc\domain\TipoSeguro.class
 cl\duoc\dao\AseguradoraDAO.class

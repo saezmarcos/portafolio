@@ -228,4 +228,22 @@ public class AseguradoraController {
     {
         return autent.findAll();
     }
+
+    @Autowired
+    //metodo que retorna  regiones
+    private RegionesDAO regiones;
+    @RequestMapping(value="/regiones", method = RequestMethod.GET)
+    public List<Regiones> getRegiones ()
+    {
+        return regiones.findAll();
+    }
+
+    @Autowired
+    //metodo que retorna  provincias
+    private ProvinciasDAO provincias;
+    @RequestMapping(value="/provincias", method = RequestMethod.GET)
+    public List<Provincias> getProvincias ()
+    {
+        return provincias.findAll();
+    }
 }
