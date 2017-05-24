@@ -24,7 +24,8 @@ public class CallCenterController {
     @Autowired
     private RegistroSiniestroServices callCenter;
 
-    @RequestMapping("/callCenter/agregarSiniestro/comunasComboBox/")
+    //cambiado
+    @RequestMapping("/callcenter/agregarSiniestro/comunasComboBox/")
     public
     @ResponseBody
     String obtenerParametros() {
@@ -35,8 +36,8 @@ public class CallCenterController {
         return jsonRes;
     }
 
-
-    @RequestMapping(value = {"/menuprincipal/carga/navbarCall/"}, method = RequestMethod.POST)
+    //cambiado
+    @RequestMapping(value = {"/callcenter/menuprincipal/carga/navbarCall/"}, method = RequestMethod.POST)
     public String cargaNavBar() {
         try {
             return "navbarCallCenter";
@@ -44,8 +45,8 @@ public class CallCenterController {
             return "Error";
         }
     }
-
-    @RequestMapping(value = {"/callCenter/cargar/crear"}, method = RequestMethod.POST)
+    //cambiado
+    @RequestMapping(value = {"/callcenter/cargar/crear/"}, method = RequestMethod.POST)
     public String cargarCrear() {
         try {
             return "agregarSiniestro";
@@ -53,8 +54,8 @@ public class CallCenterController {
             return "Error";
         }
     }
-
-    @RequestMapping(value = {"/callCenter/consultar/poliza/"}, method = RequestMethod.POST)
+    //cambiado
+    @RequestMapping(value = {"/callcenter/consultar/poliza/"}, method = RequestMethod.POST)
     public
     @ResponseBody
     String consultarPoliza(@PathParam("idPoliza") String idPoliza) {
@@ -65,8 +66,8 @@ public class CallCenterController {
             return "Error";
         }
     }
-
-    @RequestMapping(value = {"/callCenter/crear/idSiniestro/"}, method = RequestMethod.POST)
+    //cambiado
+    @RequestMapping(value = {"/callcenter/crear/idSiniestro/"}, method = RequestMethod.POST)
     public
     @ResponseBody
     String obtenerNroSiniestro() {
@@ -78,7 +79,7 @@ public class CallCenterController {
         }
     }
 
-    @RequestMapping(value = {"/callCenter/crear/siniestro/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/callcenter/crear/siniestro/"}, method = RequestMethod.POST)
     public
     @ResponseBody
     String crearSiniestro(@PathParam("siniestro") String siniestro) {

@@ -5,7 +5,7 @@ cargaNavbar();
 function cargaNavbar() {
     $.ajax({
         type: "POST",
-        url: "/menuprincipal/carga/navbarCall/",
+        url: "/callcenter/menuprincipal/carga/navbarCall/",
         error: function (e) {
             procesando.style.display = "none";
             console.log(e.toString());
@@ -36,7 +36,7 @@ function cargaNavbar() {
 function cargarCrear() {
     $.ajax({
         type: "POST",
-        url: "/callCenter/cargar/crear",
+        url: "/callcenter/cargar/crear/",
         error: function (e) {
             console.log(e.toString());
             $('#errorModal').text("En estos momentos no podemos atenderlo, favor inténtelo más tarde");
@@ -54,7 +54,7 @@ $('body').on('click', '#crearSiniestro', function () {
 function cargarComboBox() {
     $.ajax({
         type: "POST",
-        url: "/callCenter/agregarSiniestro/comunasComboBox/",
+        url: "/callcenter/agregarSiniestro/comunasComboBox/",
         error: function (e) {
             console.log(e);
         },
@@ -84,7 +84,7 @@ $('body').on('click', '#btnConsultarPoliza', function () {
     var id = $("#idPoliza").val();
     $.ajax({
         data: {idPoliza: id},
-        url: "/callCenter/consultar/poliza/",
+        url: "/callcenter/consultar/poliza/",
         type: "POST",
         success: function (data) {
             if (data == "null" || data == null || data == "Error") {
@@ -93,7 +93,7 @@ $('body').on('click', '#btnConsultarPoliza', function () {
                 procesando.style.display = "none";
                 var idPoliza = JSON.parse(data);
                 $.ajax({
-                    url: "/callCenter/crear/idSiniestro/",
+                    url: "/callcenter/crear/idSiniestro/",
                     type: "POST",
                     success: function (data) {
                         var nroSiniestro = JSON.parse(data);
@@ -128,7 +128,7 @@ $('body').on('click', '#btnCrearSiniestro', function () {
     console.log(siniestroParseado);
     $.ajax({
         data: {siniestro : siniestroParseado},
-       url: "/callCenter/crear/siniestro/",
+       url: "/callcenter/crear/siniestro/",
         type: "POST",
         success: function (data) {
             console.log(data);
