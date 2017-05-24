@@ -47,7 +47,7 @@ public class AnalistaNegocioController {
         return jsonRes;
     }
 
-    @RequestMapping(value = {"/menuprincipal/carga/navbar/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/analista/menuprincipal/carga/navbar/"}, method = RequestMethod.POST)
     public String cargaNavBar() {
         try {
             return "navbarAnalista";
@@ -56,7 +56,7 @@ public class AnalistaNegocioController {
         }
     }
 
-    @RequestMapping(value = {"/usuario/cargar/crear"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/analista/usuario/cargar/crear"}, method = RequestMethod.POST)
     public String cargarCrear() {
         try {
             return "creausuario";
@@ -65,7 +65,7 @@ public class AnalistaNegocioController {
         }
     }
 
-    @RequestMapping(value = {"/usuario/cargar/modificar/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/analista/usuario/cargar/modificar/"}, method = RequestMethod.POST)
     public String cargarModificar() {
         try {
             return "modificausuario";
@@ -103,7 +103,7 @@ public class AnalistaNegocioController {
         }
     }
 
-    @RequestMapping(value = {"/acceso/usuario/login/usuario/modificar/buscar/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/analista/acceso/usuario/login/usuario/modificar/buscar/"}, method = RequestMethod.POST)
     public
     @ResponseBody
     String getPersona(@PathParam("rutM") String rutM)
@@ -119,7 +119,7 @@ public class AnalistaNegocioController {
         }
     }
 
-    @RequestMapping(value={"/usuario/cargar/listar/usuarios"},method = RequestMethod.POST)
+    @RequestMapping(value={"/analista/usuario/cargar/listar/usuarios"},method = RequestMethod.POST)
     public @ResponseBody
     String getPersonas()
     {
@@ -133,7 +133,7 @@ public class AnalistaNegocioController {
             return null;
         }
     }
-    @RequestMapping(value={"/usuario/cargar/listar/"},method = RequestMethod.POST)
+    @RequestMapping(value={"/analista/usuario/cargar/listar/"},method = RequestMethod.POST)
     public String cargaListado()
     {
         try

@@ -6,27 +6,38 @@ import cl.duoc.resources.Persona;
 import cl.duoc.resources.Rol;
 import cl.duoc.services.RegistroSiniestroServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
 
 /**
  * Created by Usuario on 14-04-2017.
  */
 @Controller
 public class registroSiniestroController {
-    @RequestMapping(value={"/","login","Aseguradora/login"})
+    @RequestMapping(value={"/login","/"},method = RequestMethod.GET)
     public String autenticacion(){
         return("login");
     }
     @Autowired
     private RegistroSiniestroServices registro;
-    @RequestMapping(value = {"/acceso/usuario/login/"}, method = RequestMethod.POST)
-    public String obtenerAcceso(@ModelAttribute("login") Login login, Model model)   {
+    @RequestMapping(value = {"/acceso/usuario/login/"}, method = RequestMethod.GET)
+    public String obtenerAcceso(Model model)   {
         try {
-            Rol acces = registro.accesoPersona(login.getRut(), login.getPassword());
-            PersonaDomain p ;
-            p =  registro.obtenerPersona(login.getRut());
+            Authentication aut = SecurityContextHolder.getContext().getAuthentication();
+            Rol acces;
+            PersonaDomain p = new PersonaDomain();
+            if(aut.getPrincipal().equals("anonymousUser")) {
+                p.setRut("sinRut");
+                p.setPassword("sinPassword");
+            }
+            else
+                p =  registro.obtenerPersona(aut.getName());
+            acces=registro.accesoPersona(p.getRut(),p.getPassword());
             if (acces.getRol().equals("No existe usuario") || acces.getRol().equals("Usuario No Activo") )
                 model.addAttribute("nombre",acces.getRol());
             else
@@ -48,12 +59,12 @@ public class registroSiniestroController {
         }
     }
 
-    @RequestMapping(value={"/sistema/error/"},method = RequestMethod.GET)
+    @RequestMapping(value={"/error/"},method = RequestMethod.GET)
     public String errorPagina(){
 
         return("login");
     }
-    @RequestMapping(value={"/sistema/salir/"},method = RequestMethod.GET)
+    @RequestMapping(value={"/logout"},method = RequestMethod.GET)
     public String salidaPagina(){
 
         return("login");

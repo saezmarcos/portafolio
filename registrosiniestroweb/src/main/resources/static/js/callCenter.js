@@ -36,7 +36,7 @@ function cargaNavbar() {
 function cargarCrear() {
     $.ajax({
         type: "POST",
-        url: "/callcenter/cargar/crear/",
+        url: "/callcenter/cargar/crear",
         error: function (e) {
             console.log(e.toString());
             $('#errorModal').text("En estos momentos no podemos atenderlo, favor inténtelo más tarde");
@@ -56,7 +56,10 @@ function cargarComboBox() {
         type: "POST",
         url: "/callcenter/agregarSiniestro/comunasComboBox/",
         error: function (e) {
-            console.log(e);
+            procesando.style.display = "none";
+            $('#errorModal').text(" Ocurrio un problema con la carga de datos, favor intentelo más tarde ");
+            modalError.style.display = "block";
+
         },
         beforeSend: function () {
             procesando.style.display = "block";

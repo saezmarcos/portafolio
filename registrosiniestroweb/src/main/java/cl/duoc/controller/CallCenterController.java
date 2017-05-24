@@ -17,14 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
-//hola
+
 @Controller
 public class CallCenterController {
 
     @Autowired
     private RegistroSiniestroServices callCenter;
 
-    //cambiado
     @RequestMapping("/callcenter/agregarSiniestro/comunasComboBox/")
     public
     @ResponseBody
@@ -36,8 +35,8 @@ public class CallCenterController {
         return jsonRes;
     }
 
-    //cambiado
-    @RequestMapping(value = {"/callcenter/menuprincipal/carga/navbarCall/"}, method = RequestMethod.POST)
+
+    @RequestMapping(value = {"callcenter/menuprincipal/carga/navbarCall/"}, method = RequestMethod.POST)
     public String cargaNavBar() {
         try {
             return "navbarCallCenter";
@@ -45,8 +44,8 @@ public class CallCenterController {
             return "Error";
         }
     }
-    //cambiado
-    @RequestMapping(value = {"/callcenter/cargar/crear/"}, method = RequestMethod.POST)
+
+    @RequestMapping(value = {"/callcenter/cargar/crear"}, method = RequestMethod.POST)
     public String cargarCrear() {
         try {
             return "agregarSiniestro";
@@ -54,7 +53,7 @@ public class CallCenterController {
             return "Error";
         }
     }
-    //cambiado
+
     @RequestMapping(value = {"/callcenter/consultar/poliza/"}, method = RequestMethod.POST)
     public
     @ResponseBody
@@ -66,7 +65,7 @@ public class CallCenterController {
             return "Error";
         }
     }
-    //cambiado
+
     @RequestMapping(value = {"/callcenter/crear/idSiniestro/"}, method = RequestMethod.POST)
     public
     @ResponseBody

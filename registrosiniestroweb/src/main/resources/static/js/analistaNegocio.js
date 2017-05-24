@@ -23,7 +23,7 @@ var confirma=false;
 cargaNavbar();
 function cargarModificar() {
     $.ajax({
-        url : "/usuario/cargar/modificar/",
+        url : "/analista/usuario/cargar/modificar/",
         type : "POST",
         error : function (e) {
             procesando.style.display = "none";
@@ -44,7 +44,7 @@ function cargarModificar() {
 }
 function cargarListar() {
     $.ajax({
-        url : "/usuario/cargar/listar/",
+        url : "/analista/usuario/cargar/listar/",
         type : "POST",
         error : function (e) {
             procesando.style.display = "none";
@@ -270,7 +270,7 @@ $("body").on('change',"#regiones",function () {
 function cargaNavbar() {
         $.ajax({
             type: "POST",
-            url: "/menuprincipal/carga/navbar/",
+            url: "/analista/menuprincipal/carga/navbar/",
             error: function (e) {
                 procesando.style.display = "none";
                 console.log(e.toString());
@@ -301,7 +301,7 @@ function cargaNavbar() {
 function cargarCrear(flag) {
         $.ajax({
             type : "POST",
-            url :"/usuario/cargar/crear",
+            url :"/analista/usuario/cargar/crear",
             error: function (e) {
                 procesando.style.display = "none";
                 console.log(e.toString());
@@ -415,7 +415,7 @@ $("body").on('click','#modif',function () {
     var rutM = $("#rutM").val();
     if(rutM!=null && rutM!="") {
         $.ajax({
-            url: "/acceso/usuario/login/usuario/modificar/buscar/",
+            url: "/analista/acceso/usuario/login/usuario/modificar/buscar/",
             type: "POST",
             data: {rutM: rutM},
             error : function (e) {
@@ -449,6 +449,7 @@ $("body").on('click','#modif',function () {
                     $('#departamento').val(persona.departamento.idDepartamento);
                     var reg=persona.comuna.provincia.region.idRegion;
                     $('#regiones').val(reg);
+
                     $('#comuna').val(persona.comuna.idComuna);
                     var selectHTML = '';
                     $.each(comuna, function (i, item) {
