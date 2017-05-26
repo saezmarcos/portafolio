@@ -10,15 +10,6 @@ var response;
 var modalError1=document.getElementById("myModalError1");
 var modalFinal=document.getElementById("myModalFinal");
 var modalFinal2=document.getElementById("myModalFinal2");
-var nombre;
-var rut;
-var direccion;
-var idDepartamento="";
-var email;
-var idPerfil="";
-var comuna=[];
-var password;
-var telefono;
 var confirma=false;
 cargaNavbar();
 function cargarModificar() {
@@ -59,6 +50,7 @@ function cargarListar() {
             procesando.style.display = "none";
 
             $('#analista').append(data);
+            $('body .lisUsr').click();
         }
 
     });
@@ -131,7 +123,7 @@ $("body").on('click',"#crear",function () {
         cfpassword=$("#cfpassword").val();
         idDepartamento = $("#departamento").val();
         idPerfil=$("#perfiles").val();
-        if(nombre=="" || rut=="" || direccion=="" || email=="" || telefono=="" || comuna=="-1" || password=="" || cfpassword=="" || idPerfil=="-1" || idDepartamento=="")
+        if(nombre=="" || rut=="" || direccion=="" || email=="" || telefono=="" || comuna=="-1" || password=="" || cfpassword=="" || idPerfil=="-1" || idDepartamento=="-1")
         {
             confirma=true;
             $('#errorModal1').text("Debe completar todos los campos");
@@ -170,7 +162,7 @@ $("body").on('click',"#btnModificar",function () {
     password=$("#password").val();
     idDepartamento = $("#departamento").val();
     idPerfil=$("#perfiles").val();
-    if(nombre=="" || direccion=="" || email=="" || telefono=="" || comuna=="-1" || password=="" ||  idPerfil=="-1" || idDepartamento=="")
+    if(nombre=="" || direccion=="" || email=="" || telefono=="" || comuna=="-1" || password=="" ||  idPerfil=="-1" || idDepartamento=="-1")
     {
         confirma=true;
         $('#errorModal1').text("Debe completar todos los campos");
@@ -211,7 +203,6 @@ function cargarDatosPrimeroCrear() {
                 $('#errorModal').text(" Ocurrio un problema con la carga de datos, favor intentelo más tarde ");
                 modalError.style.display = "block";
                 console.log(e);
-
             },
             beforeSend: function () {
                 procesando.style.display = "block";
@@ -259,13 +250,34 @@ function cargarDatosPrimeroCrear() {
         });
     }
 $("body").on('change',"#regiones",function () {
+    var comuna=[];
     $('#comuna').empty();
-    var selectHTML = '';
-    $.each(comuna, function (i, item) {
-        if(item.provincia.region.idRegion==$("body #regiones").val())
-            selectHTML += '<option value="' + item.idComuna + '">' + item.nombre + '</option>';
+    $.ajax({
+        url : "/analista/negocio/obtener/comunas/",
+        type : "POST",
+        error : function () {
+            $("#errorModal").text("Se produjo un error al cargar las comunas, favor inténtelo más tarde");
+            modalError.style.display="block";
+        },
+        success : function (data) {
+            if (data=="Error" || data=="" || data==null || data=="null")
+            {
+                $("#errorModal").text("Se produjo un error al cargar las comunas, favor inténtelo más tarde");
+                modalError.style.display="block";
+            }
+            else
+            {
+                comuna= $.parseJSON(data);
+                var selectHTML = '';
+                $.each(comuna, function (i, item) {
+                    if(item.provincia.region.idRegion==$("body #regiones").val())
+                        selectHTML += '<option value="' + item.idComuna + '">' + item.nombre + '</option>';
+                });
+                $('#comuna').append(selectHTML);
+            }
+        }
     });
-    $('#comuna').append(selectHTML);
+
 });
 function cargaNavbar() {
         $.ajax({
@@ -292,7 +304,6 @@ function cargaNavbar() {
                     username=$('body #nombreUsuario').val();
                     $('body #usrname').text(' Bienvenido: ' + username);
                     $('body #usrname').css('font-family',"Helvetica Neue,Helvetica,Arial,sans-serif");
-                    //$('body #usrname').addClass("glyphicon glyphicon-user");
                     procesando.style.display="none";
                 }
             }
@@ -301,7 +312,7 @@ function cargaNavbar() {
 function cargarCrear(flag) {
         $.ajax({
             type : "POST",
-            url :"/analista/usuario/cargar/crear",
+            url :"/analista/usuario/cargar/crear/",
             error: function (e) {
                 procesando.style.display = "none";
                 console.log(e.toString());
@@ -332,15 +343,15 @@ function crearUsuario(flag) {
     var persona={};
     if(flag=="nuevo")
      persona = {
-        nombre: nombre,
-        rut: rut,
-        email: email,
-        telefono: telefono,
-        idComuna: comuna,
-        idDepartamento: idDepartamento,
-        password: password,
-        idPerfil: idPerfil,
-        direccion: direccion,
+        nombre:  $("body #nombre").val(),
+        rut: $("body #rut").val(),
+        email: $("body #mail").val(),
+        telefono: $("body #telefono").val(),
+        idComuna:$('body #comuna').val(),
+        idDepartamento: $('#departamento').val(),
+        password: $("body #password").val(),
+        idPerfil: $('#perfiles').val(),
+        direccion: $("body #direccion").val(),
         activo : 'T'
     };
     else {
@@ -349,15 +360,15 @@ function crearUsuario(flag) {
         else
             var activo="F";
         persona = {
-            nombre: nombre,
-            rut: rut,
-            email: email,
-            telefono: telefono,
-            idComuna: comuna,
-            idDepartamento: idDepartamento,
-            password: password,
-            idPerfil: idPerfil,
-            direccion: direccion,
+            nombre:  $("body #nombre").val(),
+            rut: $("body #rut").val(),
+            email: $("body #mail").val(),
+            telefono: $("body #telefono").val(),
+            idComuna:$('body #comuna').val(),
+            idDepartamento: $('#departamento').val(),
+            password: $("body #password").val(),
+            idPerfil: $('#perfiles').val(),
+            direccion: $("body #direccion").val(),
             activo: activo
         };
     }
@@ -395,7 +406,7 @@ function crearUsuario(flag) {
                     {
                         {
                             procesando.style.display = "none";
-                            $('#errorModal').text("El usuario que intenta crear ya existe, no se puede crear nuevamente");
+                            $('#errorModal').text(" El usuario que intenta crear ya existe ");
                             modalError.style.display = "block";
                         }
                     }
@@ -414,6 +425,7 @@ function crearUsuario(flag) {
 $("body").on('click','#modif',function () {
     var rutM = $("#rutM").val();
     if(rutM!=null && rutM!="") {
+        var comuna=[];
         $.ajax({
             url: "/analista/acceso/usuario/login/usuario/modificar/buscar/",
             type: "POST",
@@ -432,6 +444,34 @@ $("body").on('click','#modif',function () {
                     modalError.style.display="block";
                 }else {
                     var persona= JSON.parse(data);
+                    $.ajax({
+                        url : "/analista/negocio/obtener/comunas/",
+                        type : "POST",
+                        error : function () {
+                            $("#errorModal").text("Se produjo un error al cargar las comunas, favor inténtelo más tarde");
+                            modalError.style.display="block";
+                        },
+                        success : function (com) {
+                            if (com=="Error" || com=="" || com==null || com=="null")
+                            {
+                                $("#errorModal").text("Se produjo un error al cargar las comunas, favor inténtelo más tarde");
+                                modalError.style.display="block";
+                            }
+                            else
+                            {
+                                comuna= $.parseJSON(com);
+                                var selectHTML = '';
+                                $.each(comuna, function (i, item) {
+                                    if(item.provincia.region.idRegion==reg)
+                                        if(persona.comuna.idComuna==item.idComuna)
+                                            selectHTML += '<option value="' + item.idComuna + '" selected="true">' + item.nombre + '</option>';
+                                        else
+                                            selectHTML += '<option value="' + item.idComuna + '">' + item.nombre + '</option>';
+                                });
+                                $('body #comuna').append(selectHTML);
+                            }
+                        }
+                    });
                     procesando.style.display = "none";
                     $("#cuerpoModificar").removeClass('hidden');
                     $("#legend").addClass('hidden');
@@ -449,17 +489,7 @@ $("body").on('click','#modif',function () {
                     $('#departamento').val(persona.departamento.idDepartamento);
                     var reg=persona.comuna.provincia.region.idRegion;
                     $('#regiones').val(reg);
-
                     $('#comuna').val(persona.comuna.idComuna);
-                    var selectHTML = '';
-                    $.each(comuna, function (i, item) {
-                        if(item.provincia.region.idRegion==reg)
-                            if(persona.comuna.idComuna==item.idComuna)
-                                selectHTML += '<option value="' + item.idComuna + '" selected="true">' + item.nombre + '</option>';
-                            else
-                                selectHTML += '<option value="' + item.idComuna + '">' + item.nombre + '</option>';
-                    });
-                    $('body #comuna').append(selectHTML);
                     $('#perfiles').val(persona.perfil.idPerfil);
                     $("#chec").empty(ch);
                     if(persona.activo=="F") {
@@ -498,17 +528,58 @@ function Limpiar() {
 function mostrarTab(tab) {
     if(tab==0)
     {
+        $.ajax({
+            url : "/analista/negocio/obtener/usuarios/",
+            type : "POST",
+            error : function () {
 
+            },
+            success : function (data) {
+                procesando.style.display="none";
+                var response = $.parseJSON(data);
+            },
+            beforeSend : function () {
+                procesando.style.display="block";
+            }
+        });
     }
     else
     {
         if(tab==1)
         {
+            $.ajax({
+                url : "/analista/negocio/obtener/gruas/",
+                type : "POST",
+                error : function () {
 
+                },
+                success : function (data) {
+                    procesando.style.display="none";
+                    var response = $.parseJSON(data);
+
+                },
+                beforeSend : function () {
+                    procesando.style.display="block";
+                }
+            });
         }
         else
         {
+            $.ajax({
+                url : "/analista/negocio/obtener/talleres/",
+                type : "POST",
+                error : function () {
 
+                },
+                success : function (data) {
+                    procesando.style.display="none";
+                    var response = $.parseJSON(data);
+
+                },
+                beforeSend : function () {
+                    procesando.style.display="block";
+                }
+            });
         }
     }
 }
