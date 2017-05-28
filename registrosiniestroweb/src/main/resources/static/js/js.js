@@ -143,6 +143,8 @@ if(nombre=="Usuario No Activo") {
         $(".alert-warning").fadeOut();
     },3000);
 }
+$("body #manuPrincipal").remove();
+$("body #analista").remove();
 
 
 

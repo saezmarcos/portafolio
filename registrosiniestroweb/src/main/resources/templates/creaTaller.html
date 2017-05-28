@@ -1,0 +1,72 @@
+<div class="container" id="creaTaller">
+    <div class="row">
+        <form class="form-horizontal">
+            <!-- Form Name -->
+            <legend id="legend"><span class="glyphicon glyphicon-floppy-disk"></span> Creación de Taller</legend>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="rutTaller">RUT Taller</label>
+                <div class="col-md-4">
+                    <input id="rutTaller" name="rutTaller" placeholder="Sin puntos (12345678-9)" class="form-control input-md" type="text" required="" maxlength="12"/>
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="nombreTaller">Nombre </label>
+                <div class="col-md-4">
+                    <input id="nombreTaller" name="requestName" placeholder="Nombre Taller" class="form-control input-md" required="" type="text" maxlength="25"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="direccionTaller">Dirección </label>
+                <div class="col-md-4">
+                    <input id="direccionTaller" name="direccionTaller" placeholder="Dirección" class="form-control input-md" required="" type="text" maxlength="40"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="regiones">Región</label>
+                <div class="col-md-6">
+                    <select id="regiones" name="comuna" class="form-control">
+                        <option value="-1">Seleccione una región</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="comuna">Comuna</label>
+                <div class="col-md-6">
+                    <select id="comuna" name="comuna" class="form-control">
+                        <option value="-1">Seleccione una comuna</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="correoTaller">Email </label>
+                <div class="col-md-4">
+                    <input id="correoTaller" name="correoTaller" placeholder="Email" class="form-control input-md" required="" type="text" maxlength="40"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="telefonoTaller">Teléfono </label>
+                <div class="col-md-4">
+                    <input id="telefonoTaller" name="telefonoTaller" placeholder="Teléfono" class="form-control input-md" required="" type="text" maxlength="12"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="rutAseguradora">RUT Aseguradora</label>
+                <div class="col-md-4">
+                    <label id="rutAseguradora" name="rutAseguradora" placeholder="RUT Aseguradora" class="form-control input-md" th:text="${rutAseguradora}"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="btnCrearTaller"></label>
+                <div class="col-md-4">
+                    <a href="#" class="btn btn-primary" name="btnTaller" id="btnCrearTaller"><span class="glyphicon glyphicon-floppy-open" ></span> Guardar Taller</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

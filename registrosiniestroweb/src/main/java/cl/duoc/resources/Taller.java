@@ -10,7 +10,42 @@ public class Taller {
     private String rutTaller;
     private String nombre;
     private Comuna comuna;
-    private String 
+    private String telefono;
+    private String correo;
+    private String direccion;
+    private Aseguradora aseguradora;
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Aseguradora getAseguradora() {
+        return aseguradora;
+    }
+
+    public void setAseguradora(Aseguradora aseguradora) {
+        this.aseguradora = aseguradora;
+    }
 
     public String getRutTaller() {
         return rutTaller;

@@ -1,6 +1,7 @@
 package cl.duoc.controller;
 
 import cl.duoc.Util.Util;
+import cl.duoc.domain.GruaDomain;
 import cl.duoc.domain.PersonaDomain;
 import cl.duoc.resources.*;
 import cl.duoc.services.RegistroSiniestroServices;
@@ -8,12 +9,10 @@ import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -179,5 +178,53 @@ public class AnalistaNegocioController {
         List<PersonaDomain> personas = analista.obtenerPersonas();
         String jsonRes = Util.convertirAJson(personas);
         return jsonRes;
+    }
+    @RequestMapping(value = {"/analista/negocio/obtener/regiones/"}, method = RequestMethod.POST)
+    public @ResponseBody String obtenerRegiones()
+    {
+        List<Region> regiones = analista.obtenerRegiones();
+        String jsonRes = Util.convertirAJson(regiones);
+        return jsonRes;
+    }
+
+    @RequestMapping(value = {"/analista/usuario/cargar/crear/grua/"}, method = RequestMethod.POST)
+    public String cargarCrearGrua(Model model)
+    {
+        try {
+            model.addAttribute("rutAseguradora","77777777-7");
+            return "creagrua";
+        } catch (Exception e) {
+            return "Error";
+        }
+    }
+    @RequestMapping(value = {"/analista/usuario/cargar/crear/taller/"}, method = RequestMethod.POST)
+    public String cargarCrearTaller(Model model)
+    {
+        try {
+            model.addAttribute("rutAseguradora","77777777-7");
+            return "creaTaller";
+        } catch (Exception e) {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value = {"/analista/usuario/crear/grua/"},method = RequestMethod.POST)
+    public @ResponseBody String crearGrua(String grua)
+    {
+        GruaDomain g;
+        g=(GruaDomain)Util.jsonObject(grua,GruaDomain.class);
+        List<Grua> gr= analista.obtenerGruas();
+        for (Grua gg: gr) {
+            if(gg.getNumeroChasis().equals(g.getNumeroChasis()))
+            {
+                return "existe";
+            }
+        }
+        return analista.crearGrua(grua);
+    }
+    @RequestMapping(value = {"/analista/usuario/crear/taller/"},method = RequestMethod.POST)
+    public @ResponseBody String crearTaller(String taller)
+    {
+        return analista.crearTaller(taller);
     }
 }
