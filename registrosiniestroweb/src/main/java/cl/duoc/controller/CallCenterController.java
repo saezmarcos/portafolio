@@ -8,8 +8,6 @@ import cl.duoc.Util.Util;
 import cl.duoc.domain.SiniestroDomain;
 import cl.duoc.resources.Comuna;
 import cl.duoc.resources.CreacionUsuario;
-import cl.duoc.resources.Provincia;
-import cl.duoc.resources.Region;
 import cl.duoc.services.RegistroSiniestroServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,14 +28,10 @@ public class CallCenterController {
     public
     @ResponseBody
     String obtenerParametros() {
-        CreacionUsuario datos = new CreacionUsuario();
-        List<Region> regiones=callCenter.obtenerRegiones();
-        List<Provincia> provincias=callCenter.obtenerProvincias();
+        CreacionUsuario listaComunas = new CreacionUsuario();
         List<Comuna> comunas = callCenter.obtenerComunas();
-        datos.setRegiones(regiones);
-        datos.setProvincias(provincias);
-        datos.setComunas(comunas);
-        String jsonRes = Util.convertirAJson(datos);
+        listaComunas.setComunas(comunas);
+        String jsonRes = Util.convertirAJson(listaComunas);
         return jsonRes;
     }
 
