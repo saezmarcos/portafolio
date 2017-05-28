@@ -11,10 +11,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "Siniestro")
-@PersistenceContext
 public class SiniestroResource implements Serializable {
     private static final long serialVersionUID = 1L;
-
     @Id
     @Column(name = "id_siniestro")
     private Long id;
