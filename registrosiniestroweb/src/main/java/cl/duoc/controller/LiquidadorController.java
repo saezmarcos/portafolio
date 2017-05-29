@@ -6,25 +6,23 @@ import cl.duoc.domain.PersonaDomain;
 import cl.duoc.domain.TallerDomain;
 import cl.duoc.resources.*;
 import cl.duoc.services.RegistroSiniestroServices;
-import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.websocket.server.PathParam;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Usuario on 16-04-2017.
+ * Created by Usuario on 28-05-2017.
  */
 @Controller
-public class AnalistaNegocioController {
+public class LiquidadorController {
     @Autowired
     private RegistroSiniestroServices analista;
-
-    @RequestMapping("/analista/negocio/parametros/pantalla/")
+    @RequestMapping("/liquidador/negocio/parametros/pantalla/")
     public
     @ResponseBody
     String obtenerParametros() {
@@ -46,80 +44,16 @@ public class AnalistaNegocioController {
         String jsonRes = Util.convertirAJson(creacion);
         return jsonRes;
     }
-
-    @RequestMapping(value = {"/analista/menuprincipal/carga/navbar/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/liquidador/menuprincipal/carga/navbar/"}, method = RequestMethod.POST)
     public String cargaNavBar() {
         try {
-            return "navbarAnalista";
+            return "navbarLiquidador";
         } catch (Exception e) {
             return "Error";
         }
     }
 
-    @RequestMapping(value = {"/analista/usuario/cargar/crear/"}, method = RequestMethod.POST)
-    public String cargarCrear() {
-        try {
-            return "creausuario";
-        } catch (Exception e) {
-            return "Error";
-        }
-    }
-
-    @RequestMapping(value = {"/analista/usuario/cargar/modificar/"}, method = RequestMethod.POST)
-    public String cargarModificar() {
-        try {
-            return "modificausuario";
-        } catch (Exception e) {
-            return "Error";
-        }
-    }
-
-    @RequestMapping(value = {"/analista/usuario/crear/"}, method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String crearUsuario(@PathParam("persona") String persona,@PathParam("flag") String flag) {
-        try {
-            if(flag.equals("nuevo")) {
-                Persona p;
-                String resp;
-                p=(Persona)Util.jsonObject(persona,Persona.class);
-                String res=Util.convertirAJson(analista.obtenerPersona(p.getRut()));
-                if(res==null || res=="null") {
-                     resp = analista.crearPersona(persona);
-                }
-                else
-                {
-                    return "existe";
-                }
-                return resp;
-            }
-            else
-            {
-                String resp = analista.crearPersona(persona);
-                return resp;
-            }
-        } catch (Exception e) {
-            return "Error";
-        }
-    }
-
-    @RequestMapping(value = {"/analista/acceso/usuario/login/usuario/modificar/buscar/"}, method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String getPersona(@PathParam("rutM") String rutM)
-    {
-        try
-        {
-            String resp=Util.convertirAJson(analista.obtenerPersona(rutM));
-            return resp;
-        }
-        catch (Exception e)
-        {
-            return "Error";
-        }
-    }
-
-    @RequestMapping(value={"/analista/usuario/cargar/listar/usuarios/"},method = RequestMethod.POST)
+    @RequestMapping(value={"/liquidador/usuario/cargar/listar/usuarios/"},method = RequestMethod.POST)
     public @ResponseBody
     String getPersonas()
     {
@@ -133,7 +67,7 @@ public class AnalistaNegocioController {
             return null;
         }
     }
-    @RequestMapping(value={"/analista/usuario/cargar/listar/"},method = RequestMethod.POST)
+    @RequestMapping(value={"/liquidador/usuario/cargar/listar/"},method = RequestMethod.POST)
     public String cargaListado()
     {
         try
@@ -146,7 +80,7 @@ public class AnalistaNegocioController {
         }
     }
 
-    @RequestMapping(value={"/analista/negocio/obtener/talleres/"},method = RequestMethod.POST)
+    @RequestMapping(value={"/liquidador/negocio/obtener/talleres/"},method = RequestMethod.POST)
     public
     @ResponseBody
     String obtenerTalleres() {
@@ -154,7 +88,7 @@ public class AnalistaNegocioController {
         String jsonRes = Util.convertirAJson(talleres);
         return jsonRes;
     }
-    @RequestMapping(value={"/analista/negocio/obtener/comunas/"},method = RequestMethod.POST)
+    @RequestMapping(value={"/liquidador/negocio/obtener/comunas/"},method = RequestMethod.POST)
     public
     @ResponseBody
     String obtenerComunas() {
@@ -163,7 +97,7 @@ public class AnalistaNegocioController {
         return jsonRes;
     }
 
-    @RequestMapping(value={"/analista/negocio/obtener/gruas/"},method = RequestMethod.POST)
+    @RequestMapping(value={"/liquidador/negocio/obtener/gruas/"},method = RequestMethod.POST)
     public
     @ResponseBody
     String obtenerGruas() {
@@ -172,7 +106,7 @@ public class AnalistaNegocioController {
         return jsonRes;
     }
 
-    @RequestMapping(value={"/analista/negocio/obtener/usuarios/"},method = RequestMethod.POST)
+    @RequestMapping(value={"/liquidador/negocio/obtener/usuarios/"},method = RequestMethod.POST)
     public
     @ResponseBody
     String obtenerUsuarios() {
@@ -180,7 +114,7 @@ public class AnalistaNegocioController {
         String jsonRes = Util.convertirAJson(personas);
         return jsonRes;
     }
-    @RequestMapping(value = {"/analista/negocio/obtener/regiones/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/liquidador/negocio/obtener/regiones/"}, method = RequestMethod.POST)
     public @ResponseBody String obtenerRegiones()
     {
         List<Region> regiones = analista.obtenerRegiones();
@@ -188,7 +122,7 @@ public class AnalistaNegocioController {
         return jsonRes;
     }
 
-   /* @RequestMapping(value = {"/analista/usuario/cargar/crear/grua/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/liquidador/usuario/cargar/crear/grua/"}, method = RequestMethod.POST)
     public String cargarCrearGrua(Model model)
     {
         try {
@@ -198,7 +132,7 @@ public class AnalistaNegocioController {
             return "Error";
         }
     }
-    @RequestMapping(value = {"/analista/usuario/cargar/crear/taller/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/liquidador/usuario/cargar/crear/taller/"}, method = RequestMethod.POST)
     public String cargarCrearTaller(Model model)
     {
         try {
@@ -209,7 +143,7 @@ public class AnalistaNegocioController {
         }
     }
 
-    @RequestMapping(value = {"/analista/usuario/crear/grua/"},method = RequestMethod.POST)
+    @RequestMapping(value = {"/liquidador/usuario/crear/grua/"},method = RequestMethod.POST)
     public @ResponseBody String crearGrua(String grua)
     {
         GruaDomain g;
@@ -223,7 +157,7 @@ public class AnalistaNegocioController {
         }
         return analista.crearGrua(grua);
     }
-    @RequestMapping(value = {"/analista/usuario/crear/taller/"},method = RequestMethod.POST)
+    @RequestMapping(value = {"/liquidador/usuario/crear/taller/"},method = RequestMethod.POST)
     public @ResponseBody String crearTaller(String taller)
     {
         TallerDomain t;
@@ -237,5 +171,17 @@ public class AnalistaNegocioController {
         }
         return analista.crearTaller(taller);
     }
-    */
+
+    @RequestMapping(value={"/liquidador/usuario/cargar/asignar/"},method = RequestMethod.POST)
+    public String cargaAsignar()
+    {
+        try
+        {
+            return "asignar";
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
 }

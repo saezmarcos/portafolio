@@ -271,13 +271,64 @@ $("body").on("click","#btnGuardaGrua",function () {
 
         }
     });
-
 });
 $("body").on("click","#btnGuardaTaller",function () {
+    modalFinalTaller.style.display="none";
+    var taller={
+        rutTaller : $("body #rutTaller").val(),
+        idComuna : $("body #comuna").val(),
+        nombre : $("body #nombreTaller").val(),
+        telefono : $("body #telefonoTaller").val(),
+        direccion : $("body #direccionTaller").val(),
+        rutAseguradora : $("body #rutAseguradora").text(),
+        correo : $("body #correoTaller").val()
+    };
+    var tallerJson=JSON.stringify(taller);
+    $.ajax({
+        url : "/analista/usuario/crear/taller/",
+        type : "POST",
+        data : {taller : tallerJson},
+        error : function () {
+
+        },
+        beforeSend : function () {
+            procesando.style.display="block";
+        },
+        success : function (data) {
+            procesando.style.display="none";
+            if(data=="existe")
+            {
+                $("body #errorModal").text("El Taller ya Existe");
+                modalError.style.display = "block";
+            }
+            else
+            {
+                if(data=="201") {
+                    $('#confirmacion').text("Se ha guardado correctamente el taller");
+                    Limpiar();
+                    modalFinal2.style.display = "block";
+                }
+                else
+                {
+                    $("body #errorModal").text("Ocurrio un problema al guardar, favor inténtelo más tarde");
+                    modalError.style.display = "block";
+                }
+            }
+
+        }
+    });
 
 });
 $("body").on("click","#btnCrearTaller",function () {
-
+    if($("body #rutTaller").val()=="" || $("body #regiones").val()=="-1" || $("body #nombreTaller").val()=="" || $("body #direccionTaller").val()=="" || $("body #correoTaller").val()=="" || $("body #telefonoTaller").val()=="" ) {
+        $("body #errorModal").text("Debe completar todos los campos");
+        modalError.style.display = "block";
+    }
+    else
+    {
+        $("body #confirmacionTaller").text("¿Seguro Confirma creación de Taller?");
+        modalFinalTaller.style.display="block";
+    }
 });
 $("body").on("click","#btnCrearGrua",function () {
     if($("body #numeroChasis").val()=="" || $("body #regiones").val()=="-1" || $("body #patente").val()=="") {
@@ -710,6 +761,12 @@ function Limpiar() {
     $("#perfiles").val("-1");
     $("#numeroChasis").val("");
     $("#patente").val("");
+    $("body #rutTaller").val("");
+    $("body #comuna").val("");
+    $("body #nombreTaller").val("");
+    $("body #telefonoTaller").val("");
+    $("body #direccionTaller").val("");
+    $("body #correoTaller").val("");
 }
 function mostrarTab(tab) {
     if(tab==0)

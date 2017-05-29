@@ -42,15 +42,16 @@ public class registroSiniestroController {
                 model.addAttribute("nombre",acces.getRol());
             else
                 model.addAttribute("nombre",p.getNombre());
-            if (acces.getRol().equals("Analista de Negocio")) {
-                return "analistaNegocio";
-            } else {
-                if (acces.getRol().equals("CallCenter")) {
-                    return "callCenter";
-                }else
-                {
-                    return "login";
-                }
+            switch (acces.getRol())
+            {
+                case "Analista de Negocio" : return "analistaNegocio";
+                case "CallCenter" : return "callCenter";
+                case "Liquidador" : return "liquidador";
+                case "Cliente"  :   return "cliente";
+                case "Siniestrador" : return "siniestrador";
+                case "Chofer Grua" : return "chofer";
+                case "Administrador Taller" : return "administradorTaller";
+                default: return "login";
             }
         }
         catch (Exception e)
