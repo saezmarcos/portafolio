@@ -1,5 +1,7 @@
 package cl.duoc.resources;
 
+import cl.duoc.domain.PersonaDomain;
+
 import java.util.List;
 
 /**
@@ -13,6 +15,7 @@ public class CreacionUsuario {
     private List<Grua> gruas;
     private List<Region> regiones;
     private List<Provincia> provincias;
+    private List<PersonaDomain> personas;
 
     public List<Provincia> getProvincias() {
         return provincias;
@@ -20,6 +23,13 @@ public class CreacionUsuario {
 
     public void setProvincias(List<Provincia> provincias) {
         this.provincias = provincias;
+    }
+    public List<PersonaDomain> getPersonas() {
+        return personas;
+    }
+
+    public void setPersonas(List<PersonaDomain> personas) {
+        this.personas = personas;
     }
 
     public List<Region> getRegiones() {

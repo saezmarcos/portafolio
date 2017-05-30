@@ -52,6 +52,8 @@ public class RegistroSiniestroServices {
     private String urlIdSiniestro;
     @Value(("${ws.crear.siniestro}"))
     private String urlCrearSiniestro;
+    @Value(("${ws.crear.estado}"))
+    private String urlCrearEstado;
     @Value(("${ws.obtener.regiones}"))
     private String urlRegiones;
     @Value(("${ws.obtener.provincias}"))
@@ -361,6 +363,20 @@ public class RegistroSiniestroServices {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<String>(siniestro, headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearEstado);
+        ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
+        return "" + response.getStatusCodeValue();
+
+    }
+
+    public String crearEstado(String estado) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(estado, headers);
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearSiniestro);
         ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
         return "" + response.getStatusCodeValue();

@@ -3,15 +3,29 @@
         <legend><span class="glyphicon glyphicon-floppy-disk"></span> Creación de Siniestro</legend>
         <br/>
         <div class="well form-inline" align="center">
-
             <div class="form-group">
                 <label for="idPoliza">Número de Poliza:</label>
                 <input type="number" class="form-control" id="idPoliza" required="" min="1"/>
             </div>
             <button type="button" class="btn btn-primary" id="btnConsultarPoliza">Consultar</button>
             <div class="form-group">
-                <label for="nroSiniestro">Número de Siniestro:</label>
+                <label for="nroSiniestro">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Número de Siniestro:</label>
+                &nbsp;&nbsp;
                 <label name="nroSiniestro" class="form-control" id="nroSiniestro"></label>
+            </div>
+            <div class="form-group">
+                <button onclick="mostrarDialog()" class="btn btn-link text-right">Mostrar datos del Asegurado.</button>
+                <div id="dialog" title="Datos del Asegurado" hidden="" style="height: 100px">
+                    <ul>
+                        <li id="rutAsegurado"></li>
+                        <li id="nombreAsegurado"></li>
+                        <li id="comunaAsegurado"></li>
+                        <li id="patenteAsegurado"></li>
+                        <li id="modeloAsegurado"></li>
+                        <li id="marcaAsegurado"></li>
+                        <li id="anioAsegurado"></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="well form-horizontal" id="formu_registro_siniestro">
@@ -20,7 +34,8 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        <input name="txtFecha" placeholder="Click acá para seleccionar" class="form-control datepicker" type="date"
+                        <input name="txtFecha" placeholder="Click acá para seleccionar" class="form-control datepicker"
+                               type="text"
                                id="fecha"/>
                     </div>
                 </div>
@@ -30,7 +45,17 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-text-height"></i></span>
-                        <textarea id="txtDetalle" class="form-control" rows="3" style="resize: none;"></textarea>
+                        <textarea id="txtDetalle" class="form-control" rows="1" style="resize: none;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Region</label>
+                <div class="col-md-4 selectContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        <select id="regiones" class="form-control selectpicker">
+                        </select>
                     </div>
                 </div>
             </div>
@@ -39,7 +64,8 @@
                 <div class="col-md-4 selectContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        <select id="ddlComunas" class="form-control selectpicker">
+                        <select id="comunas" class="form-control selectpicker" name="comunas">
+                            <option value="-1">Seleccione una comuna</option>
                         </select>
                     </div>
                 </div>
@@ -63,9 +89,42 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-md-4 control-label">Liquidador</label>
+                <div class="col-md-4 selectContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        <select id="liquidadores" class="form-control selectpicker">
+                            <option value="-1">Seleccione un liquidador</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Taller</label>
+                <div class="col-md-4 selectContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        <select id="talleres" class="form-control selectpicker">
+                            <option value="-1">Seleccione un taller</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Grua</label>
+                <div class="col-md-4 selectContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        <select id="gruas" class="form-control selectpicker">
+                            <option value="-1">Seleccione una grúa</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-4"><br/>
-                    <button type="button" class="btn btn-warning" id="btnCrearSiniestro">Crear Siniestro
+                    <button type="button" class="btn btn-success" id="btnCrearSiniestro">Crear Siniestro
                         <span class="glyphicon glyphicon-send"></span>
                     </button>
                 </div>

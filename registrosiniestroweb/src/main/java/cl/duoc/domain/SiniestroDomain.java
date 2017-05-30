@@ -2,6 +2,8 @@ package cl.duoc.domain;
 
 import cl.duoc.Util.Util;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Jean on 19-05-2017.
  */
@@ -27,8 +29,8 @@ public class SiniestroDomain {
     }
 
     public void setFechaIncidente(String fechaIncidente) {
-
-        this.fechaIncidente = Util.formatearFechaString(Util.formatearFechaSql(fechaIncidente,"yyyy-MM-dd"));
+        //Util.formatearFechaString(Util.formatearFechaSql(fechaIncidente, "yyyy-MM-dd"));
+        this.fechaIncidente = fechaIncidente;
     }
 
     public String getDetalleIncidente() {

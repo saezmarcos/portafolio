@@ -537,15 +537,6 @@ function mostrarTab(tab) {
             success : function (data) {
                 procesando.style.display="none";
                 var response = $.parseJSON(data);
-                var selectHTML = '';
-                $.each(response, function (i, item) {
-                    if(item.activo=="T") {
-                        selectHTML += '<tr><td>' + item.nombre+'</td><td>' + item.rut+'</td><td>' + item.direccion+'</td><td>' + item.comuna.nombre+'</td><td>' + item.perfil.rol+'</td><td>' + item.departamento.nombre+'</td><td>' + item.telefono+'</td><td>' + item.email+'</td><td>' + item.password+'</td><td align="center" style="background-color: darkgreen"><i class="glyphicon glyphicon-ok" style="color: white"></i></td></tr>';
-                    }
-                    else
-                        selectHTML += '<tr><td>' + item.nombre+'</td><td>' + item.rut+'</td><td>' + item.direccion+'</td><td>' + item.comuna.nombre+'</td><td>' + item.perfil.rol+'</td><td>' + item.departamento.nombre+'</td><td>' + item.telefono+'</td><td>' + item.email+'</td><td>' + item.password+'</td><td align="center" style="background-color: red"><i class="glyphicon glyphicon-remove" style="color: white"></i></td></tr>';
-                });
-                $('#table_recors').append(selectHTML);
             },
             beforeSend : function () {
                 procesando.style.display="block";
@@ -565,15 +556,7 @@ function mostrarTab(tab) {
                 success : function (data) {
                     procesando.style.display="none";
                     var response = $.parseJSON(data);
-                    var selectHTML = '';
-                    $.each(response, function (i, item) {
-                        if(item.enUso=="T") {
-                            selectHTML += '<tr><td>' + item.numeroChasis+'</td><td>' + item.patente+'</td><td>' + item.comuna.nombre+'</td><td>' + item.aseguradora.razonSocial+'</td><td align="center" style="background-color: darkgreen"><i class="glyphicon glyphicon-ok" style="color: white"></i></td></tr>';
-                        }
-                        else
-                            selectHTML += '<tr><td>' + item.numeroChasis+'</td><td>' + item.patente+'</td><td>' + item.comuna.nombre+'</td><td>' + item.aseguradora.razonSocial+'</td><td align="center" style="background-color: darkgreen"><i class="glyphicon glyphicon-remove" style="color: white"></i></td></tr>';
-                    });
-                    $('#table_gruas').append(selectHTML);
+
                 },
                 beforeSend : function () {
                     procesando.style.display="block";
@@ -591,12 +574,7 @@ function mostrarTab(tab) {
                 success : function (data) {
                     procesando.style.display="none";
                     var response = $.parseJSON(data);
-                    console.log(response);
-                    var selectHTML = '';
-                    $.each(response, function (i, item) {
-                        selectHTML += '<tr><td>' + item.rutTaller+'</td><td>' + item.nombre+'</td><td>' + item.direccion +'</td><td>' + item.comuna.nombre+'</td><td>' + item.telefono +'</td><td>' + item.email+'</td><td>' + item.aseguradora.razonSocial +'</td></tr>';
-                    });
-                    $('#table_taller').append(selectHTML);
+
                 },
                 beforeSend : function () {
                     procesando.style.display="block";

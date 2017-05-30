@@ -5,9 +5,10 @@ package cl.duoc.controller;
  */
 
 import cl.duoc.Util.Util;
+import cl.duoc.domain.EstadoDomain;
+import cl.duoc.domain.PersonaDomain;
 import cl.duoc.domain.SiniestroDomain;
-import cl.duoc.resources.Comuna;
-import cl.duoc.resources.CreacionUsuario;
+import cl.duoc.resources.*;
 import cl.duoc.services.RegistroSiniestroServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.websocket.server.PathParam;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
@@ -28,10 +31,20 @@ public class CallCenterController {
     public
     @ResponseBody
     String obtenerParametros() {
-        CreacionUsuario listaComunas = new CreacionUsuario();
+        CreacionUsuario datos = new CreacionUsuario();
+        List<Region> regiones = callCenter.obtenerRegiones();
+        List<Provincia> provincias = callCenter.obtenerProvincias();
         List<Comuna> comunas = callCenter.obtenerComunas();
-        listaComunas.setComunas(comunas);
-        String jsonRes = Util.convertirAJson(listaComunas);
+        List<PersonaDomain> personas = callCenter.obtenerPersonas();
+        List<Taller> talleres = callCenter.obtenerTalleres();
+        List<Grua> gruas = callCenter.obtenerGruas();
+        datos.setRegiones(regiones);
+        datos.setProvincias(provincias);
+        datos.setPersonas(personas);
+        datos.setComunas(comunas);
+        datos.setTalleres(talleres);
+        datos.setGruas(gruas);
+        String jsonRes = Util.convertirAJson(datos);
         return jsonRes;
     }
 

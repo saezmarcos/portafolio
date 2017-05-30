@@ -10,7 +10,7 @@ public class Taller {
     private String rutTaller;
     private String nombre;
     private Comuna comuna;
-    private String 
+
 
     public String getRutTaller() {
         return rutTaller;

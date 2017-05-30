@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    console.log('asdasdasdas');
     $.datepicker.regional['es'] = {
         closeText: 'Cerrar',
         prevText: '< Ant',
@@ -18,11 +17,5 @@ $(document).ready(function () {
         yearSuffix: ''
     };
     $.datepicker.setDefaults($.datepicker.regional['es']);
-    $(function () {
-        $("body #fecha").datepicker({
-            minDate: -2
-        });
-        console.log('asdasd');
-    });
 });
 
