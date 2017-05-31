@@ -19,63 +19,55 @@ import javax.websocket.server.PathParam;
  */
 @Controller
 public class registroSiniestroController {
-    @RequestMapping(value = {"/login", "/"}, method = RequestMethod.GET)
-    public String autenticacion() {
-        return ("login");
+    @RequestMapping(value={"/login","/"},method = RequestMethod.GET)
+    public String autenticacion(){
+        return("login");
     }
-
     @Autowired
     private RegistroSiniestroServices registro;
-
     @RequestMapping(value = {"/acceso/usuario/login/"}, method = RequestMethod.GET)
-    public String obtenerAcceso(Model model) {
+    public String obtenerAcceso(Model model)   {
         try {
             Authentication aut = SecurityContextHolder.getContext().getAuthentication();
             Rol acces;
             PersonaDomain p = new PersonaDomain();
-            if (aut.getPrincipal().equals("anonymousUser")) {
+            if(aut.getPrincipal().equals("anonymousUser")) {
                 p.setRut("sinRut");
                 p.setPassword("sinPassword");
-            } else
-                p = registro.obtenerPersona(aut.getName());
-            acces = registro.accesoPersona(p.getRut(), p.getPassword());
-            if (acces.getRol().equals("No existe usuario") || acces.getRol().equals("Usuario No Activo"))
-                model.addAttribute("nombre", acces.getRol());
-            else
-                model.addAttribute("nombre", p.getNombre());
-            //if (acces.getRol().equals("Analista de Negocio")) {
-            //    return "analistaNegocio";
-            //} else {
-            //    if (acces.getRol().equals("CallCenter")) {
-            //        return "callCenter";
-            //    }else
-            //    {
-            //        return "login";
-            //   }
-            //}
-            switch (acces.getRol()) {
-                case "Analista de Negocio":
-                    return "analistaNegocio";
-                case "CallCenter":
-                    return "callCenter";
-                case "Cliente":
-                    return "cliente";
             }
-        } catch (Exception e) {
+            else
+                p =  registro.obtenerPersona(aut.getName());
+            acces=registro.accesoPersona(p.getRut(),p.getPassword());
+            if (acces.getRol().equals("No existe usuario") || acces.getRol().equals("Usuario No Activo") )
+                model.addAttribute("nombre",acces.getRol());
+            else
+                model.addAttribute("nombre",p.getNombre());
+            switch (acces.getRol())
+            {
+                case "Analista de Negocio" : return "analistaNegocio";
+                case "CallCenter" : return "callCenter";
+                case "Liquidador" : return "liquidador";
+                case "Cliente"  :   return "cliente";
+                case "Siniestrador" : return "siniestrador";
+                case "Chofer Grua" : return "chofer";
+                case "Administrador Taller" : return "admTaller";
+                default: return "login";
+            }
+        }
+        catch (Exception e)
+        {
             return "error";
         }
-        return "error";
     }
 
-    @RequestMapping(value = {"/error/"}, method = RequestMethod.GET)
-    public String errorPagina() {
+    @RequestMapping(value={"/error/"},method = RequestMethod.GET)
+    public String errorPagina(){
 
-        return ("login");
+        return("login");
     }
+    @RequestMapping(value={"/logout"},method = RequestMethod.GET)
+    public String salidaPagina(){
 
-    @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
-    public String salidaPagina() {
-
-        return ("login");
+        return("login");
     }
 }

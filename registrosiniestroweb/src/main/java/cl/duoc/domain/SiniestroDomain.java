@@ -29,8 +29,7 @@ public class SiniestroDomain {
     }
 
     public void setFechaIncidente(String fechaIncidente) {
-        //Util.formatearFechaString(Util.formatearFechaSql(fechaIncidente, "yyyy-MM-dd"));
-        this.fechaIncidente = fechaIncidente;
+        this.fechaIncidente = Util.formatearFechaString(Util.formatearFechaSql(fechaIncidente,"yyyy-MM-dd"));
     }
 
     public String getDetalleIncidente() {

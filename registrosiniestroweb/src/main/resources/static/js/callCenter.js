@@ -20,9 +20,11 @@ function limpiar() {
 cargaNavbar();
 $("body").on('click', "#close1", function () {
     modalFinal2.style.display = "none";
+    $("body #crearSiniestro").click();
 });
 $("body").on('click', "#btnCerrar2", function () {
     modalFinal2.style.display = "none";
+    $("body #crearSiniestro").click();
 });
 $("body").on('click', "#btnCerrar1", function () {
     modalError.style.display = "none";
@@ -177,36 +179,24 @@ $('body').on('click', '#btnConsultarPoliza', function () {
                 $("body #modeloAsegurado").text("Modelo: " + idPoliza.vehiculo.modelo.descripcion);
                 $("body #marcaAsegurado").text("Marca: " + idPoliza.vehiculo.modelo.marca.descripcion);
                 $("body #anioAsegurado").text("Año: " + idPoliza.vehiculo.ano);
-                $.ajax({
-                    url: "/callcenter/crear/idSiniestro/",
-                    type: "POST",
-                    success: function (data) {
-                        var nroSiniestro = JSON.parse(data);
-                        //console.log(nroSiniestro);
-                        $("body #nroSiniestro").text(nroSiniestro.id);
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
+                $("body #chasis").val(idPoliza.vehiculo.numeroChasis);
                 $("body #nroBuscado").text(idPoliza.id);
-                $("body #btnConsultarPoliza").prop("disabled", true);
+                $("body #btnCrSi").removeClass("hidden");
+                $("body #labelSini").removeClass("hidden");
+                $("body #datosPer").prop("disabled", false);
             }
         },
         error: function (e) {
-            console.log('error: ' + e);
         }
     });
 });
 $('body').on('click', '#btnCrearSiniestro', function () {
     var id = $("#nroSiniestro").text();
     var fecha = $("#fecha").val();
-    console.log(fecha);
     var detalle = $("#txtDetalle").val();
     var poliza = $("#nroBuscado").text();
     var direccion = $("#txtDireccion").val();
     var comuna = $("#comunas").val();
-
     if (id == "" || fecha == "" || detalle == "" || poliza == "" || direccion == "" || comuna == "") {
         $('#errorModal1').text("Debe llenar todos los campos");
         modalError1.style.display = "block";
@@ -221,38 +211,79 @@ $('body').on('click', '#btnCrearSiniestro', function () {
         idComuna: comuna
     };
     var siniestroParseado = JSON.stringify(siniestro);
-    console.log(siniestroParseado);
     $.ajax({
         data: {siniestro: siniestroParseado},
         url: "/callcenter/crear/siniestro/",
         type: "POST",
         success: function (data) {
-            //if (data == "201") {
-            console.log('correcto');
-            procesando.style.display = "none";
-            $('#confirmacion').text("Se ha guardado correctamente el siniestro");
-            limpiar();
-            modalFinal2.style.display = "block";
-            //}
-            var estado = {
-                idEstado: 1,
-                numeroChasis: polizaConTodosLosDatos.numeroChasis,
-                rutTaller: $("#talleres").val(),
-                idSiniestro: $("#nroSiniestro").text(),
-                costo: "0",
-                fechaIngreso: $("#fecha").val(),
-                fechaEntrega: $("#fecha").val(),
-                rut: $("#liquidadores").val(),
-                tipoEstado: "1"
+            if (data == "201") {
+                var estado = {
+                    idEstado: " ",
+                    numeroChasis: $("#gruas").val(),
+                    rutTaller: $("#talleres").val(),
+                    idSiniestro: $("#nroSiniestro").text(),
+                    costo: 0,
+                    fechaIngreso: $("#fecha").val(),
+                    fechaEntrega: $("#fecha").val(),
+                    rut: $("#liquidadores").val(),
+                    idTipoEstado: 1
+                };
+                var estadoParseado = JSON.stringify(estado);
+
+                $.ajax({
+                    url : "/callcenter/crear/estado/",
+                    type : "POST",
+                    data: {estado: estadoParseado},
+                    error : function () {
+                        $('#errorModal1').text("No se pudo crear el Siniestro, favor inténtelo más tarde");
+                        modalError1.style.display = "block";
+                    },
+                    success : function (data) {
+                        if(data=="201") {
+                            var historia = {
+                                idHistorial: " ",
+                                numeroChasis: $("#gruas").val(),
+                                rutTaller: $("#talleres").val(),
+                                idSiniestro: $("#nroSiniestro").text(),
+                                costo: 0,
+                                descripcion : " ",
+                                idTipoEstado: 1
+                            };
+                            var historialParse = JSON.stringify(historia);
+                            console.log(historia);
+                            $.ajax({
+                                url : "/callcenter/crear/historialestado/",
+                                type : "POST",
+                                data: {historial: historialParse},
+                                error : function () {
+                                    $('#errorModal1').text("No se pudo crear el Siniestro, favor inténtelo más tarde");
+                                    modalError1.style.display = "block";
+                                },
+                                success : function (data) {
+                                    if(data=="201") {
+                                        procesando.style.display = "none";
+                                        $('#confirmacion').text("Se ha guardado correctamente el siniestro");
+                                        limpiar();
+                                        modalFinal2.style.display = "block";
+                                    }else
+                                    {
+                                        $('#errorModal1').text("No se pudo crear el Siniestro, favor inténtelo más tarde");
+                                        modalError1.style.display = "block";
+                                    }
+                                }
+                            });
+                        }else
+                        {
+                            $('#errorModal1').text("No se pudo crear el Siniestro, favor inténtelo más tarde");
+                            modalError1.style.display = "block";
+                        }
+                    }
+                });
             }
-            var estadoParseado = JSON.stringify(estado);
-            $.ajax({
-                data: {estado: estadoParseado}
-            });
         },
         error: function (e) {
-            console.log('error');
-            console.log(e);
+            $('#errorModal1').text("No se pudo crear el Siniestro, favor inténtelo más tarde");
+            modalError1.style.display = "block";
         }
     });
 });
@@ -288,7 +319,6 @@ $("body").on('change', "#regiones", function () {
                 $('#comunas').append(selectHTML);
                 selectHTML = '';
                 $.each(personas, function (i, item) {
-                    //console.log(item.perfil.rol);
                     if (item.perfil.rol == 'Liquidador') {
                         if (item.comuna.provincia.region.idRegion == $("body #regiones").val()) {
                             selectHTML += '<option value="' + item.rut + '">' + item.nombre + '</option>';
@@ -323,23 +353,27 @@ $("body").on('change', "#regiones", function () {
         }
     });
 });
-$('body').on('click', '#fecha', function () {
-    $("body #fecha").datepicker({
-        dateFormat: 'dd-mm-yy',
-        minDate: -2
-    });
-    var estado = {
-        idEstado: 1,
-        numeroChasis: polizaConTodosLosDatos.numeroChasis,
-        rutTaller: $("#talleres").val(),
-        idSiniestro: $("#nroSiniestro").text(),
-        costo: "0",
-        fechaIngreso: $("#fecha").val(),
-        fechaEntrega: $("#fecha").val(),
-        rut: $("#liquidadores").val(),
-        tipoEstado: "1"
-    }
-    var estadoParseado = JSON.stringify(estado);
-    console.log(estado.toString());
-    console.log(estadoParseado);
+$('body').on('click', '#btnCrSi',function () {
+    $.ajax({
+        url: "/callcenter/crear/idSiniestro/",
+        type: "POST",
+        success: function (data) {
+            var nroSiniestro = JSON.parse(data);
+            $("body #nroSiniestro").text(nroSiniestro.id);
+
+            $("body #btnConsultarPoliza").prop("disabled", true);
+            $("body #btnCrSi").prop("disabled", true);
+            $("body #formu_registro_siniestro").removeClass("hidden");
+            $("body #idPoliza").prop("disabled", true);
+            $("body #btnConsultarPoliza").prop("disabled", true);
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    })
+});
+$("body").on("click", "#idPoliza",function () {
+    $("body #btnCrSi").addClass("hidden");
+    $("body #labelSini").addClass("hidden");
+    $("body #datosPer").prop("disabled", true);
 });

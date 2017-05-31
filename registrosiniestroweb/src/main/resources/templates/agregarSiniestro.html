@@ -8,13 +8,14 @@
                 <input type="number" class="form-control" id="idPoliza" required="" min="1"/>
             </div>
             <button type="button" class="btn btn-primary" id="btnConsultarPoliza">Consultar</button>
-            <div class="form-group">
+            <button type="button" class="btn btn-primary hidden" id="btnCrSi">Pinche aquí para crear Siniestro</button>
+            <div class="form-group hidden" id="labelSini">
                 <label for="nroSiniestro">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Número de Siniestro:</label>
                 &nbsp;&nbsp;
-                <label name="nroSiniestro" class="form-control" id="nroSiniestro"></label>
+                <label name="nroSiniestro" class="form-control" id="nroSiniestro">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             </div>
             <div class="form-group">
-                <button onclick="mostrarDialog()" class="btn btn-link text-right">Mostrar datos del Asegurado.</button>
+                <button onclick="mostrarDialog()" class="btn btn-link text-right" disabled="true" id="datosPer">Mostrar datos del Asegurado.</button>
                 <div id="dialog" title="Datos del Asegurado" hidden="" style="height: 100px">
                     <ul>
                         <li id="rutAsegurado"></li>
@@ -28,14 +29,14 @@
                 </div>
             </div>
         </div>
-        <div class="well form-horizontal" id="formu_registro_siniestro">
+        <div class="well form-horizontal hidden" id="formu_registro_siniestro">
             <div class="form-group">
                 <label class="col-md-4 control-label">Fecha del incidente</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         <input name="txtFecha" placeholder="Click acá para seleccionar" class="form-control datepicker"
-                               type="text"
+                               type="date"
                                id="fecha"/>
                     </div>
                 </div>

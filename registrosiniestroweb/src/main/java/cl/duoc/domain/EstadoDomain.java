@@ -6,20 +6,14 @@ import cl.duoc.Util.Util;
  * Created by Jean on 27-05-2017.
  */
 public class EstadoDomain {
-    private int idEstado;
+    private Long idEstado;
     private String numeroChasis, rutTaller;
-    private int idSiniestro, costo;
+    private Long idSiniestro, costo;
     private String fechaIngreso, fechaEntrega;
     private String rut;
-    private String tipoEstado;
+    private Long idTipoEstado;
 
-    public int getIdEstado() {
-        return idEstado;
-    }
 
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
-    }
 
     public String getNumeroChasis() {
         return numeroChasis;
@@ -37,19 +31,27 @@ public class EstadoDomain {
         this.rutTaller = rutTaller;
     }
 
-    public int getIdSiniestro() {
+    public Long getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Long idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public Long getIdSiniestro() {
         return idSiniestro;
     }
 
-    public void setIdSiniestro(int idSiniestro) {
+    public void setIdSiniestro(Long idSiniestro) {
         this.idSiniestro = idSiniestro;
     }
 
-    public int getCosto() {
+    public Long getCosto() {
         return costo;
     }
 
-    public void setCosto(int costo) {
+    public void setCosto(Long costo) {
         this.costo = costo;
     }
 
@@ -77,11 +79,11 @@ public class EstadoDomain {
         this.rut = rut;
     }
 
-    public String getTipoEstado() {
-        return tipoEstado;
+    public Long getIdTipoEstado() {
+        return idTipoEstado;
     }
 
-    public void setTipoEstado(String tipoEstado) {
-        this.tipoEstado = tipoEstado;
+    public void setIdTipoEstado(Long idTipoEstado) {
+        this.idTipoEstado = idTipoEstado;
     }
 }

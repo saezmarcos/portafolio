@@ -3,7 +3,7 @@
         <fieldset>
             <ul class="nav nav-tabs" id="vinetas">
                 <li class="active usuariosTab"><a data-toggle="tab" href="#tab_usuarios" class="lisUsr" onclick="mostrarTab(0);">Listado de Usuarios</a></li>
-                <li class="gruasTab"><a data-toggle="tab" href="#tab_gruas" onclick="mostrarTab(1);">Listado de Gruas</a></li>
+                <li class="gruasTab"><a data-toggle="tab" href="#tab_gruas" class="lisLiq" onclick="mostrarTab(1);">Listado de Grúas</a></li>
                 <li class="talleresTab"><a data-toggle="tab" href="#tab_talleres" onclick="mostrarTab(2);">Listado de Talleres</a></li>
             </ul>
             <div class="tab-content">
@@ -12,15 +12,15 @@
                         <div class="form-group">&nbsp;&nbsp;&nbsp;&nbsp;
                             <legend>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-list"></span> Listado de Usuarios</legend>
                         </div>
-                        <table id="table_recors" class="table table-bordered table-sm m-0" >
+                        <table id="table_recors" class="table table-bordered table-sm m-4" >
                             <tr>
-                                <th class="success">Nombre&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th class="success">Rut&nbsp;</th>
+                                <th class="success">Nombre&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th class="success">Rut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th class="success">Direccion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th class="success">Comuna&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th class="success">Perfil&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th class="success">Departamento&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th class="success">Teléfono&nbsp;</th>
+                                <th class="success">Teléfono&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th class="success">Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th class="success">Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th class="success">Activo&nbsp;</th>
@@ -31,15 +31,15 @@
                 <div id="tab_gruas" class="tab-pane fade">
                     <div class="form-horizontal">
                         <div class="form-group">&nbsp;&nbsp;&nbsp;&nbsp;
-                            <legend>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-list"></span> Listado de Gruas</legend>
+                            <legend>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-list"></span> Listado de Grúas</legend>
                         </div>
                         <table id="table_gruas" class="table table-bordered table-sm m-0" >
                             <tr >
                                 <th class="success">Nro Chasis&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th class="success">Patente&nbsp;</th>
                                 <th class="success">Comuna&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th class="success">Rut Aseguradora&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th class="success">Disponible / En Uso&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th class="success">Aseguradora&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th class="success">Disponible&nbsp;&nbsp;&nbsp;&nbsp;</th>
                             </tr>
                         </table>
                     </div>
@@ -57,7 +57,7 @@
                                 <th class="success">Comuna&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th class="success">Teléfono&nbsp;</th>
                                 <th class="success">Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th class="success">Rut Aseguradora&nbsp;</th>
+                                <th class="success">Aseguradora&nbsp;</th>
                             </tr>
                         </table>
                     </div>

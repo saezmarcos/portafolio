@@ -58,6 +58,12 @@ public class RegistroSiniestroServices {
     private String urlRegiones;
     @Value(("${ws.obtener.provincias}"))
     private String urlProvincias;
+    @Value(("${ws.crear.historial}"))
+    private String urlCrearHistorial;
+    @Value(("${ws.crear.grua}"))
+    private String urlCrearGrua;
+    @Value(("${ws.crear.taller}"))
+    private String urlCrearTaller;
 
     public Rol accesoPersona(String rut, String password) {
         ObjectMapper mapper = new ObjectMapper();
@@ -363,7 +369,7 @@ public class RegistroSiniestroServices {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<String>(siniestro, headers);
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearEstado);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearSiniestro);
         ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
         return "" + response.getStatusCodeValue();
 
@@ -377,7 +383,7 @@ public class RegistroSiniestroServices {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<String>(estado, headers);
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearSiniestro);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearEstado);
         ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
         return "" + response.getStatusCodeValue();
 
@@ -434,6 +440,47 @@ public class RegistroSiniestroServices {
                 throw new RuntimeException("Error");
         }
         return com;
+
+    }
+
+    public String crearHistorial(String historial) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(historial, headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearHistorial);
+        ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
+        return "" + response.getStatusCodeValue();
+
+    }
+    public String crearGrua(String grua) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(grua, headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearGrua);
+        ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
+        return "" + response.getStatusCodeValue();
+
+    }
+
+    public String crearTaller(String taller) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(taller, headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearTaller);
+        ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
+        return "" + response.getStatusCodeValue();
 
     }
 }
