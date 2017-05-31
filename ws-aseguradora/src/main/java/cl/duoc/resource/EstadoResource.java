@@ -22,7 +22,7 @@ public class EstadoResource implements Serializable{
     @Column(name = "rut_taller")
     private String rutTaller;
     @Column (name = "numero_chasis")
-    private Long numeroChasis;
+    private String numeroChasis;
     private String rut;
     @Column(name="id_tipo_estado")
     private Long idTipoEstado;
@@ -56,11 +56,11 @@ public class EstadoResource implements Serializable{
         this.rutTaller = rutTaller;
     }
 
-    public Long getNumeroChasis() {
+    public String getNumeroChasis() {
         return numeroChasis;
     }
 
-    public void setNumeroChasis(Long numeroChasis) {
+    public void setNumeroChasis(String numeroChasis) {
         this.numeroChasis = numeroChasis;
     }
 

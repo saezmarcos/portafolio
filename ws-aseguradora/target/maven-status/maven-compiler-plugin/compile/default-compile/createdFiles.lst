@@ -1,3 +1,4 @@
+cl\duoc\resource\GruaResource.class
 cl\duoc\domain\Estado.class
 cl\duoc\domain\Provincias.class
 cl\duoc\dao\TallerDAO.class
@@ -10,6 +11,7 @@ cl\duoc\domain\Marca.class
 cl\duoc\dao\PersonaResouceDAO.class
 cl\duoc\dao\RegionesDAO.class
 cl\duoc\domain\Vehiculo.class
+cl\duoc\resource\TallerResource.class
 cl\duoc\services\DatosServicesImpl.class
 cl\duoc\resource\IdSiniestroResource.class
 cl\duoc\domain\FotoEvidSiniestro.class
@@ -32,10 +34,12 @@ cl\duoc\domain\TipoEstado.class
 cl\duoc\resource\EstadoResource.class
 cl\duoc\domain\HistorialEstado.class
 cl\duoc\dao\RecepcionDAO.class
+cl\duoc\dao\TallerResourceDAO.class
 cl\duoc\domain\Persona.class
 cl\duoc\domain\Grua.class
 cl\duoc\domain\Aseguradora.class
 cl\duoc\resource\PersonaResouce.class
+cl\duoc\dao\GruaResourceDAO.class
 cl\duoc\domain\Departamento.class
 cl\duoc\services\DatosServicesInterface.class
 cl\duoc\dao\TipoSeguroDAO.class

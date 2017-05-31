@@ -16,7 +16,7 @@ public class HistorialEstado implements Serializable {
     @SequenceGenerator(name="SEQ_ID_ESTADO_HISTORIAL",sequenceName="SEQ_ID_ESTADO_HISTORIAL", allocationSize=1)
     private Long idHistorial;
     @Column(name = "numero_chasis")
-    private Long numeroChasis;
+    private String numeroChasis;
     @Column (name = "rut_taller")
     private String rutTaller;
     private Long costo;
@@ -34,11 +34,11 @@ public class HistorialEstado implements Serializable {
         this.idHistorial = idHistorial;
     }
 
-    public Long getNumeroChasis() {
+    public String getNumeroChasis() {
         return numeroChasis;
     }
 
-    public void setNumeroChasis(Long numeroChasis) {
+    public void setNumeroChasis(String numeroChasis) {
         this.numeroChasis = numeroChasis;
     }
 

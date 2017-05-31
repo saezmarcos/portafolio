@@ -3,10 +3,7 @@ package cl.duoc.controller;
 import cl.duoc.dao.*;
 import cl.duoc.dao.FotoEvidSiniestroDAO;
 import cl.duoc.domain.*;
-import cl.duoc.resource.EstadoResource;
-import cl.duoc.resource.IdSiniestroResource;
-import cl.duoc.resource.PersonaResouce;
-import cl.duoc.resource.SiniestroResource;
+import cl.duoc.resource.*;
 import cl.duoc.services.*;
 import cl.duoc.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -276,11 +273,10 @@ public class AseguradoraController {
 
     @Autowired
     private EstadoResourceDAO estadoAgr;
-
     //metodo agrega una estado
     @RequestMapping(value = "/agregarEstado", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public EstadoResource addRecepcion(@RequestBody EstadoResource estado) {
+    public EstadoResource addEstados(@RequestBody EstadoResource estado) {
         return estadoAgr.save(estado);
     }
 
@@ -304,5 +300,22 @@ public class AseguradoraController {
     @ResponseStatus(HttpStatus.CREATED)
     public HistorialEstado addHistorial(@RequestBody HistorialEstado estado) {
         return h.save(estado);
+    }
+
+    //metodo agrega una grua grua
+    @Autowired
+    private GruaResourceDAO agrGrua;
+    @RequestMapping(value = "/agregarGrua", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public GruaResource addGrua(@RequestBody GruaResource grua) {
+        return agrGrua.save(grua);
+    }
+
+    @Autowired
+    private TallerResourceDAO agrTaller;
+    @RequestMapping(value = "/agregarTaller", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public TallerResource addTaller(@RequestBody TallerResource taller) {
+        return agrTaller.save(taller);
     }
 }
