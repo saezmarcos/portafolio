@@ -117,4 +117,17 @@ public class AdmTallerController {
             return "Error";
         }
     }
+
+    @RequestMapping(value = {"/administradorTaller/carga/creaPresupuesto/"},method = RequestMethod.POST)
+    public String cargarPresupuestoModal()
+    {
+        try
+        {
+            return "presupuesto";
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
 }

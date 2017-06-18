@@ -5,7 +5,7 @@
 
 var modalError=document.getElementById("myModalError");
 var procesando=document.getElementById("processing-modal");
-var modalTaller=document.getElementById("myModalTaller");
+var modalPresupuesto=document.getElementById("myModalPresupuesto");
 var modalChofer=document.getElementById("myModalChofer");
 var modalFinalModif= document.getElementById("myModalFinalModif");
 var modalFinalGrua= document.getElementById("myModalFinalGrua");
@@ -16,36 +16,31 @@ var modalError1=document.getElementById("myModalError1");
 var modalFinal=document.getElementById("myModalFinal");
 var modalFinal2=document.getElementById("myModalFinal2");
 cargaNavbar();
+$("body").on('click','#closes',function () {
+    $("body #presupuesto").click();
+});
 $('body').on('click','#listSiniestro',function () {
     $('body #recepcion').remove();
-    $('body #creaUsuario').remove();
-    $('body #listadoUsuario').remove();
-    $('body #creaGrua').remove();
-    $('body #creaTaller').remove();
     cargarSiniestros();
 });
 $('body').on('click','#presupuesto',function () {
-    $('body #modificaUsuario').remove();
-    $('body #creaUsuario').remove();
-    $('body #listadoUsuario').remove();
-    $('body #creaGrua').remove();
-    $('body #creaTaller').remove();
-    cargarModificar();
+    $('body #recepcion').remove();
+    cargarPresupuesto();
 });
-$('body').on('click','#reparacion',function () {
-    $('body #listadoUsuario').remove();
-    $('body #modificaUsuario').remove();
-    $('body #creaUsuario').remove();
-    $('body #creaGrua').remove();
-    $('body #creaTaller').remove();
-    cargarListar();
+$('body').on('click','#finalizar',function () {
+    $('body #recepcion').remove();
+    cargarFinalizar();
 });
-$("body").on("click", ".close", function () {
-   modalRecepcion.style.display="none";
-   modalError1.style.display = "none";
-    modalFinal2.style.display = "none";
+$("body").on("click", "#close1", function () {
    $("body #listSiniestro").click();
 });
+$("body").on("click", ".close", function () {
+    modalRecepcion.style.display="none";
+    modalError1.style.display = "none";
+    modalFinal2.style.display = "none";
+    modalPresupuesto.style.display="none";
+});
+
 $("body").on("click","#btnCerrar1", function () {
     modalError1.style.display = "none";
 });
@@ -132,16 +127,9 @@ function cargaActa(item) {
         success : function (data) {
             $("#creaRecepcion").empty();
             $("#creaRecepcion").append(data);
-            var d1 = new Date();
-            var y1= d1.getFullYear();
-            var m1 = d1.getMonth()+1;
-            if(m1<10)
-                m1="0"+m1;
-            var dt1 = d1.getDate();
-            if(dt1<10)
-                dt1 = "0"+dt1;
-            var d2 = y1+"-"+m1+"-"+dt1;
-            $("#fechaIngresoM").val(d2);
+
+            $("#fechaIngresoM").val(hoy());
+            console.log($("#fechaIngresoM").val());
             var idSiniestro= item.find('td:eq(0)').text();
             $.ajax({
                 url : "/administradorTaller/obtener/siniestro/",
@@ -187,6 +175,7 @@ function cargaActa(item) {
                                     procesando.style.display="none";
                                     if (data=="201")
                                     {
+                                        var fe=item.find('td:eq(6)').text();
                                         var estado = {
                                             idEstado: item.find('td:eq(2)').text(),
                                             idTipoEstado: 3,
@@ -194,8 +183,8 @@ function cargaActa(item) {
                                             idSiniestro : idSiniestro,
                                             rut : item.find('td:eq(3)').text(),
                                             rutTaller : item.find('td:eq(1)').text(),
-                                            fechaIngreso : item.find('td:eq(6)').text(),
-                                            fechaEntrega : item.find('td:eq(6)').text(),
+                                            fechaIngreso : toDate(fe),
+                                            fechaEntrega : toDate(fe),
                                             numeroChasis : item.find('td:eq(4)').text()
 
                                         };
@@ -206,6 +195,7 @@ function cargaActa(item) {
                                             type : "POST",
                                             data: {estado: estadoParseado},
                                             error : function () {
+                                                modalRecepcion.style.display="none";
                                                 $('#errorModal1').text("No se pudo crear el Acta Recepción, favor inténtelo más tarde");
                                                 modalError1.style.display = "block";
                                             },
@@ -221,7 +211,6 @@ function cargaActa(item) {
                                                         idTipoEstado: 3
                                                     };
                                                     var historialParse = JSON.stringify(historia);
-                                                    console.log(historia);
                                                     $.ajax({
                                                         url : "/administradorTaller/crear/historialestado/",
                                                         type : "POST",
@@ -247,15 +236,23 @@ function cargaActa(item) {
                                                     });
                                                 }else
                                                 {
+                                                    modalRecepcion.style.display="none";
                                                     $('#errorModal1').text("No se pudo crear el Acta Recepción, favor inténtelo más tarde");
                                                     modalError1.style.display = "block";
                                                 }
                                             }
                                         });
                                     }
+                                    else {
+                                        modalRecepcion.style.display="none";
+                                        $('#errorModal1').text("No se pudo crear el Acta Recepción, favor inténtelo más tarde");
+                                        modalError1.style.display = "block";
+                                    }
                                 },
                                 error : function () {
-
+                                    modalRecepcion.style.display="none";
+                                    $('#errorModal1').text("No se pudo crear el Acta Recepción, favor inténtelo más tarde");
+                                    modalError1.style.display = "block";
                                 },
                                 beforeSend : function () {
                                     procesando.style.display="block";
@@ -271,4 +268,73 @@ function cargaActa(item) {
         }
     });
 }
+function cargarPresupuesto() {
+    $.ajax({
+        url : "/administradortaller/cargar/recepcion/",
+        type : "POST",
+        error : function () {
 
+        },
+        success : function (data) {
+            $("body #administradorTaller").append(data);
+            $.ajax({
+                url : "/administradortaller/buscar/siniestros/",
+                type : "POST",
+                data : {rut : $("body #rut").val()},
+                error : function () {
+
+                },
+                success : function (data) {
+                    procesando.style.display="none";
+                    var response=$.parseJSON(data);
+
+                    $.each($("#table_recors tr"),function (i,item) {
+                        if(i>0)
+                            this.remove();
+                    });
+                    var tdHTML = "";
+                    $.each(response,function (i,item) {
+                        if (item.tipoEstado.idTipoEstado == 3)
+                            tdHTML +='<tr><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td><a href="#" onclick="cargaPresupuestoModal($(this).parent().parent());">Generar Presupuesto</a></td></tr>';
+                    });
+                    $('body #table_recors').append(tdHTML);
+
+                },
+                beforeSend : function () {
+                    procesando.style.display="block";
+                }
+            });
+        }
+    });
+}
+function cargaPresupuestoModal() {
+    $.ajax({
+        url : "/administradorTaller/carga/creaPresupuesto/",
+        type : "POST",
+        error : function () {
+            
+        },
+        success : function (data) {
+            $("body #creaPresupuestos").empty();
+            $("body #creaPresupuestos").append(data);
+            modalPresupuesto.style.display="block";
+        }
+    });  
+}
+function toDate(selector) {
+    console.log(selector);
+    var from =selector.split("-");
+    return new Date(from[2], from[1] - 1, from[0]);
+}
+function hoy() {
+    var d1 = new Date();
+    var y1= d1.getFullYear();
+    var m1 = d1.getMonth()+1;
+    if(m1<10)
+        m1="0"+m1;
+    var dt1 = d1.getDate();
+    if(dt1<10)
+        dt1 = "0"+dt1;
+    var d2 = y1+"-"+m1+"-"+dt1;
+    return d2;
+}
