@@ -4,6 +4,7 @@ import cl.duoc.util.Util;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Usuario on 24-04-2017.
@@ -45,9 +46,7 @@ public class Recepcion implements Serializable{
         return Util.formatearFechaString(Util.formatearFechaSql(fechaIngreso,"yyyy-MM-dd"));
     }
 
-    public void setFechaIngreso(String fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
+
 
     public String getNombreConductor() {
         return nombreConductor;
@@ -104,4 +103,9 @@ public class Recepcion implements Serializable{
     public void setIdSiniestro(Long idSiniestro) {
         this.idSiniestro = idSiniestro;
     }
+
+    public void setFechaIngreso(String fechaIngreso) {
+        this.fechaIngreso = Util.formatearFechaString(Util.formatearFechaSql(fechaIngreso,"yyyy-MM-dd"));
+    }
+
 }

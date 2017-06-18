@@ -9,13 +9,16 @@ cl\duoc\util\Util.class
 cl\duoc\dao\ComunaDAO.class
 cl\duoc\domain\Marca.class
 cl\duoc\dao\PersonaResouceDAO.class
+cl\duoc\domain\PagoSiniestro.class
 cl\duoc\dao\RegionesDAO.class
 cl\duoc\domain\Vehiculo.class
 cl\duoc\resource\TallerResource.class
 cl\duoc\services\DatosServicesImpl.class
 cl\duoc\resource\IdSiniestroResource.class
 cl\duoc\domain\FotoEvidSiniestro.class
+cl\duoc\dao\LogsDAO.class
 cl\duoc\resource\SiniestroResource.class
+cl\duoc\domain\Prima.class
 cl\duoc\domain\Rol.class
 cl\duoc\dao\ProvinciasDAO.class
 cl\duoc\dao\AdmTallerDAO.class
@@ -33,6 +36,7 @@ cl\duoc\dao\PerfilDAO.class
 cl\duoc\domain\TipoEstado.class
 cl\duoc\resource\EstadoResource.class
 cl\duoc\domain\HistorialEstado.class
+cl\duoc\domain\Logs.class
 cl\duoc\dao\RecepcionDAO.class
 cl\duoc\dao\TallerResourceDAO.class
 cl\duoc\domain\Persona.class
@@ -50,6 +54,7 @@ cl\duoc\controller\AseguradoraController.class
 cl\duoc\domain\TipoSeguro.class
 cl\duoc\dao\AseguradoraDAO.class
 cl\duoc\dao\SiniestroDAO.class
+cl\duoc\dao\PagoSiniestroDAO.class
 cl\duoc\domain\AdmTaller.class
 cl\duoc\dao\PolizaDAO.class
 cl\duoc\domain\Perfil.class
@@ -57,3 +62,4 @@ cl\duoc\domain\Regiones.class
 cl\duoc\dao\PersonaDAO.class
 cl\duoc\domain\Recepcion.class
 cl\duoc\domain\Modelo.class
+cl\duoc\dao\PrimaDAO.class

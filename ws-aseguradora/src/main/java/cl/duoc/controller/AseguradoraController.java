@@ -260,12 +260,23 @@ public class AseguradoraController {
     @Autowired
     private EstadoDAO estados;
     //metodo que retorna  estados
-    @RequestMapping(value = "/estados", method = RequestMethod.GET)
-    public List<Estado> getEstados(@PathParam("idSiniestro") String idSiniestro) {
+    @RequestMapping(value = "/estadosPorSiniestro", method = RequestMethod.GET)
+    public List<Estado> getEstadosSiniestros(@PathParam("idSiniestro") String idSiniestro) {
         List<Estado> et = estados.findAll();
         List<Estado> est = new ArrayList<>();
         for (Estado es : et) {
             if (es.getIdSiniestro().toString().equals(idSiniestro))
+                est.add(es);
+        }
+        return est;
+    }
+
+    @RequestMapping(value = "/estados", method = RequestMethod.GET)
+    public List<Estado> getEstados(@PathParam("rutTaller") String rutTaller) {
+        List<Estado> et = estados.findAll();
+        List<Estado> est = new ArrayList<>();
+        for (Estado es : et) {
+            if (es.getTaller().getRutTaller().equals(rutTaller))
                 est.add(es);
         }
         return est;
@@ -317,5 +328,31 @@ public class AseguradoraController {
     @ResponseStatus(HttpStatus.CREATED)
     public TallerResource addTaller(@RequestBody TallerResource taller) {
         return agrTaller.save(taller);
+    }
+
+    @Autowired
+    private PrimaDAO prima;
+    @RequestMapping(value = "/prima", method = RequestMethod.GET)
+    public Prima getPrima(@PathParam("idPago") String idPago)
+    {
+        return prima.findOne(Long.parseLong(idPago));
+    }
+
+    @Autowired
+    private PagoSiniestroDAO pagoSiniestro;
+    @RequestMapping(value = "/agregarPagoSiniestro", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public PagoSiniestro addPago(@RequestBody PagoSiniestro pago)
+    {
+        return pagoSiniestro.save(pago);
+    }
+
+    @Autowired
+    private LogsDAO logss;
+    @RequestMapping(value = "/agregarLogs", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Logs addLogs(@RequestBody Logs logs)
+    {
+        return logss.save(logs);
     }
 }

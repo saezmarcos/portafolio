@@ -10,10 +10,13 @@ C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Histor
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\resource\PersonaResouce.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\EstadoDAO.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Rol.java
+C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\PrimaDAO.java
+C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\LogsDAO.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\services\DatosServicesInterface.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\services\DatosServicesImpl.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Vehiculo.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\AdmTallerDAO.java
+C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Prima.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\GruaDAO.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\PersonaResouceDAO.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\resource\GruaResource.java
@@ -23,6 +26,7 @@ C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\WsAseguradora
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\SiniestroDAO.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Regiones.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\FotoEvidSiniestroDAO.java
+C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Logs.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Provincias.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\controller\AseguradoraController.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\TipoEstadoDAO.java
@@ -47,6 +51,7 @@ C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\resource\Esta
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\ProvinciasDAO.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Recepcion.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\TipoSeguroDAO.java
+C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\PagoSiniestro.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Estado.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Taller.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Siniestro.java
@@ -57,3 +62,4 @@ C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\TipoEs
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\SiniestroResourceDAO.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\GruaResourceDAO.java
 C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\domain\Persona.java
+C:\Users\Usuario\IdeaProjects\ws-aseguradora\src\main\java\cl\duoc\dao\PagoSiniestroDAO.java
