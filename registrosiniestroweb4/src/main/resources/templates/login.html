@@ -1,0 +1,146 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Aseguradora Antártica</title>
+	<link rel="stylesheet" type="text/css" href="/css/modales.css" />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+	<link type="text/css" href="/css/css.css" />
+	<style rel="stylesheet" type="text/css">
+		@import url('/css/css.css');
+		@import url('/css/css.css');
+
+		body, html {
+			height: 100%;
+			background-repeat: no-repeat;    /*background-image: linear-gradient(rgb(12, 97, 33),rgb(104, 145, 162));*/
+			background:black;
+			position: relative;
+		}
+		#login-box {
+			position: absolute;
+			top: 0px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 350px;
+			margin: 0 auto;
+			border: 1px solid black;
+			background: rgba(48, 46, 45, 1);
+			min-height: 250px;
+			padding: 20px;
+			z-index: 9999;
+		}
+		#login-box .logo .logo-caption {
+			font-family: 'Poiret One', cursive;
+			color: white;
+			text-align: center;
+			margin-bottom: 0px;
+		}
+		#login-box .logo .tweak {
+			color: #ff5252;
+		}
+		#login-box .controls {
+			padding-top: 30px;
+		}
+		#login-box .controls input {
+			border-radius: 0px;
+			background: rgb(98, 96, 96);
+			border: 0px;
+			color: white;
+			font-family: 'Nunito', sans-serif;
+		}
+		#login-box .controls input:focus {
+			box-shadow: none;
+		}
+		#login-box .controls input:first-child {
+			border-top-left-radius: 2px;
+			border-top-right-radius: 2px;
+		}
+		#login-box .controls input:last-child {
+			border-bottom-left-radius: 2px;
+			border-bottom-right-radius: 2px;
+		}
+		#login-box button.btn-custom {
+			border-radius: 2px;
+			margin-top: 8px;
+			background:#ff5252;
+			border-color: rgba(48, 46, 45, 1);
+			color: white;
+			font-family: 'Nunito', sans-serif;
+		}
+		#login-box button.btn-custom:hover{
+			-webkit-transition: all 500ms ease;
+			-moz-transition: all 500ms ease;
+			-ms-transition: all 500ms ease;
+			-o-transition: all 500ms ease;
+			transition: all 500ms ease;
+			background: rgba(48, 46, 45, 1);
+			border-color: #ff5252;
+		}
+		#particles-js{
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			background-position: 50% 50%;
+			position: fixed;
+			top: 0px;
+			z-index:1;
+		}
+	</style>
+	<script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js" ></script>
+</head>
+<body>
+<div class="container">
+	<div id="login-box">
+		<div class="logo">
+			<img src="/img/reparacion.jpg" class="img img-responsive img-circle center-block"/>
+			<h1 class="logo-caption"><span class="tweak">A</span>cceso</h1>
+		</div><!-- /.logo -->
+		<div class="controls">
+			<form th:action="@{/login}" method="POST">
+				<input type="text" name="rut" placeholder="RUT" class="form-control" id="rutLogin" required="true"/>
+				<input type="password" name="password" placeholder="Password" class="form-control" id="passwordLogin" required="true"/>
+				<button type="submit" class="btn btn-default btn-block btn-custom" id="login_">Acceder</button>
+			</form>
+		</div>&nbsp;<!-- /.controls -->
+		<div class="alert alert-danger hidden">
+			<strong>Rut o Password Erroneas!</strong>
+		</div>
+		<div class="alert alert-warning hidden">
+			<strong>Usuario No Activo!</strong>
+		</div>
+	</div><!-- /#login-box -->
+
+	<label th:text="${nombre}" class="hidden" id="nombre"></label>
+</div><!-- /.container -->
+<div id="particles-js"></div>
+<div id="myModalError" class="modal">
+	<div class="modal-dialog">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal-headerError text-center">
+				<button type="button" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
+				<h4>Error de Acceso</h4>
+			</div>
+			<div class="modal-bodyError text-center">
+				<h2><p id="errorModal"/></h2>
+				<button type="button" id="btnCerrar1" class="btn btn-danger  cerrar btn-lg">Volver</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal" id="processing-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<img src="/img/loading.gif" class="icon" />
+					<h4>Procesando... </h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="/js/js.js"></script>
+</html>

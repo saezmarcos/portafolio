@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Aseguradora Antártica</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/css/modales.css" rel="stylesheet"/>
+	<script src="/js/jquery-1.11.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	
+</head>
+<body>
+<div id="myModalError" class="modal" style="display: block">
+	<div class="modal-dialog">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal-headerError text-center">
+				<form action="/error/" method="get">
+					<button type="submit" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
+				</form>
+				<h4>Mensaje de Error</h4>
+			</div>
+			<form action="/error/" method="get">
+				<div class="modal-bodyError text-center">
+					<h3>Se produjo un error inesperado, favor revise que exista conexión al módulo de servicios</h3>
+					<button type="submit" id="btnCerrar1" class="btn btn-danger  cerrar btn-lg">Salir</button>
+				</div>
+			</form>
+			<div class="modal-footerError">
+				<h4>Contacte al administrador del sistema</h4>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

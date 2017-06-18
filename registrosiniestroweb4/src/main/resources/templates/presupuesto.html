@@ -1,0 +1,48 @@
+<div class="container table table-responsive" id="modalPresupuesto">
+    <div class="row">
+        <form class="form-horizontal">
+            <!-- Form Name -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tipoReparacion">Tipo de Reparación</label>
+                <div class="col-md-4">
+                    <input id="tipoReparacion" name="requestName" placeholder="Descripción de Reparaciones" class="form-control input-md" required="" type="textarea" maxlength="200"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechaEntregaM">Fecha Entrega</label>
+                <div class="col-md-4">
+                    <input id="fechaEntregaM" name="fechaEntregaM"  class="form-control input-md" type="date" required="" min="today" />
+                </div>
+            </div>
+            <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tiempoAsociado">Tiempo Asociado </label>
+                <div class="col-md-4">
+                    <input id="tiempoAsociado" name="tiempoAsociado" placeholder="Teléfono Conductor" class="form-control input-md" readonly="true"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="costo">Costo de Reparación </label>
+                <div class="col-md-4">
+                    <input id="costo" name="costo" placeholder="Costo de Reparación" class="form-control input-md" required="" type="number" min="1" />
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="btnCrearPresupuesto"></label>
+                <div class="col-md-4">
+                    <a href="#" class="btn btn-primary" name="btnCrearPresupuesto" id="btnCrearPresupuesto"><span class="glyphicon glyphicon-floppy-open" ></span> Crear Presupuesto</a>
+                </div>
+            </div>
+            <div class="alert alert-danger hidden">
+                <strong>Debe llenar todos los Campos</strong>
+            </div>
+        </form>
+    </div>
+</div>
+
