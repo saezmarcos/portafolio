@@ -1,0 +1,57 @@
+<div class="container table table-responsive" id="modalRecepcion">
+    <div class="row">
+        <form class="form-horizontal">
+            <!-- Form Name -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechaIngresoM">Fecha Recepción</label>
+                <div class="col-md-4">
+                    <input id="fechaIngresoM" name="fechaIngresoM"  class="form-control input-md" type="date" required="" readonly="true" />
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="nombreConductor">Nombre Conductor</label>
+                <div class="col-md-4">
+                    <input id="nombreConductor" name="requestName" placeholder="Nombre Conductor" class="form-control input-md" required="" type="text" maxlength="40"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="telefonoRecepcion">Teléfono Conductor </label>
+                <div class="col-md-4">
+                    <input id="telefonoRecepcion" name="telefonoRecepcion" placeholder="Teléfono Conductor" class="form-control input-md" required="" type="text" maxlength="15"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="nombreRecepcionista">Nombre Recepcionista </label>
+                <div class="col-md-4">
+                    <input id="nombreRecepcionista" name="nombreRecepcionista" placeholder="Nombre Recepcionista" class="form-control input-md" required="" type="text" maxlength="40"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="marcaVehiculo">Marca Vehículo </label>
+                <div class="col-md-4">
+                    <input id="marcaVehiculo" name="marcaVehiculo" class="form-control input-md"  type="text" readonly="true"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="modeloVehiulo">Modelo Vehículo </label>
+                <div class="col-md-4">
+                    <input id="modeloVehiulo" name="modeloVehiulo" class="form-control input-md"  type="text" readonly="true"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="btnCrearRecepcion"></label>
+                <div class="col-md-4">
+                    <a href="#" class="btn btn-primary" name="btnCrearRecepcion" id="btnCrearRecepcion"><span class="glyphicon glyphicon-floppy-open" ></span> Crear Acta Recepción</a>
+                </div>
+            </div>
+            <div class="alert alert-danger hidden">
+                <strong>Debe llenar todos los Campos</strong>
+            </div>
+        </form>
+    </div>
+</div>
+

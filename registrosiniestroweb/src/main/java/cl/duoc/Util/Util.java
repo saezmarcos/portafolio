@@ -128,7 +128,7 @@ public class Util {
         return retorno;
     }
 
-    public static Object jsonListObject(String json, JavaType typeReference) {
+    public static Object jsonListObject(String json, TypeReference typeReference) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS);
 

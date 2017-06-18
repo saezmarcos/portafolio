@@ -613,7 +613,7 @@ function crearUsuario(flag) {
         data : {persona: jsonPersona,flag : flag},
         error : function (e) {
             procesando.style.display = "none";
-            $('#errorModal').text(" Ocurrio un problema al crear usuario, favor intentelo más tarde ");
+            $('#errorModal').text(" Ocurrio un problema, favor intentelo más tarde ");
             modalError.style.display = "block";
             console.log(e);
         },
@@ -624,7 +624,7 @@ function crearUsuario(flag) {
             if(data=="Error" || data=="" || data==null || data=="null")
             {
                 procesando.style.display = "none";
-                $('#errorModal').text(" Ocurrio un problema al crear usuario, favor intentelo más tarde ");
+                $('#errorModal').text(" Ocurrio un problema, favor intentelo más tarde ");
                 modalError.style.display = "block";
             }
             else
@@ -647,7 +647,7 @@ function crearUsuario(flag) {
                     else
                     {
                         procesando.style.display = "none";
-                        $('#errorModal').text("Ocurrio un problema al crear usuario, favor intentelo más tarde");
+                        $('#errorModal').text("Ocurrio un problema, favor intentelo más tarde");
                         modalError.style.display = "block";
                     }
             }
@@ -720,6 +720,7 @@ $("body").on('click','#modif',function () {
                     $("body #password").val(persona.password);
                     $("body #telefono").val(persona.telefono);
                     $("body #mail").val(persona.email);
+                    $("body #perfiles").val(persona.perfil.idPerfil);
                     $('#departamento').val(persona.departamento.idDepartamento);
                     var reg=persona.comuna.provincia.region.idRegion;
                     $('#regiones').val(reg);
@@ -787,10 +788,10 @@ function mostrarTab(tab) {
                 var selectHTML = '';
                 $.each(response, function (i, item) {
                     if(item.activo=="T") {
-                        selectHTML += '<tr><td>' + item.nombre+'</td><td>' + item.rut+'</td><td>' + item.direccion+'</td><td>' + item.comuna.nombre+'</td><td>' + item.perfil.rol+'</td><td>' + item.departamento.nombre+'</td><td>' + item.telefono+'</td><td>' + item.email+'</td><td>' + item.password+'</td><td align="center" style="background-color: darkgreen"><i class="glyphicon glyphicon-ok" style="color: white"></i></td></tr>';
+                        selectHTML += '<tr ><td>' + item.nombre+'</td><td>' + item.rut+'</td><td>' + item.direccion+'</td><td>' + item.comuna.nombre+'</td><td>' + item.perfil.rol+'</td><td>' + item.departamento.nombre+'</td><td>' + item.telefono+'</td><td>' + item.email+'</td><td>' + item.password+'</td><td align="center" style="background-color: darkgreen"><i class="glyphicon glyphicon-ok" style="color: white"></i></td></tr>';
                     }
                     else
-                        selectHTML += '<tr><td>' + item.nombre+'</td><td>' + item.rut+'</td><td>' + item.direccion+'</td><td>' + item.comuna.nombre+'</td><td>' + item.perfil.rol+'</td><td>' + item.departamento.nombre+'</td><td>' + item.telefono+'</td><td>' + item.email+'</td><td>' + item.password+'</td><td align="center" style="background-color: darkred"><i class="glyphicon glyphicon-remove" style="color: white"></i></td></tr>';
+                        selectHTML += '<tr class="danger"><td>' + item.nombre+'</td><td>' + item.rut+'</td><td>' + item.direccion+'</td><td>' + item.comuna.nombre+'</td><td>' + item.perfil.rol+'</td><td>' + item.departamento.nombre+'</td><td>' + item.telefono+'</td><td>' + item.email+'</td><td>' + item.password+'</td><td align="center" style="background-color: darkred"><i class="glyphicon glyphicon-remove" style="color: white"></i></td></tr>';
                 });
                 $('#table_recors').append(selectHTML);
             },
@@ -822,7 +823,7 @@ function mostrarTab(tab) {
                             selectHTML += '<tr><td>' + item.numeroChasis+'</td><td>' + item.patente+'</td><td>' + item.comuna.nombre+'</td><td>' + item.aseguradora.razonSocial+'</td><td align="center" style="background-color: darkred"><i class="glyphicon glyphicon-remove" style="color: white"></i></td></tr>';
                         }
                         else
-                            selectHTML += '<tr><td>' + item.numeroChasis+'</td><td>' + item.patente+'</td><td>' + item.comuna.nombre+'</td><td>' + item.aseguradora.razonSocial+'</td><td align="center" style="background-color: darkgreen"><i class="glyphicon glyphicon-ok" style="color: white"></i></td></tr>';
+                            selectHTML += '<tr class="danger"><td>' + item.numeroChasis+'</td><td>' + item.patente+'</td><td>' + item.comuna.nombre+'</td><td>' + item.aseguradora.razonSocial+'</td><td align="center" style="background-color: darkgreen"><i class="glyphicon glyphicon-ok" style="color: white"></i></td></tr>';
                     });
                     $('#table_gruas').append(selectHTML);
                 },

@@ -64,6 +64,14 @@ public class RegistroSiniestroServices {
     private String urlCrearGrua;
     @Value(("${ws.crear.taller}"))
     private String urlCrearTaller;
+    @Value(("${ws.obtener.admTaller}"))
+    private String urlObtenerAdmTaller;
+    @Value(("${ws.obtener.siniestros.taller}"))
+    private String urlObtenerSiniestrosPorTaller;
+    @Value(("${ws.obtener.siniestro}"))
+    private String urlSiniestroById;
+    @Value(("${ws.crear.recepcion}"))
+    private String urlCrearRecepcion;
 
     public Rol accesoPersona(String rut, String password) {
         ObjectMapper mapper = new ObjectMapper();
@@ -479,6 +487,98 @@ public class RegistroSiniestroServices {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<String>(taller, headers);
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearTaller);
+        ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
+        return "" + response.getStatusCodeValue();
+
+    }
+
+    public String obtenerAdmTaller(String rut)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        String com;
+        String requestBody = null;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlObtenerAdmTaller+"?rut=" + rut);
+        ResponseEntity<String> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity,String.class);
+        switch (respuesta.getStatusCodeValue()) {
+            case 200:
+                com = respuesta.getBody();
+                break;
+            case 404:
+                return null;
+
+            default:
+                throw new RuntimeException("Error");
+        }
+        return com;
+    }
+
+    public String obtenerSiniestrosByTaller(String rutTaller)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        String com;
+        String requestBody = null;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlObtenerSiniestrosPorTaller+"?rutTaller=" + rutTaller);
+        ResponseEntity<String> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity,String.class);
+        switch (respuesta.getStatusCodeValue()) {
+            case 200:
+                com = respuesta.getBody();
+                break;
+            case 404:
+                return null;
+
+            default:
+                throw new RuntimeException("Error");
+        }
+        return com;
+    }
+
+    public String obtenerSiniestroById(Long idSiniestro)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        String com;
+        String requestBody = null;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlSiniestroById+"?id_siniestro=" + idSiniestro);
+        ResponseEntity<String> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity,String.class);
+        switch (respuesta.getStatusCodeValue()) {
+            case 200:
+                com = respuesta.getBody();
+                break;
+            case 404:
+                return null;
+
+            default:
+                throw new RuntimeException("Error");
+        }
+        return com;
+    }
+
+    public String addRecepcion(String recepcion) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(recepcion, headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlCrearRecepcion);
         ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
         return "" + response.getStatusCodeValue();
 

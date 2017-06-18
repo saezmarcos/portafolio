@@ -226,7 +226,7 @@ $('body').on('click', '#btnCrearSiniestro', function () {
                     fechaIngreso: $("#fecha").val(),
                     fechaEntrega: $("#fecha").val(),
                     rut: $("#liquidadores").val(),
-                    idTipoEstado: 1
+                    idTipoEstado: 2
                 };
                 var estadoParseado = JSON.stringify(estado);
 
@@ -247,7 +247,7 @@ $('body').on('click', '#btnCrearSiniestro', function () {
                                 idSiniestro: $("#nroSiniestro").text(),
                                 costo: 0,
                                 descripcion : " ",
-                                idTipoEstado: 1
+                                idTipoEstado: 2
                             };
                             var historialParse = JSON.stringify(historia);
                             console.log(historia);
