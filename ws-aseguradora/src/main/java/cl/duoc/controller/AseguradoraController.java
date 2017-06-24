@@ -282,6 +282,17 @@ public class AseguradoraController {
         return est;
     }
 
+    @RequestMapping(value = "/estadosLiquidador", method = RequestMethod.GET)
+    public List<Estado> getEstadosByLiquidador(@PathParam("rutLiquidador") String rutLiquidador) {
+        List<Estado> et = estados.findAll();
+        List<Estado> est = new ArrayList<>();
+        for (Estado es : et) {
+            if (es.getPersona().getRut().equals(rutLiquidador))
+                est.add(es);
+        }
+        return est;
+    }
+
     @Autowired
     private EstadoResourceDAO estadoAgr;
     //metodo agrega una estado
