@@ -1,48 +1,104 @@
-<div class="container table table-responsive" id="modalPresupuesto">
+<div class="container table " id="modalPresupuesto">
     <div class="row">
         <form class="form-horizontal">
             <!-- Form Name -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="tipoReparacion">Tipo de Reparación</label>
                 <div class="col-md-4">
-                    <input id="tipoReparacion" name="requestName" placeholder="Descripción de Reparaciones" class="form-control input-md" required="" type="textarea" maxlength="200"/>
+                    <textarea id="tipoReparacion" name="requestName" placeholder="Descripción de Reparaciones" class="form-control input-md animated" required=""  maxlength="200"></textarea>
 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="fechaEntregaM">Fecha Entrega</label>
                 <div class="col-md-4">
-                    <input id="fechaEntregaM" name="fechaEntregaM"  class="form-control input-md" type="date" required="" min="today" />
+                    <input id="fechaEntregaM" name="fechaEntregaM"  class="form-control input-md" type="date" required=""  />
                 </div>
             </div>
             <!-- Text input-->
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="tiempoAsociado">Tiempo Asociado </label>
+                <label class="col-md-4 control-label" for="tiempoAsociado">Tiempo Asociado(en días) </label>
                 <div class="col-md-4">
-                    <input id="tiempoAsociado" name="tiempoAsociado" placeholder="Teléfono Conductor" class="form-control input-md" readonly="true"/>
+                    <input id="tiempoAsociado" name="tiempoAsociado" placeholder="Tiempo de Reparación" class="form-control input-md" readonly="true"/>
 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="costo">Costo de Reparación </label>
                 <div class="col-md-4">
-                    <input id="costo" name="costo" placeholder="Costo de Reparación" class="form-control input-md" required="" type="number" min="1" />
+                    <input id="costo" name="costo" placeholder="Costo de Reparación" class="form-control input-md" required="" type="number" min="0" />
 
                 </div>
             </div>
-
-
-            <div class="form-group">
+            <div class="form-group" id="btn">
                 <label class="col-md-4 control-label" for="btnCrearPresupuesto"></label>
                 <div class="col-md-4">
                     <a href="#" class="btn btn-primary" name="btnCrearPresupuesto" id="btnCrearPresupuesto"><span class="glyphicon glyphicon-floppy-open" ></span> Crear Presupuesto</a>
                 </div>
             </div>
+            <div class="form-group hidden" id="apruebaRechaza">
+                <label class="col-md-4 control-label" for="btnAprobarPresupuesto"></label>
+                <div class="col-md-4">
+                    <a href="#" class="btn btn-primary" name="btnAprobarPresupuesto" id="btnAprobarPresupuesto"><span class="glyphicon glyphicon-floppy-open" ></span> Aprobar</a><br/><br/>
+                    <a href="#" class="btn btn-danger" name="btnRechazarPresupuesto" id="btnRechazarPresupuesto"><span class="glyphicon glyphicon-floppy-remove" ></span> Rechazar</a>
+                </div>
+            </div>
             <div class="alert alert-danger hidden">
-                <strong>Debe llenar todos los Campos</strong>
+                <strong id="strong">Debe llenar todos los Campos</strong>
             </div>
         </form>
     </div>
 </div>
+<div class="hidden">
+ <div id="PrintArea">
+     <hr/>
+     <h2 class="text-center">PRESUPUESTO</h2>
+     <hr/>
+     <h3 class="text-left">Datos del Taller</h3>
+     <br/>
+     <label>Nombre Taller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="nombreTaller"></span></label><br/>
+     <label>Rut Taller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="rutTaller"></span></label><br/>
+     <label>Nombre Liquidador&nbsp;&nbsp;: <span id="liquidador1"></span></label><br/>
+     <br/>
+     <hr/>
+     <h3 class="text-left">Detalle</h3>
+     <br/>
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="tipoReparacion1">Tipo de Reparación</label>
+        <div class="col-md-4">
+            <textarea id="tipoReparacion1"  class="form-control animated" maxlength="200"></textarea>
 
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="fechaEntregaM1">Fecha Entrega</label>
+        <div class="col-md-4">
+            <label id="fechaEntregaM1" class="form-control input-md"></label>
+        </div>
+    </div>
+    <!-- Text input-->
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="tiempoAsociado1">Tiempo Asociado(en días) </label>
+        <div class="col-md-4">
+            <label id="tiempoAsociado1" class="form-control input-md" ></label>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="costo1">Costo de Reparación </label>
+        <div class="col-md-4">
+            <label id="costo1"  class="form-control input-md"  ></label>
+
+        </div>
+    </div>
+     <div class="form-group">
+         <label class="col-md-4 control-label" for="estado1">Estado </label>
+         <div class="col-md-4">
+             <label id="estado1"  class="form-control input-md"  ></label>
+
+         </div>
+     </div>
+ </div>
+</div>

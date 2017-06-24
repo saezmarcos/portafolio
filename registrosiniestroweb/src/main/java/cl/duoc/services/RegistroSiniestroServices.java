@@ -72,6 +72,10 @@ public class RegistroSiniestroServices {
     private String urlSiniestroById;
     @Value(("${ws.crear.recepcion}"))
     private String urlCrearRecepcion;
+    @Value(("${ws.obtener.estados.Liquidador}"))
+    private String urlObtenerSiniestrosPorLiquidador;
+    @Value(("${ws.obtener.historial}"))
+    private String urlObtenerhistorial;
 
     public Rol accesoPersona(String rut, String password) {
         ObjectMapper mapper = new ObjectMapper();
@@ -464,6 +468,7 @@ public class RegistroSiniestroServices {
         return "" + response.getStatusCodeValue();
 
     }
+
     public String crearGrua(String grua) {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -544,6 +549,32 @@ public class RegistroSiniestroServices {
         return com;
     }
 
+    public String obtenerSiniestrosByLiquidador(String rutLiquidador)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        String com;
+        String requestBody = null;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlObtenerSiniestrosPorLiquidador+"?rutLiquidador=" + rutLiquidador);
+        ResponseEntity<String> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity,String.class);
+        switch (respuesta.getStatusCodeValue()) {
+            case 200:
+                com = respuesta.getBody();
+                break;
+            case 404:
+                return null;
+
+            default:
+                throw new RuntimeException("Error");
+        }
+        return com;
+    }
+
     public String obtenerSiniestroById(Long idSiniestro)
     {
         ObjectMapper mapper = new ObjectMapper();
@@ -582,5 +613,31 @@ public class RegistroSiniestroServices {
         ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
         return "" + response.getStatusCodeValue();
 
+    }
+
+    public String obtenerHistorialBySiniestro(Long idSiniestro)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        String com;
+        String requestBody = null;
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlObtenerhistorial+"?idSiniestro=" + idSiniestro);
+        ResponseEntity<String> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity,String.class);
+        switch (respuesta.getStatusCodeValue()) {
+            case 200:
+                com = respuesta.getBody();
+                break;
+            case 404:
+                return null;
+
+            default:
+                throw new RuntimeException("Error");
+        }
+        return com;
     }
 }

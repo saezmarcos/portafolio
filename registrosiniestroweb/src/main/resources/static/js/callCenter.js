@@ -101,6 +101,9 @@ function cargarCrear() {
         },
         success: function (data) {
             $('#callCenter').append(data);
+            var hh = hoy(false);
+            $("body #fecha").attr("min", sumarDias(hh,-30));
+            $("body #fecha").attr("max", hh);
         }
     });
 }
@@ -211,6 +214,7 @@ $('body').on('click', '#btnCrearSiniestro', function () {
         idComuna: comuna
     };
     var siniestroParseado = JSON.stringify(siniestro);
+    var hh=hoy(false);
     $.ajax({
         data: {siniestro: siniestroParseado},
         url: "/callcenter/crear/siniestro/",
@@ -223,8 +227,8 @@ $('body').on('click', '#btnCrearSiniestro', function () {
                     rutTaller: $("#talleres").val(),
                     idSiniestro: $("#nroSiniestro").text(),
                     costo: 0,
-                    fechaIngreso: $("#fecha").val(),
-                    fechaEntrega: $("#fecha").val(),
+                    fechaIngreso: hh,
+                    fechaEntrega: hh,
                     rut: $("#liquidadores").val(),
                     idTipoEstado: 2
                 };
@@ -250,7 +254,6 @@ $('body').on('click', '#btnCrearSiniestro', function () {
                                 idTipoEstado: 2
                             };
                             var historialParse = JSON.stringify(historia);
-                            console.log(historia);
                             $.ajax({
                                 url : "/callcenter/crear/historialestado/",
                                 type : "POST",
@@ -377,3 +380,34 @@ $("body").on("click", "#idPoliza",function () {
     $("body #labelSini").addClass("hidden");
     $("body #datosPer").prop("disabled", true);
 });
+function toDate(selector) {
+    var fechaSinGuion =selector.split("-");
+    return new Date(fechaSinGuion[2], fechaSinGuion[1] - 1, fechaSinGuion[0]);
+}
+function hoy(flag) {
+    var d1 = new Date();
+    var y1= d1.getFullYear();
+    var m1 = d1.getMonth()+1;
+    if(m1<10)
+        m1="0"+m1;
+    var dt1 = d1.getDate();
+    if (flag)
+        dt1 = dt1 +1;
+    if(dt1<10)
+        dt1 = "0"+dt1;
+    var d2 = y1+"-"+m1+"-"+dt1;
+    return d2;
+}
+function sumarDias(hh,dias){
+    fecha = new Date(hh);
+    fecha.setDate(fecha.getDate() + dias);
+    var y1= fecha.getFullYear();
+    var m1 = fecha.getMonth()+1;
+    if(m1<10)
+        m1="0"+m1;
+    var dt1 = fecha.getDate();
+    if(dt1<10)
+        dt1 = "0"+dt1;
+    var d2 = y1+"-"+m1+"-"+dt1;
+    return d2;
+}

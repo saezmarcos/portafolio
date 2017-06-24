@@ -787,11 +787,13 @@ function mostrarTab(tab) {
                 var response = $.parseJSON(data);
                 var selectHTML = '';
                 $.each(response, function (i, item) {
-                    if(item.activo=="T") {
-                        selectHTML += '<tr ><td>' + item.nombre+'</td><td>' + item.rut+'</td><td>' + item.direccion+'</td><td>' + item.comuna.nombre+'</td><td>' + item.perfil.rol+'</td><td>' + item.departamento.nombre+'</td><td>' + item.telefono+'</td><td>' + item.email+'</td><td>' + item.password+'</td><td align="center" style="background-color: darkgreen"><i class="glyphicon glyphicon-ok" style="color: white"></i></td></tr>';
+                    if(item.rut!="0") {
+                        if (item.activo == "T") {
+                            selectHTML += '<tr ><td>' + item.nombre + '</td><td>' + item.rut + '</td><td>' + item.direccion + '</td><td>' + item.comuna.nombre + '</td><td>' + item.perfil.rol + '</td><td>' + item.departamento.nombre + '</td><td>' + item.telefono + '</td><td>' + item.email + '</td><td>' + item.password + '</td><td align="center" style="background-color: darkgreen"><i class="glyphicon glyphicon-ok" style="color: white"></i></td></tr>';
+                        }
+                        else
+                            selectHTML += '<tr class="danger"><td>' + item.nombre + '</td><td>' + item.rut + '</td><td>' + item.direccion + '</td><td>' + item.comuna.nombre + '</td><td>' + item.perfil.rol + '</td><td>' + item.departamento.nombre + '</td><td>' + item.telefono + '</td><td>' + item.email + '</td><td>' + item.password + '</td><td align="center" style="background-color: darkred"><i class="glyphicon glyphicon-remove" style="color: white"></i></td></tr>';
                     }
-                    else
-                        selectHTML += '<tr class="danger"><td>' + item.nombre+'</td><td>' + item.rut+'</td><td>' + item.direccion+'</td><td>' + item.comuna.nombre+'</td><td>' + item.perfil.rol+'</td><td>' + item.departamento.nombre+'</td><td>' + item.telefono+'</td><td>' + item.email+'</td><td>' + item.password+'</td><td align="center" style="background-color: darkred"><i class="glyphicon glyphicon-remove" style="color: white"></i></td></tr>';
                 });
                 $('#table_recors').append(selectHTML);
             },

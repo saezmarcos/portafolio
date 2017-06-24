@@ -2,21 +2,19 @@
     <div class="row">
         <div class="form-horizontal">
             <!-- Form Name -->
-            <legend><span class="glyphicon glyphicon-repeat"></span> Listado Siniestros Pendientes</legend>
-            <table id="table_recors" class="table table-bordered table-sm m-4" >
-                <tr>
-                    <th class="success">Número Póliza</th>
-                    <th class="success">Número Siniestro&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th class="success">Estado&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</th>
-                    <th class="success">Fecha Incidente&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th class="success">Direccion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th class="success">Comuna&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th class="success">Región&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                </tr>
-            </table>
-
+            <legend><span class="glyphicon glyphicon-repeat"></span> Listado Presupuestos Pendientes</legend>
+            <input class="hidden" th:value="${rut}" id="rut"/>
+            <div class="table col-lg-4 offset-2">
+                <table id="table_recors" class="table table-bordered table-sm m-4 table-striped table-hover" >
+                    <tr>
+                        <th class="success">Id Siniestro&nbsp;&nbsp;&nbsp;</th>
+                        <th class="success">Liquidador&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th class="success">Fecha Ingreso&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th class="success">Estado Siniestro&nbsp;&nbsp;&nbsp;</th>
+                        <th class="success">Siniestro Listo para:</th>
+                    </tr>
+                </table>
+            </div>
         </div>
-
     </div>
-
 </div>

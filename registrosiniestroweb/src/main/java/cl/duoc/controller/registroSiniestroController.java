@@ -48,7 +48,7 @@ public class registroSiniestroController {
                 case "CallCenter" : return "callCenter";
                 case "Liquidador" : return "liquidador";
                 case "Cliente"  :   return "cliente";
-                case "Siniestrador" : return "siniestrador";
+                case "Analista Siniestro" : return "siniestrador";
                 case "Chofer Grua" : return "chofer";
                 case "Administrador Taller" : return "admTaller";
                 default: return "login";

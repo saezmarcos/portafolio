@@ -1,18 +1,20 @@
 package cl.duoc.controller;
 
 import cl.duoc.Util.Util;
-import cl.duoc.domain.GruaDomain;
-import cl.duoc.domain.PersonaDomain;
-import cl.duoc.domain.TallerDomain;
+import cl.duoc.domain.*;
 import cl.duoc.resources.*;
 import cl.duoc.services.RegistroSiniestroServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 /**
@@ -172,15 +174,73 @@ public class LiquidadorController {
         return analista.crearTaller(taller);
     }
 
-    @RequestMapping(value={"/liquidador/usuario/cargar/asignar/"},method = RequestMethod.POST)
-    public String cargaAsignar()
+    @RequestMapping(value={"/liquidador/usuario/cargar/presupuestos/"},method = RequestMethod.POST)
+    public String cargaAsignar(Model model)
     {
         try
         {
+            Authentication aut = SecurityContextHolder.getContext().getAuthentication();
+            model.addAttribute("rut",aut.getName());
             return "asignar";
         }
         catch (Exception e)
         {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value={"/liquidador/cargar/presupuestos/"},method = RequestMethod.POST)
+    public @ResponseBody String listadoPresupuestos(@PathParam("rutLiquidador")String rutLiquidador)
+    {
+        try {
+            return analista.obtenerSiniestrosByLiquidador(rutLiquidador);
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value = {"/liquidador/carga/creaPresupuesto/"},method = RequestMethod.POST)
+    public String cargarPresupuestoModal()
+    {
+        try
+        {
+            return "presupuesto";
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value={"/liquidador/obtener/historial"},method = RequestMethod.POST)
+    public @ResponseBody String cagarhistorial(@PathParam("idSiniestro")String idSiniestro)
+    {
+        return analista.obtenerHistorialBySiniestro(Long.parseLong(idSiniestro));
+    }
+
+    @RequestMapping(value = {"/liquidador/crear/estado/"}, method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String crearEstado(@PathParam("estado") String estado) {
+        try {
+            EstadoDomain s = (EstadoDomain) Util.jsonObject(estado, EstadoDomain.class);
+            String estadoACrear = analista.crearEstado(Util.convertirAJson(s));
+            return estadoACrear;
+        } catch (Exception e) {
+            return "Error";
+        }
+    }
+    @RequestMapping(value = {"/liquidador/crear/historialestado/"}, method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String crearHistorialEstado(@PathParam("historial") String historial) {
+        try {
+            HistorialEstadoDomain s = (HistorialEstadoDomain) Util.jsonObject(historial, HistorialEstadoDomain.class);
+            String historialCrear = analista.crearHistorial(Util.convertirAJson(s));
+            return historialCrear;
+        } catch (Exception e) {
             return "Error";
         }
     }
