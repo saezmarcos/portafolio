@@ -188,7 +188,7 @@ public class AnalistaNegocioController {
         return jsonRes;
     }
 
-   /* @RequestMapping(value = {"/analista/usuario/cargar/crear/grua/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/analista/usuario/cargar/crear/grua/"}, method = RequestMethod.POST)
     public String cargarCrearGrua(Model model)
     {
         try {
@@ -237,5 +237,5 @@ public class AnalistaNegocioController {
         }
         return analista.crearTaller(taller);
     }
-    */
+
 }

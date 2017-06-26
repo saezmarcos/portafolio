@@ -244,4 +244,42 @@ public class LiquidadorController {
             return "Error";
         }
     }
+
+    @RequestMapping(value = {"/liquidador/carga/listadoPresupuesto/"},method = RequestMethod.POST)
+    public String cargarPresupuestoListado(Model model)
+    {
+        try
+        {
+            Authentication aut = SecurityContextHolder.getContext().getAuthentication();
+            model.addAttribute("rut",aut.getName());
+            return "listadoPresupuestos";
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value = {"/liquidador/carga/listadoPresupuestoRechazado/"},method = RequestMethod.POST)
+    public String cargarPresupuestoRechazado(Model model)
+    {
+        try
+        {
+            Authentication aut = SecurityContextHolder.getContext().getAuthentication();
+            model.addAttribute("rut",aut.getName());
+            return "listadoPresupuestosRechazados";
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value = {"/liquidador/usuario/modificar/grua/"},method = RequestMethod.POST)
+    public @ResponseBody String updatearGrua(String grua)
+    {
+        return analista.crearGrua(grua);
+    }
+
+
 }

@@ -209,6 +209,93 @@
         </div>
     </div>
 </div>
+<div id="myModalPresupuesto1" class="modal">
+    <div class="modal-dialog">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header1 text-center">
+                <button type="button"  id="closes1" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
+                <h4>Presupuesto</h4>
+            </div>
+            <div class="modal-body text-center" id="muestraPresupuestos">
+            </div>
+            <div class="modal-footer text-center">
+                <a href="javascript:void(0)" class="btn btn-default" id="imprime1"><span class="glyphicon glyphicon-print"></span> Imprimir Presupuesto</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModalRechazoTaller" class="modal">
+    <div class="modal-dialog">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header1 text-center">
+                <button type="button"  id="closes2" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
+                <h4>Gestión Taller/Rechazo Definitivo</h4>
+            </div>
+            <div class="modal-body text-center" id="rechazoPresupuestos">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="alert alert-danger hidden">
+                            <strong id="strong">Seleccione Taller o Grúa según corresponda</strong>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Rechazar [NO/SI]</label>
+                            <div class="col-md-4" id="check">
+                                <label class="custom-control custom-checkbox form-control">
+                                    <input type="checkbox" class="custom-control-input hidden" id="rech"/>
+                                    <span class="custom-control-indicator"></span>
+                                </label>
+                            </div><br/><br/>
+                            <div class="form-group hidden" id="divRechazo">
+                                <label class="col-md-4 control-label" for="tipoRechazofinal">Rechazo Definitivo</label>
+                                <div class="col-md-4">
+                                    <textarea id="tipoRechazofinal" name="tipoRechazofinal" placeholder="Descripción de Rechazo" class="form-control input-md animated"  maxlength="200"></textarea>
+                                </div>
+                            </div><br/><br/>
+                            <div id="esconder" class="row">
+                                <h4 class="text-center">Talleres en su Región</h4>
+                                <hr/>
+                                <label class="col-md-4 control-label">Favor elija un taller para Reingresar Vehículo</label>
+                                <div class="col-md-4 selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                        <select id="talleres1" class="form-control selectpicker">
+                                            <option value="">Seleccione un taller</option>
+                                        </select>
+                                    </div>
+                                </div><br/><br/><br/>
+                                <label class="col-md-4 control-label">Asignar Grúa No/Si</label>
+                                <div class="col-md-4" id="chec">
+                                    <label class="custom-control custom-checkbox form-control">
+                                        <input type="checkbox" class="custom-control-input hidden" id="activoG"/>
+                                        <span class="custom-control-indicator"></span>
+                                    </label>
+                                </div><br/>
+                                <br/><br/>
+                            </div>
+                            <div class="form-group hidden" id="bodyGrua">
+                                <label class="col-md-4 control-label">Grúas Disponibles</label>
+                                <div class="col-md-4 selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                        <select id="gruas1" class="form-control selectpicker">
+                                            <option value="">Seleccione una grúa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <a href="#" class="btn btn-default" id="btnReasignarTaller"><span class="glyphicon glyphicon-repeat"></span> Reasignar Taller</a>
+                <a href="#" class="btn btn-danger hidden" id="btnRechazoDefinitivo"><span class="glyphicon glyphicon-floppy-remove"></span> Rechazar</a>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="/js/liquidador.js">
 </script>
 <script type="text/javascript" src="/js/moment.min.js">

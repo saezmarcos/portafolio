@@ -12,6 +12,8 @@ var response;
 var modalError1=document.getElementById("myModalError1");
 var modalFinal=document.getElementById("myModalFinal");
 var modalFinal2=document.getElementById("myModalFinal2");
+var modalFinal22=document.getElementById("myModalFinal22");
+var modalFinal23=document.getElementById("myModalFinal23");
 var confirma=false;
 cargaNavbar();
 function cargarModificar() {
@@ -100,14 +102,32 @@ $('body').on('click','#crearTaller',function () {
 
 });
 $("body").on('click',"#close1", function () {
-        modalFinal2.style.display="none";
-    });
+    modalFinal2.style.display="none";
+});
+$("body").on('click',"#close11", function () {
+    $("body #crearGrua").click();
+    modalFinal22.style.display="none";
+});
+$("body").on('click',"#close13", function () {
+    $("body #crearTaller").click();
+    modalFinal23.style.display="none";
+});
 $("body").on('click',"#btnCerrar2",function () {
         modalFinal2.style.display="none";
         modalFinalModif.style.display="none";
         modalFinalGrua.style.display="none";
         modalFinalTaller.style.display="none";
     });
+$("body").on('click',"#btnCerrar22",function () {
+    $("body #crearGrua").click();
+    modalFinal22.style.display="none";
+
+});
+$("body").on('click',"#btnCerrar23",function () {
+    $("body #crearTaller").click();
+    modalFinal23.style.display="none";
+
+});
 $("body").on('click',"#btnCerrar1", function () {
         modalError.style.display = "none";
         modalTaller.style.display="none";
@@ -258,9 +278,9 @@ $("body").on("click","#btnGuardaGrua",function () {
             else
             {
                 if(data=="201") {
-                    $('#confirmacion').text("Se ha guardado correctamente la grua");
+                    $('#confirmacion11').text("Se ha guardado correctamente la grua");
                     Limpiar();
-                    modalFinal2.style.display = "block";
+                    modalFinal22.style.display = "block";
                 }
                 else
                 {
@@ -304,9 +324,9 @@ $("body").on("click","#btnGuardaTaller",function () {
             else
             {
                 if(data=="201") {
-                    $('#confirmacion').text("Se ha guardado correctamente el taller");
+                    $('#confirmacion13').text("Se ha guardado correctamente el taller");
                     Limpiar();
-                    modalFinal2.style.display = "block";
+                    modalFinal23.style.display = "block";
                 }
                 else
                 {

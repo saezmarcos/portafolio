@@ -32,6 +32,13 @@
                 </div>
             </div>
             <div class="form-group" id="btn">
+                <label class="col-md-4 control-label">Pérdida Total No/Si</label>
+                <div class="col-md-4" id="chec">
+                    <label class="custom-control custom-checkbox form-control">
+                        <input type="checkbox" class="custom-control-input hidden" id="perdidaTotal"/>
+                        <span class="custom-control-indicator"></span>
+                    </label>
+                </div><br/>
                 <label class="col-md-4 control-label" for="btnCrearPresupuesto"></label>
                 <div class="col-md-4">
                     <a href="#" class="btn btn-primary" name="btnCrearPresupuesto" id="btnCrearPresupuesto"><span class="glyphicon glyphicon-floppy-open" ></span> Crear Presupuesto</a>
@@ -49,56 +56,56 @@
             </div>
         </form>
     </div>
-</div>
-<div class="hidden">
- <div id="PrintArea">
-     <hr/>
-     <h2 class="text-center">PRESUPUESTO</h2>
-     <hr/>
-     <h3 class="text-left">Datos del Taller</h3>
-     <br/>
-     <label>Nombre Taller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="nombreTaller"></span></label><br/>
-     <label>Rut Taller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="rutTaller"></span></label><br/>
-     <label>Nombre Liquidador&nbsp;&nbsp;: <span id="liquidador1"></span></label><br/>
-     <br/>
-     <hr/>
-     <h3 class="text-left">Detalle</h3>
-     <br/>
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="tipoReparacion1">Tipo de Reparación</label>
-        <div class="col-md-4">
-            <textarea id="tipoReparacion1"  class="form-control animated" maxlength="200"></textarea>
+    <div class="hidden">
+        <div id="PrintArea">
+            <hr/>
+            <h2 class="text-center">PRESUPUESTO</h2>
+            <hr/>
+            <h3 class="text-left">Datos del Taller</h3>
+            <br/>
+            <label>Nombre Taller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="nombreTaller"></span></label><br/>
+            <label>Rut Taller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="rutTaller"></span></label><br/>
+            <label>Nombre Liquidador&nbsp;&nbsp;: <span id="liquidador1"></span></label><br/>
+            <br/>
+            <hr/>
+            <h3 class="text-left">Detalle</h3>
+            <br/>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tipoReparacion1">Tipo de Reparación</label>
+                <div class="col-md-4">
+                    <textarea id="tipoReparacion1"  class="form-control animated" maxlength="200"></textarea>
 
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechaEntregaM1">Fecha Entrega</label>
+                <div class="col-md-4">
+                    <label id="fechaEntregaM1" class="form-control input-md"></label>
+                </div>
+            </div>
+            <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tiempoAsociado1">Tiempo Asociado(en días) </label>
+                <div class="col-md-4">
+                    <label id="tiempoAsociado1" class="form-control input-md" ></label>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="costo1">Costo de Reparación </label>
+                <div class="col-md-4">
+                    <label id="costo1"  class="form-control input-md"  ></label>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="estado1">Estado </label>
+                <div class="col-md-4">
+                    <label id="estado1"  class="form-control input-md"  ></label>
+
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="fechaEntregaM1">Fecha Entrega</label>
-        <div class="col-md-4">
-            <label id="fechaEntregaM1" class="form-control input-md"></label>
-        </div>
-    </div>
-    <!-- Text input-->
-
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="tiempoAsociado1">Tiempo Asociado(en días) </label>
-        <div class="col-md-4">
-            <label id="tiempoAsociado1" class="form-control input-md" ></label>
-
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="costo1">Costo de Reparación </label>
-        <div class="col-md-4">
-            <label id="costo1"  class="form-control input-md"  ></label>
-
-        </div>
-    </div>
-     <div class="form-group">
-         <label class="col-md-4 control-label" for="estado1">Estado </label>
-         <div class="col-md-4">
-             <label id="estado1"  class="form-control input-md"  ></label>
-
-         </div>
-     </div>
- </div>
 </div>

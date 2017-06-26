@@ -130,4 +130,37 @@ public class AdmTallerController {
             return "Error";
         }
     }
+
+    @RequestMapping(value = {"/administradortaller/carga/listadoPresupuesto/"},method = RequestMethod.POST)
+    public String cargarPresupuestoListado(Model model)
+    {
+        try
+        {
+            Authentication aut = SecurityContextHolder.getContext().getAuthentication();
+            model.addAttribute("rut",aut.getName());
+            return "listadoPresupuestoAdmTaller";
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value={"/administradortaller/cargar/presupuestos/"},method = RequestMethod.POST)
+    public @ResponseBody String listadoPresupuestos(@PathParam("rutAdmin")String rutAdmin)
+    {
+        try {
+            return administradorTaller.obtenerSiniestrosByLiquidador(rutAdmin);
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value={"/administradortaller/obtener/historial"},method = RequestMethod.POST)
+    public @ResponseBody String cagarhistorial(@PathParam("idSiniestro")String idSiniestro)
+    {
+        return administradorTaller.obtenerHistorialBySiniestro(Long.parseLong(idSiniestro));
+    }
 }
