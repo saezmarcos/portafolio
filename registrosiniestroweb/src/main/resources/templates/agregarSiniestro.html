@@ -111,12 +111,19 @@
                     </div>
                 </div>
             </div>
+            <label class="col-md-4 control-label">Activar Grúa [NO/SI]</label>
+            <div class="col-md-4" id="chec">
+                <label class="custom-control custom-checkbox form-control">
+                    <input type="checkbox" class="custom-control-input hidden" id="activarGrua"/>
+                    <span class="custom-control-indicator"></span>
+                </label>
+            </div><br/><br/>
             <div class="form-group">
                 <label class="col-md-4 control-label">Grua</label>
                 <div class="col-md-4 selectContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        <select id="gruas" class="form-control selectpicker">
+                        <select id="gruas" class="form-control selectpicker" readonly="true">
                             <option value="-1">Seleccione una grúa</option>
                         </select>
                     </div>

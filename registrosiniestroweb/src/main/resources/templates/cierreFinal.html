@@ -1,0 +1,106 @@
+<div class="container table " id="modalCierreFinal">
+    <div class="row">
+        <form class="form-horizontal">
+            <!-- Form Name -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tipoReparacion2">Tipo de Reparación</label>
+                <div class="col-md-4">
+                    <textarea id="tipoReparacion2" name="requestName" placeholder="Descripción de Reparaciones" class="form-control input-md animated" required=""  maxlength="200" readonly="true"></textarea>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechaEntregaM2">Fecha Entrega</label>
+                <div class="col-md-4">
+                    <input id="fechaEntregaM2" name="fechaEntregaM"  class="form-control input-md" type="date" required="" readonly="true"  />
+                </div>
+            </div>
+            <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tiempoAsociado2">Tiempo Asociado(en días) </label>
+                <div class="col-md-4">
+                    <input id="tiempoAsociado2" name="tiempoAsociado" placeholder="Tiempo de Reparación" class="form-control input-md" readonly="true"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="costo2">Costo de Reparación </label>
+                <div class="col-md-4">
+                    <input id="costo2" name="costo" placeholder="Costo de Reparación" class="form-control input-md" required="" type="number" min="0" readonly="true" />
+
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label class="col-md-4 control-label" for="detalleFinal">Detalles Finales </label>
+                <div class="col-md-4">
+                    <textarea id="detalleFinal"  placeholder="Detalles Finales" class="form-control input-md" maxlength="200" ></textarea>
+
+                </div>
+            </div>-->
+            <div class="form-group " id="apruebaCierre">
+                <label class="col-md-4 control-label" for="btnAprobarCierre"></label>
+                <div class="col-md-4">
+                    <a href="#" class="btn btn-primary" name="btnAprobarCierre" id="btnAprobarCierre"><span class="glyphicon glyphicon-floppy-open" ></span> Finalizar</a><br/><br/>
+
+                </div>
+            </div>
+            <div class="alert alert-danger hidden">
+                <strong id="strong">Debe llenar todos los Campos</strong>
+            </div>
+        </form>
+    </div>
+    <div class="hidden">
+        <div id="PrintAreaFinal">
+            <hr/>
+            <h2 class="text-center">FINALIZACIÓN REPARACIONES</h2>
+            <hr/>
+            <h3 class="text-left">Datos del Taller</h3>
+            <br/>
+            <label>Nombre Taller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="nombreTaller"></span></label><br/>
+            <label>Rut Taller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="rutTaller"></span></label><br/>
+            <label>Nombre Liquidador&nbsp;&nbsp;: <span id="liquidador1"></span></label><br/>
+            <br/>
+            <hr/>
+            <h3 class="text-left">Detalle</h3>
+            <br/>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tipoReparacion1">Tipo de Reparación</label>
+                <div class="col-md-4">
+                    <textarea id="tipoReparacion1"  class="form-control animated" maxlength="200"></textarea>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechaEntregaM1">Fecha Entrega</label>
+                <div class="col-md-4">
+                    <label id="fechaEntregaM1" class="form-control input-md"></label>
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="costo1">Costo de Reparación </label>
+                <div class="col-md-4">
+                    <label id="costo1"  class="form-control input-md"  ></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="detalleFinal1">Detalles Finales </label>
+                <div class="col-md-4">
+                    <textarea id="detalleFinal1" class="form-control input-md"></textarea>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="estado1">Estado </label>
+                <div class="col-md-4">
+                    <label id="estado1"  class="form-control input-md"  ></label>
+                </div>
+            </div><br/><br/><br/><br/><br/><br/><br/>
+            <!--<div class="form-group text-right">
+                <label class="col-md-4 control-label" >Firma conforme </label>
+            </div>-->
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,139 @@
+<div class="container table " id="pagoFinal">
+    <div class="row">
+        <form class="form-horizontal">
+            <!-- Form Name -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="uf">Valor UF</label>
+                <div class="col-md-4">
+                    <input id="uf" name="requestName" placeholder="Valor UF" class="form-control input-md animated" type="number" min="0" max="100000" value="26653"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tipoReparacion3">Tipo de Reparación</label>
+                <div class="col-md-4">
+                    <textarea id="tipoReparacion3" name="requestName" placeholder="Descripción de Reparaciones" class="form-control input-md animated" required=""  maxlength="200" readonly="true"></textarea>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechaEntregaM3">Fecha Entrega</label>
+                <div class="col-md-4">
+                    <input id="fechaEntregaM3" name="fechaEntregaM3"  class="form-control input-md" type="date" required="" readonly="true"  />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechapago">Fecha Pago</label>
+                <div class="col-md-4">
+                    <input id="fechapago" name="fechapago"  class="form-control input-md" type="date" required="" readonly="true"  />
+                </div>
+            </div>
+            <!-- Text input-->
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tiempoAsociado3">Días en Taller</label>
+                <div class="col-md-4">
+                    <input id="tiempoAsociado3" name="tiempoAsociado3"  class="form-control input-md" readonly="true"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="costo3">Costo de Reparación </label>
+                <div class="col-md-4">
+                    <input id="costo3" name="costo"  class="form-control input-md" required="" type="number" min="0" readonly="true" />
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="deducible3">UF Deducible </label>
+                <div class="col-md-4">
+                    <input id="deducible3" name="costo"  class="form-control input-md" required="" type="number" min="0" readonly="true" />
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="pagar3">Valor a Pagar </label>
+                <div class="col-md-4">
+                    <input id="pagar3" name="pagar3" style="color:darkorange"  class="form-control input-md" required="" type="number" min="0" readonly="true" />
+
+                </div>
+            </div>
+            <div class="form-group " id="apruebaCierre">
+                <label class="col-md-4 control-label" for="btnPagar"></label>
+                <div class="col-md-4">
+                    <a href="#" class="btn btn-primary" name="btnPagar" id="btnPagar"><span class="glyphicon glyphicon-floppy-open" ></span> Pagar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="hidden">
+        <div id="PrintAreaPago">
+            <hr/>
+            <h4 class="text-center">ACTA DE RETIRO</h4>
+            <h4 class="text-left">Datos del Taller/Vehículo</h4>
+            <label>Nombre Taller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="nombreTaller"></span></label><br/>
+            <label>Rut Taller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="rutTaller"></span></label><br/>
+            <label>Modelo Vehículo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="vehiculo"></span></label><br/>
+            <label>Marca&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="marca"></span></label><br/>
+            <label>Año&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="agno"></span></label><br/>
+            <label>Patente&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="patente"></span></label><br/>
+            <label>Nombre Liquidador&nbsp;&nbsp;: <span id="liquidador1"></span></label>
+            <hr/>
+            <h4 class="text-center">Detalle</h4>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tipoReparacion1">Tipo de Reparación</label>
+                <div class="col-md-4">
+                    <textarea id="tipoReparacion1"  class="form-control animated" maxlength="200"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechaEntregaM1">Fecha Entrega</label>
+                <div class="col-md-4">
+                    <label id="fechaEntregaM1" class="form-control input-md"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fechapago1">Fecha Pago</label>
+                <div class="col-md-4">
+                    <label id="fechapago1" class="form-control input-md"></label>
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="costo1">Costo de Reparación </label>
+                <div class="col-md-4">
+                    <label id="costo1"  class="form-control input-md"  ></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="deducible">UF Deducible</label>
+                <div class="col-md-4">
+                    <label id="deducible"  class="form-control input-md"></label>
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label class="col-md-4 control-label" for="detalleFinal1">Detalles Rechazo </label>
+                <div class="col-md-4">
+                    <textarea id="detalleFinal1" class="form-control input-md"></textarea>
+
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="pagar">Valor a Pagar</label>
+                <div class="col-md-4">
+                    <label id="pagar"  class="form-control input-md"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="estado1">Estado </label>
+                <div class="col-md-4">
+                    <label id="estado1"  class="form-control input-md"  ></label>
+                </div>
+            </div><br/><br/>
+            <div class="form-group text-right" id="firma">
+                <label class="col-md-4 control-label" >Firma Conformidad </label>
+            </div>
+        </div>
+    </div>
+</div>
+

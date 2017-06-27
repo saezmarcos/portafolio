@@ -58,6 +58,7 @@ public class PagoSiniestro implements Serializable {
     }
 
     public String getFechaPago() {
+
         return Util.formatearFechaString(Util.formatearFechaSql(fechaPago,"yyyy-MM-dd"));
     }
 

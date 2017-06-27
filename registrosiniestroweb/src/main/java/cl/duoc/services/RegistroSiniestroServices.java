@@ -76,6 +76,8 @@ public class RegistroSiniestroServices {
     private String urlObtenerSiniestrosPorLiquidador;
     @Value(("${ws.obtener.historial}"))
     private String urlObtenerhistorial;
+    @Value(("${ws.pagar}"))
+    private String urlPagar;
 
     public Rol accesoPersona(String rut, String password) {
         ObjectMapper mapper = new ObjectMapper();
@@ -640,4 +642,19 @@ public class RegistroSiniestroServices {
         }
         return com;
     }
+
+    public String addPago(String pago) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(pago, headers);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlPagar);
+        ResponseEntity<String> response = restTemplate.postForEntity(builder.build().encode().toUri(), entity, String.class);
+        return "" + response.getStatusCodeValue();
+
+    }
+
 }

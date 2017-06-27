@@ -130,4 +130,9 @@ public class CallCenterController {
         }
     }
 
+    @RequestMapping(value = {"/callcenter/usuario/modificar/grua/"},method = RequestMethod.POST)
+    public @ResponseBody String updatearGrua(String grua)
+    {
+        return callCenter.crearGrua(grua);
+    }
 }

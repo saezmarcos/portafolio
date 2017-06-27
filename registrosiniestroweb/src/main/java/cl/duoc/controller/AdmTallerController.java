@@ -163,4 +163,57 @@ public class AdmTallerController {
     {
         return administradorTaller.obtenerHistorialBySiniestro(Long.parseLong(idSiniestro));
     }
+
+    @RequestMapping(value = {"/administradorTaller/carga/cierreFinal/"},method = RequestMethod.POST)
+    public String cargarCierreFinal()
+    {
+        try
+        {
+            return "cierreFinal";
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value = {"/administradorTaller/carga/pagoSiniestro/"},method = RequestMethod.POST)
+    public String cargarPagoSiniestro(Model model)
+    {
+        try
+        {
+            Authentication aut = SecurityContextHolder.getContext().getAuthentication();
+            model.addAttribute("rut",aut.getName());
+            return "pagoSiniestro";
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value = {"/administradorTaller/carga/pago/"},method = RequestMethod.POST)
+    public String cargarPago()
+    {
+        try
+        {
+            return "pago";
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value = {"/administradorTaller/crear/pago/"},method = RequestMethod.POST)
+    public @ResponseBody String creaPago(@PathParam("pago") String pago)
+    {
+        try {
+            return administradorTaller.addPago(pago);
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
 }

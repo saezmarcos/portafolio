@@ -1,9 +1,12 @@
 cl\duoc\resource\GruaResource.class
 cl\duoc\domain\Estado.class
+cl\duoc\resource\RespuestaResource.class
 cl\duoc\domain\Provincias.class
+cl\duoc\domain\Respuesta.class
 cl\duoc\dao\TallerDAO.class
 cl\duoc\dao\GruaDAO.class
 cl\duoc\dao\SiniestroResourceDAO.class
+cl\duoc\domain\Reclamo.class
 cl\duoc\dao\ChoferDAO.class
 cl\duoc\util\Util.class
 cl\duoc\dao\ComunaDAO.class
@@ -14,11 +17,14 @@ cl\duoc\dao\RegionesDAO.class
 cl\duoc\domain\Vehiculo.class
 cl\duoc\resource\TallerResource.class
 cl\duoc\services\DatosServicesImpl.class
+cl\duoc\dao\ReclamoDAO.class
 cl\duoc\resource\IdSiniestroResource.class
 cl\duoc\domain\FotoEvidSiniestro.class
 cl\duoc\dao\LogsDAO.class
+cl\duoc\dao\RespuestaDAO.class
 cl\duoc\resource\SiniestroResource.class
 cl\duoc\domain\Prima.class
+cl\duoc\resource\RaclamoResource.class
 cl\duoc\domain\Rol.class
 cl\duoc\dao\ProvinciasDAO.class
 cl\duoc\dao\AdmTallerDAO.class
@@ -32,6 +38,8 @@ cl\duoc\dao\FotoEvidSiniestroDAO.class
 cl\duoc\dao\DepartamentoDAO.class
 cl\duoc\domain\Chofer.class
 cl\duoc\dao\EstadoDAO.class
+cl\duoc\dao\ReclamoResourceDAO.class
+cl\duoc\dao\RespuestaResourceDAO.class
 cl\duoc\dao\PerfilDAO.class
 cl\duoc\domain\TipoEstado.class
 cl\duoc\resource\EstadoResource.class

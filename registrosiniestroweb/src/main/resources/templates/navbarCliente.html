@@ -16,9 +16,19 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="glyphicon glyphicon-user"><span id="usrname"></span></a></li>
                 <li><a th:href="@{/logout}" class="btn btn-default"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Noticias</a></li>
+                <li><a href="#">Contáctanos</a></li>
+                <li>
+                    <a href="#nav-collapse1" class="btn btn-default btn-outline btn-circle" aria-expanded="false" aria-controls="nav-collapse1" data-toggle="collapse"><span class="glyphicon glyphicon-tasks" ></span> Acciones</a>
+                </li>
+            </ul>
+            <ul class="collapse nav navbar-nav nav-collapse" id="nav-collapse1">
                 <li><a href="#" id="verSiniestro">Ver estado de su siniestro</a></li>
                 <li><a href="#" id="historialSiniestro">Historial de su siniestro</a></li>
                 <li><a href="#" id="listadoSiniestros">Lista de todos sus siniestros</a></li>
+            </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
 </nav><!-- /.navbar -->

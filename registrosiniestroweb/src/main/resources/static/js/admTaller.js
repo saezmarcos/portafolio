@@ -2,15 +2,19 @@
  * Created by Usuario on 30-05-2017.
  */
 
-
+$(document).ready(function () {
+    $('body #acciones').click();
+});
 var modalError=document.getElementById("myModalError");
 var procesando=document.getElementById("processing-modal");
 var modalPresupuesto=document.getElementById("myModalPresupuesto");
 var modalRecepcion=document.getElementById("myModalRecepcion");
 var modalPresupuesto1=document.getElementById("myModalPresupuesto1");
+var modalPago=document.getElementById("myModalPago");
 var response;
 var modalError1=document.getElementById("myModalError1");
 var modalFinal2=document.getElementById("myModalFinal2");
+var modalCierreFinal = document.getElementById("myModalCierre");
 cargaNavbar();
 $("body").on('click','#closes',function () {
     $("body #presupuesto").click();
@@ -18,17 +22,26 @@ $("body").on('click','#closes',function () {
 $('body').on('click','#listSiniestro',function () {
     $('body #recepcion').remove();
     $('body #listPresAdm').remove();
+    $('body #pagoSini').remove();
     cargarSiniestros();
 });
 $('body').on('click','#presupuesto',function () {
     $('body #recepcion').remove();
     $('body #listPresAdm').remove();
+    $('body #pagoSini').remove();
     cargarPresupuesto();
 });
 $('body').on('click','#finalizar',function () {
     $('body #listPresAdm').remove();
     $('body #recepcion').remove();
+    $('body #pagoSini').remove();
     cargarListarPres();
+});
+$('body').on('click','#pagoSiniestro',function () {
+    $('body #pagoSini').remove();
+    $('body #recepcion').remove();
+    $('body #listPresAdm').remove();
+    cargarPagoSiniestros();
 });
 $("body").on("click", "#close1", function () {
     location.reload();
@@ -44,6 +57,14 @@ $("body").on("click", ".close", function () {
 $("body").on('click','#closes1',function () {
     $("body #finalizar").click();
     modalPresupuesto1.style.display="none";
+});
+$("body").on('click','#closes3',function () {
+    $("body #finalizar").click();
+    modalCierreFinal.style.display="none";
+});
+$("body").on('click','#closes4',function () {
+    $("body #pagoSiniestro").click();
+    modalPago.style.display="none";
 });
 $("body").on("click","#btnCerrar1", function () {
     modalError1.style.display = "none";
@@ -89,7 +110,6 @@ function cargarSiniestros() {
         url : "/administradortaller/cargar/recepcion/",
         type : "POST",
         error : function () {
-
         },
         success : function (data) {
             $("body #administradorTaller").append(data);
@@ -279,7 +299,6 @@ function cargarPresupuesto() {
         type : "POST",
         async : true,
         error : function () {
-
         },
         success : function (data) {
             $("body #administradorTaller").append(data);
@@ -288,7 +307,6 @@ function cargarPresupuesto() {
                 type : "POST",
                 data : {rut : $("body #rut").val()},
                 error : function () {
-
                 },
                 success : function (data) {
                     procesando.style.display="none";
@@ -317,7 +335,6 @@ function cargaPresupuestoModal(item) {
         url : "/administradorTaller/carga/creaPresupuesto/",
         type : "POST",
         error : function () {
-            
         },
         success : function (data) {
             $("body #creaPresupuestos").empty();
@@ -364,8 +381,7 @@ function cargaPresupuestoModal(item) {
                                 fechaIngreso: toDate(fe),
                                 fechaEntrega: $("body #fechaEntregaM").val(),
                                 numeroChasis: item.find('td:eq(4)').text()
-
-                            };
+                                };
                             var estadoParseado = JSON.stringify(estado);
                             $.ajax({
                                 url: "/administradorTaller/crear/estado/",
@@ -568,7 +584,10 @@ function cargarListarPres() {
                             if (item.tipoEstado.idTipoEstado ==10)
                                 tdHTML +='<tr class="danger"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td><td><span">No se puede Gestionar</span></td></tr>';
                             else
-                                tdHTML +='<tr class="warning"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td><td><span">No se puede Gestionar</span></td></tr>';
+                                if (item.tipoEstado.idTipoEstado ==7)
+                                    tdHTML +='<tr class="active"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td><td><span">No se puede Gestionar</span></td></tr>';
+                                else
+                                    tdHTML +='<tr class="warning"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td><td><span">No se puede Gestionar</span></td></tr>';
                         else
                             tdHTML +='<tr class="info"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td><td><a href="#" onclick="cerrarReparacion($(this).parent().parent());">Finalizar Reparación</a></td></tr>';
                     });
@@ -643,9 +662,377 @@ function presupuestoModal(item) {
             })
         }
     });
-
 }
+function cerrarReparacion(item) {
+    $.ajax({
+        url : "/administradorTaller/carga/cierreFinal/",
+        type : "POST",
+        error : function () {
+        },
+        success : function (data) {
+            $("body #muestraCierre").empty();
+            $("body #muestraCierre").append(data);
+            $.ajax({
+                url : "/administradortaller/obtener/historial",
+                type : "POST",
+                data : {idSiniestro : item.find('td:eq(0)').text()},
+                error : function () {
+                },
+                success : function (data) {
+                    var histo = $.parseJSON(data);
+                    var idsHis=[];
+                    var historial="";
+                    $.each(histo,function (i, histor) {
+                        if(histor.idTipoEstado == item.find('td:eq(11)').text())
+                            idsHis.push(histor);
+                    });
+                    if (idsHis.length>1)
+                    {
+                        var mayor=idsHis[0];
+                        $.each(idsHis,function (i, histor) {
+                            if(histor.idHistorial>mayor.idHistorial)
+                                mayor=histor;
+                        });
+                        historial=mayor;
+                    }
+                    else
+                        historial=idsHis[0];
+                    $("#tipoReparacion2").text(historial.descripcion);
+                    var entrega = toDate(item.find('td:eq(7)').text());
+                    $("#fechaEntregaM2").val(fechaAdate(entrega));
+                    $("#costo2").val(historial.costo);
+                    var hh=toDate(item.find('td:eq(6)').text());
+                    var f1 = moment(entrega);
+                    var f2 = moment(hh);
+                    var da = f1.diff(f2,'days');
+                    $("#tiempoAsociado2").val(da);
+                    $("#fechaEntregaM2").attr('readonly',true);
+                    $("#tipoReparacion2").attr('readonly',true);
+                    $("#costo2").attr('readonly',true);
+                    $("body #costo1").text(historial.costo);
+                    $("body #fechaEntregaM1").text(fechaAdate(entrega));
+                    $("body #tiempoAsociado1").text(da);
+                    $("body #tipoReparacion1").text(historial.descripcion);
+                    $("body #estado1").text(item.find('td:eq(8)').text());
+                    $("body #liquidador1").text(item.find('td:eq(5)').text());
+                    $("body #nombreTaller").text(item.find('td:eq(9)').text());
+                    $("body #rutTaller").text(item.find('td:eq(10)').text());
+                }
+            });
+            modalCierreFinal.style.display="block";
+            $("body #imprime2").on('click',function () {
+                $("body div#PrintAreaFinal").printArea();
+            });
+            $("body #btnAprobarCierre").on('click',function (){
+                var fe = item.find('td:eq(6)').text();
+                var estado = {
+                    idEstado: item.find('td:eq(2)').text(),
+                    idTipoEstado: 7,
+                    costo: $("#costo2").val(),
+                    idSiniestro: item.find('td:eq(0)').text(),
+                    rut: item.find('td:eq(3)').text(),
+                    rutTaller: item.find('td:eq(1)').text(),
+                    fechaIngreso: toDate(fe),
+                    fechaEntrega: $("body #fechaEntregaM2").val(),
+                    numeroChasis: item.find('td:eq(4)').text()
+                };
+                var estadoParseado = JSON.stringify(estado);
+                $.ajax({
+                    url: "/administradorTaller/crear/estado/",
+                    type: "POST",
+                    data: {estado: estadoParseado},
+                    error: function () {
+                        modalCierreFinal.style.display = "none";
+                        $('#errorModal1').text("No se pudo Finalizar Reparación, favor inténtelo más tarde");
+                        modalError1.style.display = "block";
+                    },
+                    success: function (data) {
+                        if (data == "201") {
+                            var historia = {
+                                idHistorial: " ",
+                                numeroChasis: item.find('td:eq(4)').text(),
+                                rutTaller: item.find('td:eq(1)').text(),
+                                idSiniestro: item.find('td:eq(0)').text(),
+                                costo: $("#costo2").val(),
+                                descripcion: $("#tipoReparacion2").val(),
+                                idTipoEstado: 7
+                            };
+                            var historialParse = JSON.stringify(historia);
+                            $.ajax({
+                                url: "/administradorTaller/crear/historialestado/",
+                                type: "POST",
+                                data: {historial: historialParse},
+                                error: function () {
+                                    modalCierreFinal.style.display = "none";
+                                    $('#errorModal1').text("No se pudo Finalizar Reparación, favor inténtelo más tarde");
+                                    modalError1.style.display = "block";
+                                },
+                                success: function (data) {
+                                    if (data == "201") {
+                                        procesando.style.display = "none";
+                                        modalCierreFinal.style.display = "none";
+                                        $("body #muestraCierre").empty();
+                                        $("body #muestraCierre").append('<h3>Se ha Finalizado correctamente el Siniestro</h3>');
+                                        $("body #footer").addClass('hidden');
+                                        modalCierreFinal.style.display = "block";
+                                    } else {
+                                        modalCierreFinal.style.display = "none";
+                                        $
+                                        $('#muestraCierre').text("No se pudo Finalizar Reparación, favor inténtelo más tarde");
+                                        modalError1.style.display = "block";
+                                    }
+                                }
+                            });
+                        } else {
+                            modalCierreFinal.style.display = "none";
+                            $('#errorModal1').text("No se pudo Finalizar Reparación, favor inténtelo más tarde");
+                            modalError1.style.display = "block";
+                        }
+                    }
+                });
+            });
 
+        }
+    });
+}
+function cargarPagoSiniestros() {
+    $.ajax({
+        url:"/administradorTaller/carga/pagoSiniestro/",
+        type:"POST",
+        error : function () {
+        },
+        success: function (data) {
+            $("body #administradorTaller").append(data);
+            $.ajax({
+                url : "/administradortaller/buscar/siniestros/",
+                type : "POST",
+                data : {rut : $("body #rut").val()},
+                error : function () {
+                },
+                success : function (data) {
+                    procesando.style.display="none";
+                    var response=$.parseJSON(data);
+
+                    $.each($("#table_recors tr"),function (i,item) {
+                        if(i>0)
+                            this.remove();
+                    });
+                    var tdHTML = "";
+                    $.each(response,function (i,item) {
+                        if (item.tipoEstado.idTipoEstado == 7)
+                            tdHTML +='<tr><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="pagarDeducible($(this).parent().parent());">Pagar Reparaciones</a></td></tr>';
+                    });
+                    $('body #table_recors').append(tdHTML);
+
+                },
+                beforeSend : function () {
+                    procesando.style.display="block";
+                }
+            });
+        }
+    });
+}
+function pagarDeducible(item) {
+    var idSiniestro= item.find('td:eq(0)').text();
+    var tipoEstadoId=item.find('td:eq(11)').text();
+    $.ajax({
+        url : "/administradorTaller/obtener/siniestro/",
+        type : "POST",
+        data : {id_siniestro : idSiniestro},
+        error : function () {
+        },
+        success : function (data) {
+            response = $.parseJSON(data);
+            var tipoSeguro = response.tipoSeguro;
+            var fechaAux="";
+            $.ajax({
+                url:"/administradorTaller/carga/pago/",
+                type : "POST",
+                error: function () {
+                },
+                success: function (data) {
+                    $("body #muestraPago").empty();
+                    $("body #muestraPago").append(data);
+                    $.ajax({
+                        url : "/administradortaller/obtener/historial",
+                        type : "POST",
+                        data : {idSiniestro : idSiniestro},
+                        error : function () {
+                        },
+                        success : function (data) {
+                            var histo = $.parseJSON(data);
+                            var idsHis=[];
+                            var historial="";
+                            $.each(histo,function (i, histor) {
+                                if(histor.idTipoEstado == tipoEstadoId)
+                                    idsHis.push(histor);
+                            });
+                            if (idsHis.length>1)
+                            {
+                                var mayor=idsHis[0];
+                                $.each(idsHis,function (i, histor) {
+                                    if(histor.idHistorial>mayor.idHistorial)
+                                        mayor=histor;
+                                });
+                                historial=mayor;
+                            }
+                            else
+                                historial=idsHis[0];
+                            $("#tipoReparacion3").text(historial.descripcion);
+                            var entrega = toDate(item.find('td:eq(7)').text());
+                            $("#fechaEntregaM3").val(fechaAdate(entrega));
+                            $("#deducible3").val(tipoSeguro.ufDeducible);
+                            $("#costo3").val(historial.costo);
+                            $("#fechapago").val(hoy(false));
+                            fechaAux=$("#fechapago").val();
+                            var hh=toDate(item.find('td:eq(6)').text());
+                            var f1 = moment(entrega);
+                            var f2 = moment(hh);
+                            var da = f1.diff(f2,'days');
+                            $("#tiempoAsociado3").val(da);
+                            $("#fechaEntregaM3").attr('readonly',true);
+                            $("#tipoReparacion3").attr('readonly',true);
+                            $("#costo3").attr('readonly',true);
+                            $("#pagar3").val($("#costo3").val()-($("#deducible3").val()*$("#uf").val()));
+                            if($("#pagar3").val()<0)
+                                $("#pagar3").val(0);
+                            $("body #costo1").text(historial.costo);
+                            $("body #fechaEntregaM1").text(fechaAdate(entrega));
+                            $("body #tiempoAsociado1").text(da);
+                            $("body #tipoReparacion1").text(historial.descripcion);
+                            $("body #estado1").text(item.find('td:eq(8)').text());
+                            $("body #liquidador1").text(item.find('td:eq(5)').text());
+                            $("body #nombreTaller").text(item.find('td:eq(9)').text());
+                            $("body #rutTaller").text(item.find('td:eq(10)').text());
+                            $("body #vehiculo").text(response.vehiculo.modelo.descripcion);
+                            $("body #marca").text(response.vehiculo.modelo.marca.descripcion);
+                            $("body #agno").text(response.vehiculo.ano);
+                            $("body #patente").text(response.vehiculo.patente);
+                            $("body #deducible").text(tipoSeguro.ufDeducible);
+                            $("#pagar").text($("#pagar3").val());
+                            $("#fechapago1").text($("#fechapago").val());
+                        }
+                    });
+                    modalPago.style.display="block";
+                    $("body #imprime3").on('click',function () {
+                        $("body div#PrintAreaPago").printArea();
+                    })
+                    $("body #uf").on('change',function () {
+                        $("#pagar3").val($("#costo3").val()-($("#deducible3").val()*$("#uf").val()));
+                        if($("#pagar3").val()<0)
+                            $("#pagar3").val(0);
+                        $("#pagar").text($("#pagar3").val());
+                    });
+                    $("body #btnPagar").on('click',function () {
+                        $("body #footer").addClass('hidden');
+                       var pago ={
+                           idPagoSiniestro : " ",
+                           montoCancelar : $("#pagar3").val(),
+                           descripcion : $("#tipoReparacion3").val(),
+                           idSiniestro : idSiniestro,
+                           fechaPago : DateAFechaNormal(fechaAux)
+                       };
+                       $.ajax({
+                           url : "/administradorTaller/crear/pago/",
+                           type : "POST",
+                           data : {pago : JSON.stringify(pago)},
+                           error : function () {
+                           },
+                           beforeSend : function () {
+                               procesando.style.display="block";
+                           },
+                           success : function (data) {
+                               if(data=="201")
+                               {
+                                   var estado = {
+                                       idEstado: item.find('td:eq(2)').text(),
+                                       idTipoEstado: 15,
+                                       costo : $("#costo3").val(),
+                                       idSiniestro : idSiniestro,
+                                       rut : item.find('td:eq(3)').text(),
+                                       rutTaller : item.find('td:eq(1)').text(),
+                                       fechaIngreso : toDate(item.find('td:eq(6)').text()),
+                                       fechaEntrega : toDate(item.find('td:eq(7)').text()),
+                                       numeroChasis : item.find('td:eq(4)').text()
+                                   };
+                                   var estadoParseado = JSON.stringify(estado);
+                                   $.ajax({
+                                       url : "/administradorTaller/crear/estado/",
+                                       type : "POST",
+                                       data: {estado: estadoParseado},
+                                       error : function () {
+                                           procesando.style.display="none";
+                                           modalPago.style.display="none";
+                                           $('#errorModal1').text("No se pudo crear el Pago, favor inténtelo más tarde");
+                                           modalError1.style.display = "block";
+                                       },
+                                       success : function (data) {
+                                           if(data=="201") {
+                                               var historia = {
+                                                   idHistorial: " ",
+                                                   numeroChasis: item.find('td:eq(4)').text(),
+                                                   rutTaller: item.find('td:eq(1)').text(),
+                                                   idSiniestro: idSiniestro,
+                                                   costo: $("#costo3").val(),
+                                                   descripcion : $("#tipoReparacion3").val(),
+                                                   idTipoEstado: 15
+                                               };
+                                               var historialParse = JSON.stringify(historia);
+                                               $.ajax({
+                                                   url : "/administradorTaller/crear/historialestado/",
+                                                   type : "POST",
+                                                   data: {historial: historialParse},
+                                                   error : function () {
+                                                       procesando.style.display="none";
+                                                       modalPago.style.display="none";
+                                                       $('#errorModal1').text("No se pudo crear el Pago, favor inténtelo más tarde");
+                                                       modalError1.style.display = "block";
+                                                   },
+                                                   success : function (data) {
+                                                       if(data=="201") {
+                                                           procesando.style.display = "none";
+                                                           modalPago.style.display="none";
+                                                           var mensaje="<h3>Se ha registrado el Pago de forma correcta</h3>";
+                                                           $("body #estado1").text("ENTREGADO");
+                                                           $("body #imprime3").click();
+                                                           $("#muestraPago").empty();
+                                                           $('#muestraPago').append(mensaje);
+                                                           $("body #footer").addClass('hidden');
+                                                           modalPago.style.display = "block";
+                                                       }else
+                                                       {
+                                                           procesando.style.display="none";
+                                                           modalPago.style.display="none";
+                                                           $('#errorModal1').text("No se pudo crear el Pago, favor inténtelo más tarde");
+                                                           modalError1.style.display = "block";
+                                                       }
+                                                   }
+                                               });
+                                           }else
+                                           {
+                                               procesando.style.display="none";
+                                               modalPago.style.display="none";
+                                               $('#errorModal1').text("No se pudo crear el Pago, favor inténtelo más tarde");
+                                               modalError1.style.display = "block";
+                                           }
+                                       }
+                                   });
+                               }
+                               else
+                               {
+                                   procesando.style.display="none";
+                                   modalPago.style.display="none";
+                                   $('#errorModal1').text("No se pudo crear el Pago, favor inténtelo más tarde");
+                                   modalError1.style.display = "block";
+                               }
+                           }
+                       });
+                    });
+                }
+            });
+        }
+    });
+}
 function toDate(selector) {
     var fechaSinGuion =selector.split("-");
     return new Date(fechaSinGuion[2], fechaSinGuion[1] - 1, fechaSinGuion[0]);
@@ -687,6 +1074,19 @@ function fechaAdate(fecha) {
     if(dt1<10)
         dt1 = "0"+dt1;
     var d2 = y1+"-"+m1+"-"+dt1;
+    return d2;
+}
+function DateAFechaNormal(fecha) {
+    var d1 = new Date(fecha);
+    var y1= d1.getFullYear();
+    var m1 = d1.getMonth()+1;
+    if(m1<10)
+        m1="0"+m1;
+    var dt1 = d1.getDate();
+    if(dt1<10)
+        dt1 = "0"+dt1;
+    var d2 = dt1+"-"+m1+"-"+y1;
+
     return d2;
 }
 

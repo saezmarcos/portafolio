@@ -162,17 +162,17 @@ $(document).ready(function () {
     });
 });
 $("body").on('click',"#crear",function () {
-        confirma=false;
-        nombre=$("#nombre").val();
-        rut=$("#rut").val();
-        direccion=$("#direccion").val();
-        email=$("#mail").val();
-        telefono=$("#telefono").val();
-        comuna=$("#comuna").val();
-        password=$("#password").val();
-        cfpassword=$("#cfpassword").val();
-        idDepartamento = $("#departamento").val();
-        idPerfil=$("#perfiles").val();
+        var confirma=false;
+        var nombre=$("#nombre").val();
+        var rut=$("#rut").val();
+        var direccion=$("#direccion").val();
+        var email=$("#mail").val();
+        var telefono=$("#telefono").val();
+        var comuna=$("#comuna").val();
+        var password=$("#password").val();
+        var cfpassword=$("#cfpassword").val();
+        var idDepartamento = $("#departamento").val();
+        var idPerfil=$("#perfiles").val();
         if(nombre=="" || rut=="" || direccion=="" || email=="" || telefono=="" || comuna=="-1" || password=="" || cfpassword=="" || idPerfil=="-1" || idDepartamento=="-1")
         {
             confirma=true;
@@ -192,6 +192,15 @@ $("body").on('click',"#crear",function () {
                     confirma=true;
                     $('#errorModal1').text("La password debe contener al menos 4 caracteres");
                     modalError1.style.display = "block";
+                }
+                else
+                {
+                    if(!validaRut(rut))
+                    {
+                        confirma=true;
+                        $('#errorModal1').text("El RUT no tiene el formato correcto o digito errado");
+                        modalError1.style.display = "block";
+                    }
                 }
             }
         }
@@ -882,4 +891,39 @@ function mostrarTab(tab) {
         }
     }
 }
+function validaRut(rut){
+    if(rut.length>6) {
+        rut = rut.replace(".","");
+        rut = rut.replace(".","");
+        console.log(rut);
+        var rexp = new RegExp(/^([0-9])+\-([kK0-9])+$/);
+        if (rut.match(rexp)) {
+            console.log("pase");
+            var RUT = rut.split("-");
+            var elRut = RUT[0];
+            var factor = 2;
+            var suma = 0;
+            var dv;
+            for (i = (elRut.length - 1); i >= 0; i--) {
+                factor = factor > 7 ? 2 : factor;
+                suma += parseInt(elRut[i]) * parseInt(factor++);
+            }
+            dv = 11 - (suma % 11);
+            if (dv == 11) {
+                dv = 0;
+            } else if (dv == 10) {
+                dv = "k";
+            }
+
+            if (dv == RUT[1].toLowerCase()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }else return false;
+}
+
 

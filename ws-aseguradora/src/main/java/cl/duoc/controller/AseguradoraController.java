@@ -208,7 +208,13 @@ public class AseguradoraController {
 
     @RequestMapping(value = "/gruas", method = RequestMethod.GET)
     public List<Grua> getGruas() {
-        return gruas.findAll();
+        List<Grua> g = new ArrayList<>();
+        List<Grua> gru = gruas.findAll();
+        for (Grua gg : gru ) {
+            if(!gg.getNumeroChasis().equals("0"))
+                g.add(gg);
+        }
+        return  g;
     }
 
     @Autowired
@@ -365,5 +371,37 @@ public class AseguradoraController {
     public Logs addLogs(@RequestBody Logs logs)
     {
         return logss.save(logs);
+    }
+
+    @Autowired
+    private RespuestaDAO respuesta;
+    @RequestMapping(value = "/respuesta", method = RequestMethod.GET)
+    public Respuesta getRespuesta(@PathParam("idRespuesta") String idRespuesta)
+    {
+        return respuesta.findOne(Long.parseLong(idRespuesta));
+    }
+    @Autowired
+    private RespuestaResourceDAO respRe;
+    @RequestMapping(value = "/agregarRespuesta", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public RespuestaResource addRespuesta(@RequestBody RespuestaResource respuesta)
+    {
+        return respRe.save(respuesta);
+    }
+
+    @Autowired
+    private ReclamoDAO reclamo;
+    @RequestMapping(value = "/reclamo", method = RequestMethod.GET)
+    public Reclamo getReclamo(@PathParam("idReclamo") String idReclamo)
+    {
+        return reclamo.findOne(Long.parseLong(idReclamo));
+    }
+    @Autowired
+    private ReclamoResourceDAO reclaRe;
+    @RequestMapping(value = "/agregarReclamo", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public RaclamoResource addReclamo(@RequestBody RaclamoResource reclamo)
+    {
+        return reclaRe.save(reclamo);
     }
 }
