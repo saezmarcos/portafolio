@@ -30,6 +30,7 @@ public class registroSiniestroController {
         try {
             Authentication aut = SecurityContextHolder.getContext().getAuthentication();
             Rol acces;
+
             PersonaDomain p = new PersonaDomain();
             if(aut.getPrincipal().equals("anonymousUser")) {
                 p.setRut("sinRut");

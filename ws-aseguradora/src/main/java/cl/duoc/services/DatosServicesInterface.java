@@ -9,5 +9,6 @@ import java.util.List;
  */
 public interface DatosServicesInterface {
         List<Persona> listPorDepartamento(long id_departamento);
+        void deleteByIdPoliza(Long idPoliza);
 
 }

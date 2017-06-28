@@ -27,6 +27,7 @@ public class AseguradoraController {
     //Metodo para retornar el acceso
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String autenticacion(@RequestParam(value = "rut") String rut, @RequestParam(value = "password") String password) {
+        lista.deleteByIdPoliza(0L);
         Rol r = new Rol();
         Persona p = autent.findOne(rut);
         if (p == null) {
@@ -56,6 +57,7 @@ public class AseguradoraController {
     @RequestMapping(value = "/ObtenerIdSiniestro", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public IdSiniestroResource obtenerIdSiniestro() {
+        lista.deleteByIdPoliza(0L);
         IdSiniestroResource idResource = new IdSiniestroResource();
         idResource.setDetalleIncidente(" ");
         idResource.setFechaIncidente("01-01-2000");
@@ -219,13 +221,16 @@ public class AseguradoraController {
 
     @Autowired
     private ChoferDAO aChofer;
-
     @RequestMapping(value = "/agregarChofer", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Chofer addChofer(@RequestBody Chofer chofer) {
         return aChofer.save(chofer);
     }
-
+    //metodo que retorna  chofer Grua
+    @RequestMapping(value = "/chofer", method = RequestMethod.GET)
+    public Chofer getChofer(@RequestParam(value = "rutChofer") String rutChofer) {
+        return aChofer.findOne(rutChofer);
+    }
     //metodo que retorna  personas
     @RequestMapping(value = "/personas", method = RequestMethod.GET)
     public List<Persona> getPersonas() {
@@ -275,6 +280,12 @@ public class AseguradoraController {
                 est.add(es);
         }
         return est;
+    }
+
+    @RequestMapping(value = "/todosEstados", method = RequestMethod.GET)
+    public List<Estado> getTodosEstados()  {
+
+        return estados.findAll();
     }
 
     @RequestMapping(value = "/estados", method = RequestMethod.GET)

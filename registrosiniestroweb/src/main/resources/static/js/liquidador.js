@@ -550,7 +550,7 @@ function cargarListadoPresupuestos() {
                     var tdHTML = "";
                     $.each(response,function (i,item) {
                         if (item.tipoEstado.idTipoEstado == 9)
-                            tdHTML +='<tr><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="gestionPresupuestoModal($(this).parent().parent());">Gestión Presupuesto</a></td></tr>';
+                            tdHTML +='<tr><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="gestionPresupuestoModal($(this).parent().parent());">Gestión Presupuesto</a></td></tr>';
                     });
                     $('body #table_recors').append(tdHTML);
                 },
@@ -809,14 +809,14 @@ function cargarListarPres() {
                     $.each(response,function (i,item) {
                         if(item.tipoEstado.idTipoEstado != 10)
                             if (item.tipoEstado.idTipoEstado == 7)
-                                tdHTML +='<tr class="active"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
+                                tdHTML +='<tr class="active"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
                             else
                                 if (item.tipoEstado.idTipoEstado == 4)
-                                    tdHTML +='<tr class="info"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
+                                    tdHTML +='<tr class="info"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
                                 else
-                                    tdHTML +='<tr class="warning"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
+                                    tdHTML +='<tr class="warning"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
                         else
-                            tdHTML +='<tr class="danger"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
+                            tdHTML +='<tr class="danger"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
                     });
                     $('body #table_recors').append(tdHTML);
                 },
@@ -922,7 +922,7 @@ function cargaPresupuestoRechazado() {
                     var tdHTML = "";
                     $.each(response,function (i,item) {
                         if (item.tipoEstado.idTipoEstado == 11)
-                            tdHTML +='<tr><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.taller.comuna.provincia.region.idRegion+'</td><td><a href="#" onclick="reasignarTaller($(this).parent().parent());">Reasignar Taller/Rechazar Definitivo</a></td></tr>';
+                            tdHTML +='<tr><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.taller.comuna.provincia.region.idRegion+'</td><td><a href="#" onclick="reasignarTaller($(this).parent().parent());">Reasignar Taller/Rechazar Definitivo</a></td></tr>';
                     });
                     $('body #table_recors').append(tdHTML);
                 },
@@ -1296,4 +1296,26 @@ function fechaAdate(fecha) {
         dt1 = "0"+dt1;
     var d2 = y1+"-"+m1+"-"+dt1;
     return d2;
+}
+function cargarPoliza(item) {
+    $.ajax({
+        data: {id_siniestro: item.find('td:eq(0)').text()},
+        url: "/liquidador/obtener/siniestro/",
+        type: "POST",
+        success: function (data) {
+            var idPoliza = JSON.parse(data);
+            polizaConTodosLosDatos = idPoliza;
+            $("body #rutAsegurado").text("Rut: " + idPoliza.persona.rut);
+            $("body #nombreAsegurado").text("Nombre: " + idPoliza.persona.nombre);
+            $("body #comunaAsegurado").text("Comuna: " + idPoliza.persona.comuna.nombre);
+            $("body #patenteAsegurado").text("Patente: " + idPoliza.vehiculo.patente);
+            $("body #modeloAsegurado").text("Modelo: " + idPoliza.vehiculo.modelo.descripcion);
+            $("body #marcaAsegurado").text("Marca: " + idPoliza.vehiculo.modelo.marca.descripcion);
+            $("body #anioAsegurado").text("Año: " + idPoliza.vehiculo.ano);
+            $("body #chasis").val(idPoliza.vehiculo.numeroChasis);
+        },
+        error: function (e) {
+        }
+    });
+    $("#dialog").dialog();
 }

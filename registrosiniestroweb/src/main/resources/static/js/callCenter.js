@@ -110,6 +110,7 @@ function cargarCrear() {
 }
 $('body').on('click', '#crearSiniestro', function () {
     $('body #siniestros').remove();
+    $("body #listPres").remove();
     cargarComboBox();
     cargarCrear();
 });
@@ -212,7 +213,6 @@ $('body').on('click', '#btnCrearSiniestro', function () {
             enUso: "T",
             patente: cc.patente
         };
-        console.log(gruanCambio);
         $.ajax({
             url: "/callcenter/usuario/modificar/grua/",
             type: "POST",
@@ -282,7 +282,7 @@ $('body').on('click', '#btnCrearSiniestro', function () {
                                 rutTaller: $("#talleres").val(),
                                 idSiniestro: $("#nroSiniestro").text(),
                                 costo: 0,
-                                descripcion : " ",
+                                descripcion : "",
                                 idTipoEstado: tipoEstado
                             };
                             var historialParse = JSON.stringify(historia);
@@ -321,6 +321,11 @@ $('body').on('click', '#btnCrearSiniestro', function () {
             modalError1.style.display = "block";
         }
     });
+});
+$('body').on('click',"#listSinies",function () {
+    $('body #siniestros').remove();
+    $("body #listPres").remove();
+    cargarListarPres();
 });
 $("body").on('change', "#regiones", function () {
     var comuna = [];
@@ -415,9 +420,9 @@ $("body").on("click", "#idPoliza",function () {
 });
 $("body").on('change',"#activarGrua",function () {
     if($("#activarGrua").prop('checked'))
-        $("#gruas").attr('readonly',false);
+        $("#mostrarGrua").removeClass('hidden');
     else
-        $("#gruas").attr('readonly',true);
+        $("#mostrarGrua").addClass('hidden');
 });
 function cargarListarPres() {
     $.ajax({
@@ -434,11 +439,10 @@ function cargarListarPres() {
         },
         success : function (data) {
             procesando.style.display="none";
-            $('body #liquidador').append(data);
+            $('body #callCenter').append(data);
             $.ajax({
                 type : "POST",
                 url :"/callcenter/cargar/presupuestos/",
-                data : {rutLiquidador : $("body #rut").val()},
                 success : function (data) {
                     var response = $.parseJSON(data);
                     $.each($("#table_recors tr"),function (i,item) {
@@ -446,17 +450,22 @@ function cargarListarPres() {
                             this.remove();
                     });
                     var tdHTML = "";
+                    var patente="";
                     $.each(response,function (i,item) {
+                        if(item.grua.numeroChasis=="0")
+                            patente="No utilizó grúa";
+                        else
+                            patente=item.grua.patente;
                         if(item.tipoEstado.idTipoEstado != 10)
                             if (item.tipoEstado.idTipoEstado == 7)
-                                tdHTML +='<tr class="active"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
+                                tdHTML +='<tr class="active"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td>' + item.taller.nombre+'</td><td>' + patente+'</td></tr>';
                             else
-                            if (item.tipoEstado.idTipoEstado == 4)
-                                tdHTML +='<tr class="info"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
-                            else
-                                tdHTML +='<tr class="warning"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
+                                if (item.tipoEstado.idTipoEstado == 4)
+                                    tdHTML +='<tr class="info"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td>' + item.taller.nombre+'</td><td>' + patente+'</td></tr>';
+                                else
+                                    tdHTML +='<tr class="warning"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td>' + item.taller.nombre+'</td><td>' + patente+'</td></tr>';
                         else
-                            tdHTML +='<tr class="danger"><td>' + item.idSiniestro+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td><a href="#" onclick="presupuestoModal($(this).parent().parent());">Ver/Imprimir</a></td></tr>';
+                            tdHTML +='<tr class="danger"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td>' + item.taller.nombre+'</td><td>' + patente+'</td></tr>';
                     });
                     $('body #table_recors').append(tdHTML);
                 },
@@ -532,6 +541,28 @@ function presupuestoModal(item) {
         }
     });
 
+}
+function cargarPoliza(item) {
+    $.ajax({
+        data: {id_siniestro: item.find('td:eq(0)').text()},
+        url: "/callcenter/obtener/siniestro/",
+        type: "POST",
+        success: function (data) {
+            var idPoliza = JSON.parse(data);
+            polizaConTodosLosDatos = idPoliza;
+            $("body #rutAsegurado").text("Rut: " + idPoliza.persona.rut);
+            $("body #nombreAsegurado").text("Nombre: " + idPoliza.persona.nombre);
+            $("body #comunaAsegurado").text("Comuna: " + idPoliza.persona.comuna.nombre);
+            $("body #patenteAsegurado").text("Patente: " + idPoliza.vehiculo.patente);
+            $("body #modeloAsegurado").text("Modelo: " + idPoliza.vehiculo.modelo.descripcion);
+            $("body #marcaAsegurado").text("Marca: " + idPoliza.vehiculo.modelo.marca.descripcion);
+            $("body #anioAsegurado").text("Año: " + idPoliza.vehiculo.ano);
+            $("body #chasis").val(idPoliza.vehiculo.numeroChasis);
+        },
+        error: function (e) {
+        }
+    });
+    $("#dialog").dialog();
 }
 function toDate(selector) {
     var fechaSinGuion =selector.split("-");

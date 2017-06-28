@@ -73,6 +73,7 @@ $('body').on('click','#modificar',function () {
     $('body #listadoUsuario').remove();
     $('body #creaGrua').remove();
     $('body #creaTaller').remove();
+    $("body #listPres").remove();
     cargarModificar();
 });
 $('body').on('click','#listUsr',function () {
@@ -81,6 +82,7 @@ $('body').on('click','#listUsr',function () {
     $('body #creaUsuario').remove();
     $('body #creaGrua').remove();
     $('body #creaTaller').remove();
+    $("body #listPres").remove();
     cargarListar();
 });
 $('body').on('click','#crearGrua',function () {
@@ -89,6 +91,7 @@ $('body').on('click','#crearGrua',function () {
     $('body #modificaUsuario').remove();
     $('body #creaUsuario').remove();
     $('body #creaTaller').remove();
+    $("body #listPres").remove();
     cargarCrearGrua();
 
 });
@@ -98,8 +101,18 @@ $('body').on('click','#crearTaller',function () {
     $('body #listadoUsuario').remove();
     $('body #modificaUsuario').remove();
     $('body #creaUsuario').remove();
+    $("body #listPres").remove();
     cargarCrearTaller();
 
+});
+$('body').on('click','#listarTodoSini',function () {
+    $("body #listPres").remove();
+    $('body #modificaUsuario').remove();
+    $('body #creaUsuario').remove();
+    $('body #listadoUsuario').remove();
+    $('body #creaGrua').remove();
+    $('body #creaTaller').remove();
+    cargarListarPres();
 });
 $("body").on('click',"#close1", function () {
     modalFinal2.style.display="none";
@@ -775,6 +788,58 @@ $("body").on('click','#modif',function () {
         modalError.style.display="block";
     }
 });
+function cargarListarPres() {
+    $.ajax({
+        url : "/analista/carga/listadoPresupuesto/",
+        type : "POST",
+        error : function () {
+            procesando.style.display = "none";
+            console.log(e.toString());
+            $('#errorModal').text("En estos momentos no podemos atenderlo, favor inténtelo más tarde");
+            modalError.style.display = "block";
+        },
+        beforeSend:function () {
+            procesando.style.display="block";
+        },
+        success : function (data) {
+            procesando.style.display="none";
+            $('body #analista').append(data);
+            $.ajax({
+                type : "POST",
+                url :"/analista/cargar/presupuestos/",
+                success : function (data) {
+                    var response = $.parseJSON(data);
+                    $.each($("#table_recors tr"),function (i,item) {
+                        if(i>0)
+                            this.remove();
+                    });
+                    var tdHTML = "";
+                    var patente="";
+                    $.each(response,function (i,item) {
+                        if(item.grua.numeroChasis=="0")
+                            patente="No utilizó grúa";
+                        else
+                            patente=item.grua.patente;
+                        if(item.tipoEstado.idTipoEstado != 10)
+                            if (item.tipoEstado.idTipoEstado == 7)
+                                tdHTML +='<tr class="active"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td>' + item.taller.nombre+'</td><td>' + patente+'</td></tr>';
+                            else
+                            if (item.tipoEstado.idTipoEstado == 4)
+                                tdHTML +='<tr class="info"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td>' + item.taller.nombre+'</td><td>' + patente+'</td></tr>';
+                            else
+                                tdHTML +='<tr class="warning"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td>' + item.taller.nombre+'</td><td>' + patente+'</td></tr>';
+                        else
+                            tdHTML +='<tr class="danger"><td><a href="#" onclick="cargarPoliza($(this).parent().parent());">' + item.idSiniestro+'</a></td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.idEstado+'</td><td class="hidden">' + item.persona.rut+'</td><td class="hidden">' + item.grua.numeroChasis+'</td><td>' + item.persona.nombre+'</td><td>' + item.fechaIngreso+'</td><td class="hidden">' + item.fechaEntrega+'</td><td>' + item.tipoEstado.descripcion+'</td><td class="hidden">' + item.taller.nombre+'</td><td class="hidden">' + item.taller.rutTaller+'</td><td class="hidden">' + item.tipoEstado.idTipoEstado+'</td><td>' + item.taller.nombre+'</td><td>' + patente+'</td></tr>';
+                    });
+                    $('body #table_recors').append(tdHTML);
+                },
+                error : function () {
+
+                }
+            });
+        }
+    });
+}
 function Limpiar() {
     $("#nombre").val("");
     $("#rut").val("");
@@ -925,5 +990,26 @@ function validaRut(rut){
         }
     }else return false;
 }
-
+function cargarPoliza(item) {
+    $.ajax({
+        data: {id_siniestro: item.find('td:eq(0)').text()},
+        url: "/analista/obtener/siniestro/",
+        type: "POST",
+        success: function (data) {
+            var idPoliza = JSON.parse(data);
+            polizaConTodosLosDatos = idPoliza;
+            $("body #rutAsegurado").text("Rut: " + idPoliza.persona.rut);
+            $("body #nombreAsegurado").text("Nombre: " + idPoliza.persona.nombre);
+            $("body #comunaAsegurado").text("Comuna: " + idPoliza.persona.comuna.nombre);
+            $("body #patenteAsegurado").text("Patente: " + idPoliza.vehiculo.patente);
+            $("body #modeloAsegurado").text("Modelo: " + idPoliza.vehiculo.modelo.descripcion);
+            $("body #marcaAsegurado").text("Marca: " + idPoliza.vehiculo.modelo.marca.descripcion);
+            $("body #anioAsegurado").text("Año: " + idPoliza.vehiculo.ano);
+            $("body #chasis").val(idPoliza.vehiculo.numeroChasis);
+        },
+        error: function (e) {
+        }
+    });
+    $("#dialog").dialog();
+}
 

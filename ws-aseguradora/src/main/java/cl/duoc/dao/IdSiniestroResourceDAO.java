@@ -1,6 +1,7 @@
 package cl.duoc.dao;
 
 import cl.duoc.resource.IdSiniestroResource;
+import cl.duoc.resource.SiniestroResource;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

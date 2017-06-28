@@ -1,8 +1,11 @@
 package cl.duoc.services;
 
+import cl.duoc.dao.IdSiniestroResourceDAO;
 import cl.duoc.dao.PersonaDAO;
 import cl.duoc.domain.Departamento;
 import cl.duoc.domain.Persona;
+import cl.duoc.resource.IdSiniestroResource;
+import cl.duoc.resource.SiniestroResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +34,18 @@ public class DatosServicesImpl implements DatosServicesInterface {
             }
         }
         return departamento;
+    }
+    @Autowired
+    private IdSiniestroResourceDAO idSR;
+    @Override
+    public void deleteByIdPoliza(Long idPoliza)
+    {
+        List<IdSiniestroResource> li= idSR.findAll();
+        for (IdSiniestroResource dd:li) {
+            if(dd.getIdPoliza()==0)
+                idSR.delete(dd.getId());
+        }
+
     }
 
 

@@ -12,7 +12,10 @@ import cl.duoc.domain.SiniestroDomain;
 import cl.duoc.resources.*;
 import cl.duoc.services.RegistroSiniestroServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -135,4 +138,33 @@ public class CallCenterController {
     {
         return callCenter.crearGrua(grua);
     }
+
+    @RequestMapping(value = {"/callcenter/carga/listadoPresupuesto/"},method = RequestMethod.POST)
+    public String cargarPresupuestoListado(Model model)
+    {
+        try
+        {
+            Authentication aut = SecurityContextHolder.getContext().getAuthentication();
+            model.addAttribute("rut",aut.getName());
+            return "listadoPresupuestosCall";
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value={"/callcenter/cargar/presupuestos/"},method = RequestMethod.POST)
+    public @ResponseBody String listadoPresupuestos()
+    {
+        try {
+            return callCenter.obtenerTodosEstados();
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+
 }

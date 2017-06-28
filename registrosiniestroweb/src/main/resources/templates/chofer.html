@@ -11,6 +11,7 @@
     <script src="/js/jquery-1.11.1.min.js"></script>
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <link href="/css/jquery-ui.min.css" rel="stylesheet"/>
     <script type="text/javascript" src="/js/jquery.PrintArea.js"></script>
 </head>
 <body>
@@ -38,12 +39,12 @@
         <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-headerError text-center">
-                <button type="button" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
+                <button type="button" id="close" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
                 <h4>Mensaje de Error</h4>
             </div>
             <div class="modal-bodyError text-center">
                 <h2><p id="errorModal"/></h2>
-                <button type="button" id="btnCerrar1" class="btn btn-danger  cerrar btn-lg">Volver</button>
+                <button type="button" id="btnCerrar" class="btn btn-danger  cerrar btn-lg">Volver</button>
             </div>
         </div>
     </div>
@@ -86,7 +87,7 @@
         <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-headerError text-center">
-                <button type="button" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
+                <button type="button" id="close1" class="close" data-dismiss="modales-content" aria-hidden="true">×</button>
                 <h4>Mensaje de Error</h4>
             </div>
             <div class="modal-bodyError text-center">
@@ -124,7 +125,7 @@
             </div>
             <div class="modal-body text-center">
                 <h2 id="confirmacion"></h2>
-                <button type="button" id="btnCerrar2" class="btn btn-success  cerrar btn-lg">Volver</button>
+                <button type="button" id="btnCerrar1" class="btn btn-success  cerrar btn-lg">Volver</button>
             </div>
         </div>
     </div>
@@ -239,5 +240,6 @@
 </script>
 <script type="text/javascript" src="/js/moment.min.js">
 </script>
+<script src="/js/jquery-ui.min.js"></script>
 </body>
 </html>

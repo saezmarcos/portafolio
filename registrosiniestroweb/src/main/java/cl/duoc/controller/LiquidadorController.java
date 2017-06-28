@@ -232,6 +232,7 @@ public class LiquidadorController {
             return "Error";
         }
     }
+
     @RequestMapping(value = {"/liquidador/crear/historialestado/"}, method = RequestMethod.POST)
     public
     @ResponseBody
@@ -281,5 +282,17 @@ public class LiquidadorController {
         return analista.crearGrua(grua);
     }
 
-
+    @RequestMapping(value = {"/liquidador/obtener/siniestro/"},method = RequestMethod.POST)
+    public @ResponseBody String obtnerSiniestro(@PathParam("id_siniestro") String id_siniestro)
+    {
+        try
+        {
+            Siniestro siniestro = (Siniestro) Util.jsonObject(analista.obtenerSiniestroById(Long.parseLong(id_siniestro)),Siniestro.class);
+            return analista.obtenerPoliza(siniestro.getPoliza().toString());
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
 }

@@ -8,6 +8,8 @@ import cl.duoc.resources.*;
 import cl.duoc.services.RegistroSiniestroServices;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -238,4 +240,44 @@ public class AnalistaNegocioController {
         return analista.crearTaller(taller);
     }
 
+    @RequestMapping(value = {"/analista/carga/listadoPresupuesto/"},method = RequestMethod.POST)
+    public String cargarPresupuestoListado(Model model)
+    {
+        try
+        {
+            Authentication aut = SecurityContextHolder.getContext().getAuthentication();
+            model.addAttribute("rut",aut.getName());
+            return "listadoPresupuestosCall";
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value={"/analista/cargar/presupuestos/"},method = RequestMethod.POST)
+    public @ResponseBody String listadoPresupuestos()
+    {
+        try {
+            return analista.obtenerTodosEstados();
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value = {"/analista/obtener/siniestro/"},method = RequestMethod.POST)
+    public @ResponseBody String obtnerSiniestro(@PathParam("id_siniestro") String id_siniestro)
+    {
+        try
+        {
+            Siniestro siniestro = (Siniestro) Util.jsonObject(analista.obtenerSiniestroById(Long.parseLong(id_siniestro)),Siniestro.class);
+            return analista.obtenerPoliza(siniestro.getPoliza().toString());
+        }
+        catch (Exception e)
+        {
+            return "Error";
+        }
+    }
 }
